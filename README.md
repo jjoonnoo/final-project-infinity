@@ -1,5 +1,8 @@
 ### 사용시 유의사항
--**커밋 전에**:```npm run prettify```
+- **각자 브랜치 생성**
+- **진행중 변경점은 각자의 브랜치에 push 이후 dev에 pull requests통해 merge 할 것**
+- **주의 사항 main은 건들지 않기로 했으니 pull requests 할 때 유의할 것**
+- **커밋 전에**:```npm run prettify```
 - **dev 브랜치에서 pull 받기 전에**: ```git remote update```
 - **dev 브랜치에서 pull 받고 정상적으로 실행이 안 되는 경우**: ```npm install```
 
