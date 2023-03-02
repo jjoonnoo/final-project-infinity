@@ -8,6 +8,7 @@
 - **회의때 마다 pull request 할게 있다면 얘기하기**
 - **파일명은 camel case ex) productDetail.html**
 - **변수명은 snake case ex) product_name**
+- **클래스와 같은 것들은 pascal case ex) UserRepositoy**
 - **되도록 const를 활용할 것**
 
 
