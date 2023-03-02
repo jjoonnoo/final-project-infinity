@@ -6,6 +6,9 @@
 - **dev 브랜치에서 pull 받기 전에**: ```git remote update```
 - **dev 브랜치에서 pull 받고 정상적으로 실행이 안 되는 경우**: ```npm install```
 - **회의때 마다 pull request 할게 있다면 얘기하기**
+- **파일명은 camel case ex) productDetail.html**
+- **변수명은 snake case ex) product_name**
+- **되도록 const를 활용할 것**
 
 
 # infinity(인피니티) 8조
