@@ -12,9 +12,6 @@ module.exports = (sequelize, DataTypes) => {
             models.User.hasMany(models.Cart, {
                 foreignKey: 'user_id',
             });
-            models.User.hasMany(models.Order, {
-                foreignKey: 'user_id',
-            });
             models.User.hasMany(models.Question, {
                 foreignKey: 'user_id',
             });
@@ -30,7 +27,7 @@ module.exports = (sequelize, DataTypes) => {
             models.User.hasOne(models.Auction_product, {
                 foreignKey: 'user_id',
             });
-            models.User.hasMany(models.General_oder, {
+            models.User.hasMany(models.General_order, {
                 foreignKey: 'user_id',
             });
             models.User.hasOne(models.Auction_order, {
