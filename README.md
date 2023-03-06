@@ -10,7 +10,7 @@
 - **변수명은 snake case ex) product_name**
 - **클래스와 같은 것들은 pascal case ex) UserRepositoy**
 - **되도록 const를 활용할 것**
-
+- **폴더는 복수형을 띄고 파일은 단수형을 띈다 ex) 폴더 -> routes, 파일 -> user.route.js**
 
 # infinity(인피니티) 8조
 
