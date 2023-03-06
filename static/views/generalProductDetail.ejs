@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer type="text/javascript" src="/static/js/generalProductDetail.js"></script>
+  <link rel="stylesheet" href="/static/css/generalProductDetail.css">
+</head>
+<body>
+  <div id="general_product"></div>
+
+  <button class="openBtn">상품신고</button>
+
+  <div class="modal hidden">
+    <div class="bg"></div>
+    <div class="modalBox">
+      신고 제목:
+      <SELECT NAME=sltSample SIZE=1 id="report_title">
+        <OPTION VALUE='불친절한 대응' SELECTED>불친절한 대응</OPTION>
+        <OPTION VALUE='불량 상품 판매'>불량 상품 판매</OPTION>
+        <OPTION VALUE='규정위반 상품'>규정위반 상품</OPTION>
+        <OPTION VALUE='기타'>기타</OPTION>
+      </SELECT>
+      <p>신고 내용: <input type="text" id="report_content"></p>
+      <button class="modal_button" type="button" onclick="reportBtn()">신고하기</button>
+      <button class="closeBtn">취소</button>
+    </div>
+  </div>
+
+  <div id="general_review"></div>
+
+  <!-- <div id="modal">
+    <p>신고 제목: <input type="text" id="report_title"></p>
+    <p>신고 내용: <input type="text" id="report_content"></p>
+    <button class="modal_button" type="button" onclick="edit_btn()">신고하기</button>
+    <a class="modal_close_btn">X</a>
+  </div> -->
+
+  
+
+</body>
+</html>
