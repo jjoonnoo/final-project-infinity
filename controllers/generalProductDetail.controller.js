@@ -19,9 +19,11 @@ class GeneralProductDetailController {
     productAddCart = async (req, res) => {
         try {
             // const user_id = res.locals.user.user_id
+            // const user_id = 99
             const { general_product_id } = req.params;
             const { product_quantity } = req.body;
 
+            console.log('요것은~!!', product_quantity);
             const data = await this.generalProductService.productAddCart({
                 user_id,
                 general_product_id,
@@ -34,9 +36,10 @@ class GeneralProductDetailController {
         }
     };
 
-    reportProduct = async (res, req) => {
+    reportProduct = async (req, res) => {
         try {
             // const user_id = res.locals.user.user_id
+            // const user_id = 99
             const { general_product_id } = req.params;
             const { title, content } = req.body;
 
@@ -46,6 +49,8 @@ class GeneralProductDetailController {
                 title,
                 content,
             });
+
+            res.status(201).json({ message: '신고가 완료되었습니다.' });
         } catch (error) {
             res.status(500).json({ message: error.message });
         }
