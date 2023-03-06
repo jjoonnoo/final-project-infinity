@@ -1,9 +1,10 @@
-const { Products } = require('../models');
-const { Orders } = require('../models');
+const { General_product } = require('../models');
+const { Auction_product } = require('../models');
+const { Products } = { General_product, Auction_product };
 const Op = require('sequelize').Op;
 
 class MainRepository {
-    findList = async () => {
+    searchList = async () => {
         const List = await Products.findAndCountAll({
             where: {
                 product_name: {
@@ -14,7 +15,27 @@ class MainRepository {
             order: [['id', 'ASC']],
             raw: true,
         });
+        return List;
+    };
 
+    // getProductDataById = async (productId) => {
+    //     try {
+    //       const productData = await this.Products.findAll({
+    //         where: { productId },
+    //       });
+    //       return productData;
+    //     } catch (error) {
+    //       error.status = 500;
+    //       throw error;
+    //     }
+    //   };
+    findList = async (limit, offset) => {
+        const List = await Products.findAndCountAll({
+            raw: true,
+            offset: offset,
+            limit: limit,
+            order: [['updatedAt', 'ASC']],
+        });
         return List;
     };
 }
