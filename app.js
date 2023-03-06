@@ -1,18 +1,18 @@
 const express = require('express')
+const expressLayouts = require('express-ejs-layouts')
 const app = express()
-const { sequelize } = require('./models')
-
+const router = require('./routes')
 require("dotenv").config();
-
-const product_detail = require('./routes/productDetail.route')
-
-
+app.set('views','./views')
+app.set('view engine','ejs')
+app.use(expressLayouts)
+app.set('layout','./layouts/main')
 app.use(express.json())
+app.use(express.urlencoded({extended:true}))
+app.use('/',router)
+app.use(express.static('public'))
 
-app.use('/product', [product_detail])
 
-app.listen(process.env.PORT, async () => {
+app.listen(process.env.PORT, function () {
   console.log(`${process.env.PORT} 포트가 열렸어요`)
-  await sequelize.authenticate()
-  console.log('DB authenticate!')
 })
