@@ -5,24 +5,30 @@ router.use(express.urlencoded({ extended: true }));
 
 // const authMiddleware = require('../middlewares/미들웨어 파일')
 
-const GeneralProductDetailController = require('../controllers/generalProductDetail.controller');
-const generalproductDetailController = new GeneralProductDetailController();
+const ProductController = require('../controllers/product.controller');
+const productController = new ProductController();
 
 router.get(
     '/general/detail/:general_product_id',
-    /*  authMiddleware, */ generalproductDetailController.findOneProduct
+    /*  authMiddleware, */ productController.findOneProduct
 );
 router.post(
     '/general/detail/:general_product_id',
-    /*  authMiddleware, */ generalproductDetailController.productAddCart
+    /*  authMiddleware, */ productController.productAddCart
 );
 router.post(
     '/general_report/:general_product_id',
-    /*  authMiddleware, */ generalproductDetailController.reportProduct
+    /*  authMiddleware, */ productController.reportProduct
 );
 
 // router.get('/auction/:auction_product_id', /*  authMiddleware, */ auction
 
 // )
-
+router.post('/general',productController.generalProductRegist)
+router.patch('/general',productController.generalProductModify)
+router.delete('/general',productController.generalProductDelete)
+router.post('/auction',productController.auctionProductRegist)
+router.patch('/auction',productController.auctionProductModify)
+router.delete('/auction',productController.auctionProductDelete)
+router.get('/general',productController.findMyProduct)
 module.exports = router;
