@@ -1,4 +1,4 @@
-const { General_product, Review } = require('../models')
+const { General_product, Review } = require('../models');
 // const Sequelize = require('sequelize')
 // require('dotenv') = process.env
 // const sequelize = new Sequelize()
