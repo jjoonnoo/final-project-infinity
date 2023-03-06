@@ -1,12 +1,12 @@
-const GeneralProductService = require('../services/generalProduct.service');
+const GeneralProductDetailService = require('../services/generalProductDetail.service');
 
 class GeneralProductDetailController {
-    generalProductService = new GeneralProductService();
+    generalProductDetailService = new GeneralProductDetailService();
 
     findOneProduct = async (req, res) => {
         try {
             const { general_product_id } = req.params;
-            const data = await this.generalProductService.findOneProduct(
+            const data = await this.generalProductDetailService.findOneProduct(
                 general_product_id
             );
 
@@ -19,11 +19,11 @@ class GeneralProductDetailController {
     productAddCart = async (req, res) => {
         try {
             // const user_id = res.locals.user.user_id
-            const user_id = 99
+            // const user_id = 99
             const { general_product_id } = req.params;
             const { product_quantity } = req.body;
 
-            const data = await this.generalProductService.productAddCart({
+            const data = await this.generalProductDetailService.productAddCart({
                 user_id,
                 general_product_id,
                 product_quantity,
@@ -38,11 +38,11 @@ class GeneralProductDetailController {
     reportProduct = async (req, res) => {
         try {
             // const user_id = res.locals.user.user_id
-            const user_id = 99
+            // const user_id = 99
             const { general_product_id } = req.params;
             const { title, content } = req.body;
 
-            const data = await this.generalProductService.reportProduct({
+            const data = await this.generalProductDetailService.reportProduct({
                 user_id,
                 general_product_id,
                 title,

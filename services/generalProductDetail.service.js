@@ -1,11 +1,11 @@
-const GeneralProdcutRepositoty = require('../repositories/generalProduct.repository');
+const GeneralProdcutDetailRepository = require('../repositories/generalProductDetail.repository');
 
-class GeneralProductService {
-    generalProductRepository = new GeneralProdcutRepositoty();
+class GeneralProductDetailService {
+    generalProductDetailRepository = new GeneralProdcutDetailRepository();
 
     findOneProduct = async (general_product_id) => {
         try {
-            const data = await this.generalProductRepository.findOneProduct(
+            const data = await this.generalProductDetailRepository.findOneProduct(
                 general_product_id
             );
 
@@ -21,7 +21,7 @@ class GeneralProductService {
         product_quantity,
     }) => {
         try {
-            const data = await this.generalProductRepository.productAddCart({
+            const data = await this.generalProductDetailRepository.productAddCart({
                 user_id,
                 general_product_id,
                 product_quantity,
@@ -35,7 +35,7 @@ class GeneralProductService {
 
     reportProduct = async ({ user_id, general_product_id, title, content }) => {
         try {
-            const data = await this.generalProductRepository.reportProduct({
+            const data = await this.generalProductDetailRepository.reportProduct({
                 user_id,
                 general_product_id,
                 title,
@@ -49,4 +49,4 @@ class GeneralProductService {
     };
 }
 
-module.exports = GeneralProductService;
+module.exports = GeneralProductDetailService;

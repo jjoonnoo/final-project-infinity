@@ -3,7 +3,7 @@ const { General_product, Review, Cart, Report, User } = require('../models');
 // require('dotenv') = process.env
 // const sequelize = new Sequelize()
 
-class GeneralProdcutRepositoty {
+class GeneralProdcutDetailRepository {
     findOneProduct = async (general_product_id) => {
         try {
             const data = await General_product.findOne({
@@ -75,4 +75,4 @@ class GeneralProdcutRepositoty {
     };
 }
 
-module.exports = GeneralProdcutRepositoty;
+module.exports = GeneralProdcutDetailRepository;
