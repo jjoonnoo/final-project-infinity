@@ -7,7 +7,7 @@ general_product_id = location.pathname.split('/')[3];
 function generalProductDetail() {
     $.ajax({
         type: 'GET',
-        url: `/product/general/detail/${general_product_id}`,
+        url: `/products/general/detail/${general_product_id}`,
         data: {},
         success: function (response) {
             const rows = response['data'];
@@ -69,7 +69,7 @@ function cartBtn() {
 
     $.ajax({
         type: 'POST',
-        url: `/product/general/detail/${general_product_id}`,
+        url: `/products/general/detail/${general_product_id}`,
         data: { product_quantity: product_quantity },
         success: function (response) {
             alert(response['message']);
@@ -91,7 +91,7 @@ function reportBtn() {
 
     $.ajax({
         type: 'POST',
-        url: `/product/general_report/${general_product_id}`,
+        url: `/products/general_report/${general_product_id}`,
         data: { title: title, content: content },
         success: function (response) {
             alert(response['message']);
