@@ -19,11 +19,10 @@ class GeneralProductDetailController {
     productAddCart = async (req, res) => {
         try {
             // const user_id = res.locals.user.user_id
-            // const user_id = 99
+            const user_id = 99
             const { general_product_id } = req.params;
             const { product_quantity } = req.body;
 
-            console.log('요것은~!!', product_quantity);
             const data = await this.generalProductService.productAddCart({
                 user_id,
                 general_product_id,
@@ -39,7 +38,7 @@ class GeneralProductDetailController {
     reportProduct = async (req, res) => {
         try {
             // const user_id = res.locals.user.user_id
-            // const user_id = 99
+            const user_id = 99
             const { general_product_id } = req.params;
             const { title, content } = req.body;
 
