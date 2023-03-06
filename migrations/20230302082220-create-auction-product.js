@@ -15,7 +15,13 @@ module.exports = {
             product_name: {
                 type: Sequelize.STRING,
             },
-            product_price: {
+            product_start_price: {
+                type: Sequelize.INTEGER,
+            },
+            product_buy_now_price: {
+                type: Sequelize.INTEGER,
+            },
+            product_update_price: {
                 type: Sequelize.INTEGER,
             },
             product_start: {
