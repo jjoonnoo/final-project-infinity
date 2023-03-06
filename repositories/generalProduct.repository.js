@@ -1,4 +1,4 @@
-const { General_product, Review } = require('../models');
+const { General_product, Review, Cart, Report, User } = require('../models');
 // const Sequelize = require('sequelize')
 // require('dotenv') = process.env
 // const sequelize = new Sequelize()
@@ -12,6 +12,16 @@ class GeneralProdcutRepositoty {
                     {
                         model: Review,
                         attributes: ['user_id', 'content', 'createdAt'],
+                        include: [
+                            {
+                                model: User,
+                                attributes: ['email'],
+                            },
+                        ],
+                    },
+                    {
+                        model: User,
+                        attributes: ['email'],
                     },
                 ],
             });
@@ -27,8 +37,17 @@ class GeneralProdcutRepositoty {
         general_product_id,
         product_quantity,
     }) => {
+        // const te = await Cart.findAll()
+        // console.log(te)
+
+        // if (a) {
+        //     console.log('이미 장바구니에 담긴 상품입니다.')
+        //     alert('이미 장바구니에 담긴 상품입니다.')
+        //     return window.location.reload()
+        // }
+
         try {
-            const data = await cart.create({
+            const data = await Cart.create({
                 user_id,
                 general_product_id,
                 product_quantity,
@@ -42,7 +61,7 @@ class GeneralProdcutRepositoty {
 
     reportProduct = async ({ user_id, general_product_id, title, content }) => {
         try {
-            const data = await report.create({
+            const data = await Report.create({
                 user_id,
                 general_product_id,
                 title,
