@@ -16,3 +16,21 @@
 
 - **프로젝트명**: BNS(Bid&Sales)
 - **프로젝트 기간** : 2023.02.27. ~ 2023.04.03.
+
+# 폴더 구조
++---config
++---controllers
++---middlewares
++---migrations
++---models
++---node_modules
++---public
+|   +---css
+|   +---js
++---repositories
++---routes
++---seeders
++---services
++---views
+    +---layouts
+    +---partials
