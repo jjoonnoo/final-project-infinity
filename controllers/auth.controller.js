@@ -96,8 +96,11 @@ class AuthController {
         process.env.ACCESSTOKEN_SECRET_KEY,
         { expiresIn: "1d" }
       );
+
+      // Refresh token 발급
+      
       res.cookie("accessToken", access_token);
-      return res.status(200).json({msg: "로그인 완료!"})
+      return res.status(200).json({ access_token, msg: "로그인 완료!"})
     } catch (error) {
       console.log(error);
       return res.status(400).json({ msg: "로그인 실패"})

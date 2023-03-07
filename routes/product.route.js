@@ -26,9 +26,9 @@ router.post(
 // )
 router.post('/general',productController.generalProductRegist)
 router.patch('/general',productController.generalProductModify)
-router.delete('/general',productController.generalProductDelete)
+// router.delete('/general',productController.generalProductDelete)
 router.post('/auction',productController.auctionProductRegist)
 router.patch('/auction',productController.auctionProductModify)
-router.delete('/auction',productController.auctionProductDelete)
+// router.delete('/auction',productController.auctionProductDelete)
 router.get('/general',productController.findMyProduct)
 module.exports = router;
