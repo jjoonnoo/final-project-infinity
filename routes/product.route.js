@@ -9,10 +9,10 @@ const ProductController = require('../controllers/product.controller');
 const productController = new ProductController();
 
 /* 일반상품 상세페이지 API */
-router.get(
-    '/general/detail/:general_product_id',
-    /*  authMiddleware, */ productController.generalProductFind
-);
+// router.get(
+//     '/general/detail/:general_product_id',
+//     /*  authMiddleware, */ productController.generalProductFind
+// );
 router.post(
     '/general/detail/:general_product_id',
     /*  authMiddleware, */ productController.generalProductCart
@@ -44,7 +44,6 @@ router.get(
     /* authMiddleware, */ productController.auctionProductPurchase
 );
 
-// )
 router.post('/general', productController.generalProductRegist);
 router.patch('/general', productController.generalProductModify);
 router.delete('/general', productController.generalProductDelete);
