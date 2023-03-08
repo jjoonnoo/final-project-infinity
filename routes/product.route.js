@@ -42,15 +42,13 @@ router.patch(
 router.get(
     '/auction/purchase/:auction_product_id',
     /* authMiddleware, */ productController.auctionProductPurchase
-)
+);
 
-
-
-router.post('/general',productController.generalProductRegist)
-router.patch('/general',productController.generalProductModify)
+router.post('/general', productController.generalProductRegist);
+router.patch('/general', productController.generalProductModify);
 // router.delete('/general',productController.generalProductDelete)
-router.post('/auction',productController.auctionProductRegist)
-router.patch('/auction',productController.auctionProductModify)
+router.post('/auction', productController.auctionProductRegist);
+router.patch('/auction', productController.auctionProductModify);
 // router.delete('/auction',productController.auctionProductDelete)
-router.get('/general',productController.findMyProduct)
+router.get('/general', productController.findMyProduct);
 module.exports = router;
