@@ -46,12 +46,10 @@ class AuthController {
                 admin,
                 raiting
             );
-            return res
-                .status(201)
-                .json({
-                    data: create_user,
-                    message: '회원가입에 성공하였습니다',
-                });
+            return res.status(201).json({
+                data: create_user,
+                message: '회원가입에 성공하였습니다',
+            });
         } catch (err) {
             console.log(err);
             return res.status(400).json({ message: err.message });
@@ -72,11 +70,9 @@ class AuthController {
             );
 
             if (user.length === 0 || !passwordTest) {
-                return res
-                    .status(401)
-                    .json({
-                        message: '사용자가 없거나 비밀번호가 틀렸습니다!',
-                    });
+                return res.status(401).json({
+                    message: '사용자가 없거나 비밀번호가 틀렸습니다!',
+                });
             }
 
             // access token 생성
