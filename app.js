@@ -2,7 +2,7 @@ const express = require('express');
 const expressLayouts = require('express-ejs-layouts');
 const app = express();
 const router = require('./routes');
-const authRouter = require('./routes/auth.route')
+const authRouter = require('./routes/auth.route');
 
 require('dotenv').config();
 app.set('views', './views');
