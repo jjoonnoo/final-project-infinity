@@ -1,5 +1,4 @@
 exports.homepage = async (req, res) => {
-    
     res.status(404).render('index', {
         title: 'Home',
     });

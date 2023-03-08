@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="../public/js/search.js" type="text/javascript"></script>
+<script>
+    getAllProducts(1);
+  
+    function getAllProducts(page) {
+    axios
+      .get(`/products`, { params: { page } })
+      .then((response) => {
+        let { totalPage } = response.data;
+        let { data } = response.data;
+  
+        const productList = document.getElementById('product-list');
+        const pageList = document.getElementById('page-num');
+        pageList.innerHTML = '';
+        productList.innerHTML = '';
+  
+        for (let i = 1; i < totalPage + 1; i++) {
+          if (i === page) {
+            pageList.innerHTML += `<li class="page-item active"><a class="page-link" onclick="getProducts(${i})" style="color: black; background-color: transparent; border-color: transparent;">${i}</a></li>`;
+          } else {
+            pageList.innerHTML += `<li class="page-item"><a class="page-link" onclick="getProducts(${i})">${i}</a></li>`;
+          }
+        }
+  
+        for (let i = 0; i < data.length; i++) {
+          const temp = document.createElement('div');
+          temp.setAttribute('class', 'product-box');
+          temp.innerHTML = `
+          <img class="product product-image" src="${data[i].image}" style="width: 250px;
+            height: 250px;
+            object-fit: cover;">
+          <div class="product product-name">
+            <h4>
+            <div>${data[i].name}</div></h4>
+          </div>
+          <div class="product product-explanation">
+            
+            <div>${data[i].desc}</div>
+          </div>
+          <div class="product product-quantity">
+            
+            <div style="font-size:20%;">${data[i].stock}</div>
+          </div>
+          <div class="product product-participant">
+            
+            <div>${data[i].price}\\</div>
+          </div>
+          <div class="btn-group" style="margin-top: 2%;">
+            <button type="button" class="btn btn-sm btn-outline-secondary" onclick="addorder(${data[i].productId})">장바구니 담기</button>
+          </div>
+          `;
+          productList.append(temp);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+  
+    
+    
+  </script>
+  <body>
+    <nav aria-label="Page navigation example">
+        <ul id="page-num" class="pagination justify-content-center"></ul>
+    </nav>
+  
+      
+    <div class="container-fluid">
+        <input
+          class="search"
+          id="search"
+          type="search"
+          placeholder="상품명/설명/가격"
+          aria-label="Search"
+        />
+        <button class="btn btn-outline-success" onclick="getProducts(1)">
+          검색
+        </button>
+    </div>
+
+    
+  </body>
