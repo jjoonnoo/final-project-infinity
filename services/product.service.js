@@ -99,9 +99,9 @@ class ProductService {
         }
     };
 
-    findOneProduct = async (general_product_id) => {
+    generalProductFind = async (general_product_id) => {
         try {
-            const data = await this.productRepository.findOneProduct(
+            const data = await this.productRepository.generalProductFind(
                 general_product_id
             );
 
@@ -111,13 +111,13 @@ class ProductService {
         }
     };
 
-    productAddCart = async ({
+    generalProductCart = async ({
         user_id,
         general_product_id,
         product_quantity,
     }) => {
         try {
-            const data = await this.productRepository.productAddCart({
+            const data = await this.productRepository.generalProductCart({
                 user_id,
                 general_product_id,
                 product_quantity,
@@ -129,14 +129,84 @@ class ProductService {
         }
     };
 
-    reportProduct = async ({ user_id, general_product_id, title, content }) => {
+    generalProductreport = async ({
+        user_id,
+        general_product_id,
+        title,
+        content,
+    }) => {
         try {
-            const data = await this.productRepository.reportProduct({
+            const data = await this.productRepository.generalProductreport({
                 user_id,
                 general_product_id,
                 title,
                 content,
             });
+
+            return data;
+        } catch (error) {
+            throw error;
+        }
+    };
+
+    auctionProductFind = async (auction_product_id) => {
+        try {
+            const data = await this.productRepository.auctionProductFind(
+                auction_product_id
+            );
+
+            return data;
+        } catch (error) {
+            throw error;
+        }
+    };
+
+    auctionProductReport = async ({
+        user_id,
+        auction_product_id,
+        title,
+        content,
+    }) => {
+        try {
+            const data = await this.productRepository.auctionProductReport({
+                user_id,
+                auction_product_id,
+                title,
+                content,
+            });
+
+            return data;
+        } catch (error) {
+            throw error;
+        }
+    };
+
+    auctionProductPriceUpdate = async ({
+        bidder_id,
+        auction_product_id,
+        product_update_price,
+    }) => {
+        try {
+            const data = await this.productRepository.auctionProductPriceUpdate(
+                {
+                    bidder_id,
+                    auction_product_id,
+                    product_update_price,
+                }
+            );
+
+            return data;
+        } catch (error) {
+            throw error;
+        }
+    };
+
+    auctionProductPurchase = async (auction_product_id, user_id) => {
+        try {
+            const data = await this.productRepository.auctionProductPurchase(
+                auction_product_id,
+                user_id
+            );
 
             return data;
         } catch (error) {

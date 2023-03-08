@@ -6,9 +6,6 @@ const {
     Report,
     User,
 } = require('../models');
-// const Sequelize = require('sequelize')
-// require('dotenv') = process.env
-// const sequelize = new Sequelize()
 
 class ProductRepositoty {
     generalProductRegist = async (
@@ -120,7 +117,7 @@ class ProductRepositoty {
             throw error;
         }
     };
-    findOneProduct = async (general_product_id) => {
+    generalProductFind = async (general_product_id) => {
         try {
             const data = await General_product.findOne({
                 where: { general_product_id },
@@ -148,20 +145,11 @@ class ProductRepositoty {
         }
     };
 
-    productAddCart = async ({
+    generalProductCart = async ({
         user_id,
         general_product_id,
         product_quantity,
     }) => {
-        // const te = await Cart.findAll()
-        // console.log(te)
-
-        // if (a) {
-        //     console.log('이미 장바구니에 담긴 상품입니다.')
-        //     alert('이미 장바구니에 담긴 상품입니다.')
-        //     return window.location.reload()
-        // }
-
         try {
             const data = await Cart.create({
                 user_id,
@@ -175,7 +163,12 @@ class ProductRepositoty {
         }
     };
 
-    reportProduct = async ({ user_id, general_product_id, title, content }) => {
+    generalProductreport = async ({
+        user_id,
+        general_product_id,
+        title,
+        content,
+    }) => {
         try {
             const data = await Report.create({
                 user_id,
@@ -184,6 +177,75 @@ class ProductRepositoty {
                 content,
             });
 
+            return data;
+        } catch (error) {
+            throw error;
+        }
+    };
+
+    auctionProductFind = async (auction_product_id) => {
+        try {
+            const data = await Auction_product.findOne({
+                where: { auction_product_id },
+                include: [
+                    {
+                        model: User,
+                        attributes: ['email', 'raiting'],
+                    },
+                ],
+            });
+
+            return data;
+        } catch (error) {
+            throw error;
+        }
+    };
+
+    auctionProductReport = async ({
+        user_id,
+        auction_product_id,
+        title,
+        content,
+    }) => {
+        try {
+            const data = await Report.create({
+                user_id,
+                auction_product_id,
+                title,
+                content,
+            });
+
+            return data;
+        } catch (error) {
+            throw error;
+        }
+    };
+
+    auctionProductPriceUpdate = async ({
+        bidder_id,
+        auction_product_id,
+        product_update_price,
+    }) => {
+        try {
+            const data = await Auction_product.update(
+                { bidder_id, product_update_price },
+                { where: { auction_product_id } }
+            );
+
+            return data;
+        } catch (error) {
+            throw error;
+        }
+    };
+
+    auctionProductPurchase = async (auction_product_id, user_id) => {
+        try {
+            const data1 = await Auction_product.findOne({
+                where: { auction_product_id },
+            });
+            const data2 = await User.findOne({ where: { user_id } });
+
+            const data = [data1, data2];
             return data;
         } catch (error) {
             throw error;
