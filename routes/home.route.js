@@ -5,15 +5,16 @@ const homeController = require('../controllers/home.Controller.js');
 // const adminCheck = require('../middlewares/admin');
 
 router.get('/', homeController.homepage);
-// router.get('/mypage', homeController.mypage);
+router.get('/myinfo', homeController.myinfo);
+router.get('/productregist', homeController.productregist);
 // router.get('/cart', homeController.cart);
 // router.get('/myorders', homeController.myOrders);
 
 /* 일반상품 상세페이지 */
-router.get('/product/general/:id', (req, res) => {
-    res.render('generalProductDetail', {
-        title: '상세보기',
-    });
-});
+// router.get('/product/general/:id', (req, res) => {
+//     res.render('generalProductDetail', {
+//         title: '상세보기',
+//     });
+// });
 
 module.exports = router;

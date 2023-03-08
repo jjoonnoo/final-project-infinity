@@ -15,6 +15,9 @@ module.exports = {
             product_name: {
                 type: Sequelize.STRING,
             },
+            product_content: {
+                type: Sequelize.STRING,
+            },
             product_start_price: {
                 type: Sequelize.INTEGER,
             },
