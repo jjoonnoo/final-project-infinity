@@ -1,6 +1,6 @@
-$(document).ready(function () {
-    generalProductDetail();
-});
+// $(document).ready(function () {
+//     generalProductDetail();
+// });
 
 general_product_id = location.pathname.split('/')[3];
 

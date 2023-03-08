@@ -7,26 +7,26 @@ class ProductService {
         product_name,
         product_content,
         product_price,
-        category
+        category,
+        img_url
     ) => {
-        try {
-            await this.productRepository.generalProductRegist(
-                user_id,
-                product_name,
-                product_content,
-                product_price,
-                category
-            );
-        } catch (error) {
-            throw error;
-        }
+        const data = await this.productRepository.generalProductRegist(
+            user_id,
+            product_name,
+            product_content,
+            product_price,
+            category,
+            img_url
+        );
+        return data;
     };
     generalProductModify = async (
         user_id,
         product_name,
         product_content,
         product_price,
-        category
+        category,
+        img_url
     ) => {
         try {
             await this.productRepository.generalProductModify(
@@ -34,7 +34,17 @@ class ProductService {
                 product_name,
                 product_content,
                 product_price,
-                category
+                category,
+                img_url
+            );
+        } catch (error) {
+            throw error;
+        }
+    };
+    generalProductDelete = async (general_product_id) => {
+        try {
+            await this.productRepository.generalProductDelete(
+                general_product_id
             );
         } catch (error) {
             throw error;
@@ -48,7 +58,8 @@ class ProductService {
         product_buy_now_price,
         product_start,
         product_end,
-        category
+        category,
+        img_url
     ) => {
         try {
             await this.productRepository.auctionProductRegist(
@@ -59,7 +70,8 @@ class ProductService {
                 product_buy_now_price,
                 product_start,
                 product_end,
-                category
+                category,
+                img_url
             );
         } catch (error) {
             throw error;
@@ -73,7 +85,8 @@ class ProductService {
         product_buy_now_price,
         product_start,
         product_end,
-        category
+        category,
+        img_url
     ) => {
         try {
             await this.productRepository.auctionProductModify(
@@ -84,7 +97,17 @@ class ProductService {
                 product_buy_now_price,
                 product_start,
                 product_end,
-                category
+                category,
+                img_url
+            );
+        } catch (error) {
+            throw error;
+        }
+    };
+    auctionProductDelete = async (auction_product_id) => {
+        try {
+            await this.productRepository.auctionProductDelete(
+                auction_product_id
             );
         } catch (error) {
             throw error;

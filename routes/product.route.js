@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express();
-
-router.use(express.urlencoded({ extended: true }));
+const upload = require('../middlewares/multer');
+// router.use(express.urlencoded({ extended: true }));
 
 // const authMiddleware = require('../middlewares/미들웨어 파일')
 
@@ -44,11 +44,15 @@ router.get(
     /* authMiddleware, */ productController.auctionProductPurchase
 );
 
+// )
 router.post('/general', productController.generalProductRegist);
 router.patch('/general', productController.generalProductModify);
-// router.delete('/general',productController.generalProductDelete)
+router.delete('/general', productController.generalProductDelete);
 router.post('/auction', productController.auctionProductRegist);
 router.patch('/auction', productController.auctionProductModify);
-// router.delete('/auction',productController.auctionProductDelete)
+router.delete('/auction', productController.auctionProductDelete);
 router.get('/general', productController.findMyProduct);
+router.post('/image_upload', upload.single('image'), (req, res) => {
+    res.json({ url: req.file.location });
+});
 module.exports = router;

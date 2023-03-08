@@ -5,7 +5,11 @@ const {
     Cart,
     Report,
     User,
+    Image,
 } = require('../models');
+// const Sequelize = require('sequelize')
+// require('dotenv') = process.env
+// const sequelize = new Sequelize()
 
 class ProductRepositoty {
     generalProductRegist = async (
@@ -13,26 +17,40 @@ class ProductRepositoty {
         product_name,
         product_content,
         product_price,
-        category
+        category,
+        img_url
     ) => {
-        try {
-            await General_product.create({
-                user_id: user_id,
-                product_name: product_name,
-                product_content: product_content,
-                product_price: product_price,
-                category: category,
-            });
-        } catch (error) {
-            throw error;
+        const data1 = await General_product.create({
+            user_id: user_id,
+            product_name: product_name,
+            product_content: product_content,
+            product_price: product_price,
+            category: category,
+        });
+        let data2 = [];
+        console.log(img_url);
+        if (Array.isArray(img_url) && img_url.length > 0) {
+            const validImgUrl = img_url.filter((url) => url); // 유효한 URL만 추출
+
+            data2 = await Promise.all(
+                validImgUrl.map((url) =>
+                    Image.create({
+                        image_url: url,
+                        general_product_id: data1.general_product_id,
+                    })
+                )
+            );
         }
+        const result = { data1, data2 };
+        return result;
     };
     generalProductModify = async (
         general_product_id,
         product_name,
         product_content,
         product_price,
-        category
+        category,
+        img_url
     ) => {
         try {
             await General_product.update(
@@ -44,6 +62,23 @@ class ProductRepositoty {
                 },
                 { where: { general_product_id: general_product_id } }
             );
+            const data = await Promise.all(
+                img_url.map((url) =>
+                    Image.update({
+                        image_url: url,
+                        general_product_id: general_product_id,
+                    })
+                )
+            );
+        } catch (error) {
+            throw error;
+        }
+    };
+    generalProductDelete = async (general_product_id) => {
+        try {
+            await General_product.destroy({
+                where: { general_product_id: general_product_id },
+            });
         } catch (error) {
             throw error;
         }
@@ -59,7 +94,7 @@ class ProductRepositoty {
         category
     ) => {
         try {
-            await Auction_product.create({
+            const data1 = await Auction_product.create({
                 user_id: user_id,
                 product_name: product_name,
                 product_content: product_content,
@@ -70,6 +105,14 @@ class ProductRepositoty {
                 product_end: product_end,
                 category: category,
             });
+            const data2 = await Promise.all(
+                img_url.map((url) =>
+                    Image.create({
+                        image_url: url,
+                        auction_product_id: data1.auction_product_id,
+                    })
+                )
+            );
         } catch (error) {
             throw error;
         }
@@ -87,7 +130,7 @@ class ProductRepositoty {
         try {
             await General_product.update(
                 {
-                    user_id: user_id,
+                    auction_product_id: auction_product_id,
                     product_name: product_name,
                     product_content: product_content,
                     product_start_price: product_start_price,
@@ -99,6 +142,37 @@ class ProductRepositoty {
                 },
                 { where: { auction_product_id: auction_product_id } }
             );
+            const data = await Promise.all(
+                img_url.map((url) =>
+                    Image.update({
+                        image_url: url,
+                        auction_product_id: auction_product_id,
+                    })
+                )
+            );
+        } catch (error) {
+            throw error;
+        }
+    };
+    auctionProductDelete = async (auction_product_id) => {
+        try {
+            await Auction_product.destroy({
+                where: { auction_product_id: auction_product_id },
+            });
+        } catch (error) {
+            throw error;
+        }
+    };
+    findMyProduct = async (user_id) => {
+        try {
+            const data1 = await General_product.findAll({
+                where: { user_id: user_id },
+            });
+            const data2 = await Auction_product.findAll({
+                where: { user_id: user_id },
+            });
+            const result = { data1, data2 };
+            return result;
         } catch (error) {
             throw error;
         }

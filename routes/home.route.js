@@ -5,7 +5,8 @@ const homeController = require('../controllers/home.Controller.js');
 // const adminCheck = require('../middlewares/admin');
 
 router.get('/', homeController.homepage);
-// router.get('/mypage', homeController.mypage);
+router.get('/myinfo', homeController.myinfo);
+router.get('/productregist', homeController.productregist);
 // router.get('/cart', homeController.cart);
 // router.get('/myorders', homeController.myOrders);
 
