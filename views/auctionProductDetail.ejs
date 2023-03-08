@@ -9,10 +9,25 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <script defer type="text/javascript" src="../../public/js/auctionProductDetail.js"></script>
-    <link rel="stylesheet" href="../../public/css/generalProductDetail.css">
+    <link rel="stylesheet" href="../../public/css/auctionProductDetail.css">
 </head>
 <body>
+
   <div id="auction_product"></div>
+  <div id="countdown"></div>
+
+  <div id="purchase_btn"></div>
+  <button id="btn2" class="openBtnBid">입찰하기</button>
+
+  <div class="modalBid hiddenBid">
+    <div class="bgBid"></div>
+    <div class="modalBoxBid">
+      <p>※ 금액은 5,000원 단위로만 입찰 가능합니다.</p>
+      <p>입찰 가격: <input type="text" id="bid_price">원</p>
+      <button class="modal_button" type="button" onclick="bidBtn()">입찰하기</button>
+      <button class="closeBtnBid">취소</button>
+    </div>
+  </div>
 
   <button class="openBtn">상품신고</button>
 
@@ -31,8 +46,6 @@
       <button class="closeBtn">취소</button>
     </div>
   </div>
-
-  <!-- <div id="general_review"></div> -->
 
 </body>
 </html>
