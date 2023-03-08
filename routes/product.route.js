@@ -8,20 +8,41 @@ const upload = require('../middlewares/multer');
 const ProductController = require('../controllers/product.controller');
 const productController = new ProductController();
 
-// router.get(
-//     '/general/detail/:general_product_id',
-//     /*  authMiddleware, */ productController.findOneProduct
-// );
-// router.post(
-//     '/general/detail/:general_product_id',
-//     /*  authMiddleware, */ productController.productAddCart
-// );
-// router.post(
-//     '/general_report/:general_product_id',
-//     /*  authMiddleware, */ productController.reportProduct
-// );
+/* 일반상품 상세페이지 API */
+router.get(
+    '/general/detail/:general_product_id',
+    /*  authMiddleware, */ productController.generalProductFind
+);
+router.post(
+    '/general/detail/:general_product_id',
+    /*  authMiddleware, */ productController.generalProductCart
+);
+router.post(
+    '/general/report/:general_product_id',
+    /*  authMiddleware, */ productController.generalProductreport
+);
 
-// router.get('/auction/:auction_product_id', /*  authMiddleware, */ auction
+/* 경매상품 상세페이지 API */
+router.get(
+    '/auction/detail/:auction_product_id',
+    /*  authMiddleware, */ productController.auctionProductFind
+);
+
+router.post(
+    '/auction/report/:auction_product_id',
+    /* authMiddleware, */ productController.auctionProductReport
+);
+
+router.patch(
+    '/auction/update/:auction_product_id',
+    /* authMiddleware, */ productController.auctionProductPriceUpdate
+);
+
+/* 경매상품 구매페이지 API */
+router.get(
+    '/auction/purchase/:auction_product_id',
+    /* authMiddleware, */ productController.auctionProductPurchase
+);
 
 // )
 router.post('/general', productController.generalProductRegist);

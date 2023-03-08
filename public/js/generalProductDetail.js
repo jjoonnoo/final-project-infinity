@@ -91,7 +91,7 @@ function reportBtn() {
 
     $.ajax({
         type: 'POST',
-        url: `/products/general_report/${general_product_id}`,
+        url: `/products/general/report/${general_product_id}`,
         data: { title: title, content: content },
         success: function (response) {
             alert(response['message']);

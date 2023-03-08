@@ -27,6 +27,9 @@ module.exports = {
             product_update_price: {
                 type: Sequelize.INTEGER,
             },
+            bidder_id: {
+                type: Sequelize.INTEGER,
+            },
             product_start: {
                 type: Sequelize.DATE,
             },
