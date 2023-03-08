@@ -1,9 +1,9 @@
 const AuthRepository = require('../repositories/auth.repository')
 
-const { user } = require('../models/index');
+const { User } = require('../models/index');
 
 class AuthService {
-  auth_repository = new AuthRepository(user);
+  auth_repository = new AuthRepository(User);
 
   findByEmail = async (email) => {
   const user_by_email = this.auth_repository.findByEmail(email)

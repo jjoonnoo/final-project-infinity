@@ -1,13 +1,9 @@
 const jwt = require("jsonwebtoken");
 const { User } = require("../models");
 
-const AuthRepository = require('../repositories/auth.repository')
-
 require("dotenv").config();
 
 module.exports = (req, res, next) => {
-
-const auth_repository = new AuthRepository();
 
   const { cookie } = req.headers;
 
@@ -16,9 +12,22 @@ const auth_repository = new AuthRepository();
     return res.status(401).json({ message: "로그인 후 이용가능합니다." });
   }
 
-  const [authType, authToken] = cookie.split("=");
+  [first, second] = cookie.split("; ");
 
-  if(!authToken || authType !== "accessToken") {
+  // console.log(cookie);
+
+    const acc = first;
+    const ref = second;
+
+  const [accToken, access_token] = acc.split("=")
+  const [refToken, refresh_token] = ref.split("=")
+
+  console.log(refresh_token)
+
+  // console.log(refresh_token);
+  // [refTokenName, refresh_token] = ref.split("=")
+
+  if(!access_token || accToken !== "accessToken") {
     res.status(401).send({ message: "로그인 후 이용가능합니다",
   });
   return;
@@ -27,7 +36,7 @@ const auth_repository = new AuthRepository();
   // Token 검증 및 Decode 후 user_id 추출
   try {
     const { user_id } = jwt.verify(
-      authToken,
+      access_token,
       process.env.ACCESSTOKEN_SECRET_KEY,
     );
       
