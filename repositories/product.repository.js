@@ -8,7 +8,6 @@ const {
     Image,
 } = require('../models');
 
-
 class ProductRepositoty {
     generalProductRegist = async (
         user_id,

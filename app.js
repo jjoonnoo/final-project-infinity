@@ -13,7 +13,7 @@ app.set('layout extraScripts', true);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use('/', router);
-app.use('/public', express.static('public'));
+app.use(express.static('public'));
 
 app.use('/auth', authRouter);
 
