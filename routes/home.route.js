@@ -31,4 +31,11 @@ router.get('/product/auction_purchase/:id', (req, res) => {
     });
 });
 
+/* 임시 메인페이지 render */
+router.get('/main', (req, res) => {
+    res.render('search', {
+        title: 'BNS',
+    });
+});
+
 module.exports = router;
