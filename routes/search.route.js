@@ -3,12 +3,12 @@ const router = express.Router();
 
 router.use(express.urlencoded({ extended: true }));
 
-const MainController = require('../controllers/search.controller');
-const mainController = new MainController();
+const SearchController = require('../controllers/search.controller');
+const searchController = new SearchController();
 // const authMiddleware = require('../middleware/auth')
-router.get('/search/:searchword', mainController.search);
-router.get('/', mainController.getList);
-router.get('/auctionProduct', mainController.getAuctionProduct);
-router.get('/generalProduct', mainController.getGeneralProduct);
+router.get('/search/:searchkeyword', searchController.search);
+router.get('/products', searchController.getList);
+router.get('/auctionProduct', searchController.getAuctionProduct);
+router.get('/generalProduct', searchController.getGeneralProduct);
 
 module.exports = router;
