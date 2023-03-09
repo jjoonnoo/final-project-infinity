@@ -189,7 +189,6 @@ class ProductController {
             res.status(500).json({ message: error.message });
         }
     };
-
     auctionProductFind = async (req, res) => {
         try {
             const { auction_product_id } = req.params;
