@@ -7,9 +7,7 @@ const {
     User,
     Image,
 } = require('../models');
-// const Sequelize = require('sequelize')
-// require('dotenv') = process.env
-// const sequelize = new Sequelize()
+
 
 class ProductRepositoty {
     generalProductRegist = async (
