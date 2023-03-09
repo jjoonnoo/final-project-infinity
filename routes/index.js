@@ -7,7 +7,7 @@ const homeRouter = require('./home.route');
 const searchRouter = require('./search.route');
 
 router.use('/', homeRouter, searchRouter);
-// router.use('/users', userRouter);
+router.use('/users', userRouter);
 router.use('/products', productRouter);
 
 module.exports = router;
