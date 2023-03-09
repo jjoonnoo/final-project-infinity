@@ -15,11 +15,32 @@ router.get(
 );
 router.post(
     '/general/detail/:general_product_id',
-    /*  authMiddleware, */ productController.generalProductCart
+    /*  authMiddleware, */ productController.generalProductAddCart
 );
 router.post(
     '/general/report/:general_product_id',
     /*  authMiddleware, */ productController.generalProductreport
+);
+
+/* 일반상품 장바구니 페이지 API */
+router.get(
+    '/general/cart',
+    /*  authMiddleware, */ productController.generalProductFindCart
+);
+
+router.post(
+    '/general/cart',
+    /*  authMiddleware, */ productController.generalProductPurchase
+);
+
+router.patch(
+    '/general/cart/change_quantity',
+    /*  authMiddleware, */ productController.generalProductChangeQuantity
+);
+
+router.delete(
+    '/general/cart/delete_product',
+    /*  authMiddleware, */ productController.generalProductDeleteCart
 );
 
 /* 경매상품 상세페이지 API */

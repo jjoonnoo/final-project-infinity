@@ -70,3 +70,69 @@
 .hiddenBid {
   display: none;
 }
+
+/* 본문 CSS */
+.product_region {
+  width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.product_area {
+  margin-left: 30px;
+}
+
+.button_region {
+  width: 800px;
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.button_area {
+  margin-left: 180px;
+  margin-bottom: 50px;
+}
+
+#countdown {
+  margin-left: 12px;
+  margin-bottom: 20px;
+  font-size: 20px;
+  font-weight: bolder;
+}
+
+.button_1 {
+  width: 150px;
+  height: 50px;
+  border: none;
+  font-size: 20px;
+  font-weight: bolder;
+  background-color: antiquewhite;
+}
+
+.openBtnBid {
+  width: 150px;
+  height: 50px;
+  border: none;
+  font-size: 20px;
+  font-weight: bolder;
+  background-color: antiquewhite;
+}
+
+.openBtn {
+  width: 150px;
+  height: 50px;
+  border: none;
+  font-size: 20px;
+  font-weight: bolder;
+  background-color: antiquewhite;
+}
+
+#purchase_btn {
+  background-color: green;
+  float: left;
+  margin-right: 7px;
+}

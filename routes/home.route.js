@@ -16,6 +16,13 @@ router.get('/product/general/:id', (req, res) => {
     });
 });
 
+/* 일반상품 장바구니 페이지 render */
+router.get('/product/general_cart', (req, res) => {
+    res.render('generalProductCart', {
+        title: '장바구니',
+    });
+});
+
 /* 경매상품 상세페이지 render */
 router.get('/product/auction/:id', (req, res) => {
     res.render('auctionProductDetail', {
@@ -23,7 +30,7 @@ router.get('/product/auction/:id', (req, res) => {
     });
 });
 
-/* 경매상품 구매페이지 */
+/* 경매상품 구매페이지 render */
 router.get('/product/auction_purchase/:id', (req, res) => {
     res.render('auctionProductPurchase', {
         title: '경매상품',

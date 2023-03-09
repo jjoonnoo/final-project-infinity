@@ -11,7 +11,7 @@ app.set('layout extraScripts', true);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use('/', router);
-app.use('/public', express.static('public'));
+app.use(/*'/public',*/ express.static('public'));
 
 app.listen(process.env.PORT, function () {
     console.log(`http://localhost:${process.env.PORT}/`);

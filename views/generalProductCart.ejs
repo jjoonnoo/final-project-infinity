@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%- title %></title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script defer type="text/javascript" src="../js/generalProductCart.js"></script>
+    <link rel="stylesheet" href="../css/generalProductCart.css">
+</head>
+<body>
+  <div class="small-container">
+    <div id="product">
+      <table>
+        <tr>
+          <th><input type='checkbox' value="selectAll" onclick="selectAll(this)"/></th>
+          <th>상품</th>
+          <th>수량</th>
+          <th>총 가격</th>
+        </tr>
+      </table>
+    </div>
+    <div class="small-container cart-page total-price" id="productPrice">
+      <h2>배송지 정보</h2>
+      <table>
+        <tr class="left_tr">
+            <td>
+                <span class="input-name">받는 분</span>
+                <input id="content1" type="text" placeholder="받는 분" readonly>
+            </td>
+        </tr>
+        <tr class="left_tr">
+            <td>
+                <span class="input-name">연락처</span>
+                <input id="content2" type="text" placeholder="연락처" readonly>
+            </td>
+        </tr>
+        <tr class="left_tr">
+            <td>
+                <span class="input-name">주소</span>
+                <textarea id="content3" placeholder="주소" readonly></textarea>
+            </td>
+        </tr>
+        <tr>
+            <td style="height:80px">
+            </td>
+        </tr>
+      </table>
+      </div>
+  </div>
+  
+</body>
+</html>

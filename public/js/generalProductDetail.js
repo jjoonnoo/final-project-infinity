@@ -17,23 +17,37 @@ function generalProductDetail() {
                 return history.back();
             }
 
+            console.log(rows);
+            console.log(rows.Images);
+            console.log(rows.Images[0].image_url);
+            // console.log(rows.Images[1].image_url)
+            if (rows === null) {
+                alert('존재하지 않는 상품입니다.');
+                return history.back();
+            }
+
             const seller = rows.User.email;
-            // const image =
+            const image = rows.Images[0].image_url;
             const product_name = rows.product_name;
             const product_content = rows.product_content;
             const product_price = rows.product_price;
             const category = rows.category;
 
             let temp_html = `
-                      <p>등록자: ${seller}</p>
-                      <p>상품이미지:</p>
-                      <p>상품이름: ${product_name}</p>
-                      <p>상품내용: ${product_content}</p>
-                      <p>상품가격: ${product_price}</p>
-                      <p>카테고리: ${category}</p>
-                      <p>수량<input type=number min='1' id='quantity' value='1'>개</input></p>
-                      <button onclick='cartBtn()'>구매하기</button>
-                      `;
+                            <div class="product_region">
+                                <div>
+                                    <img src="${image}" width="400">
+                                </div>
+                                <div>
+                                    <p>등록자: ${seller}</p>
+                                    <p>상품이름: ${product_name}</p>
+                                    <p>상품내용: ${product_content}</p>
+                                    <p>상품가격: ${product_price}</p>
+                                    <p>카테고리: ${category}</p>
+                                    <p>수량<input type=number min='1' id='quantity' value='1'>개</input></p>
+                                </div>
+                            </div>
+                            `;
             $('#general_product').append(temp_html);
 
             for (let i = 0; i < rows.Reviews.length; i++) {
@@ -42,11 +56,11 @@ function generalProductDetail() {
                 let review_date = rows.Reviews[i].createdAt;
 
                 let temp_html_2 = `
-                       <hr>
-                       <p>리뷰자: ${reviewer}</p>
-                       <p>리뷰내용: ${review_content}</p>
-                       <p>리뷰작성일자: ${review_date}</p>
-                       `;
+                                    <hr>
+                                    <p>리뷰자: ${reviewer}</p>
+                                    <p>리뷰내용: ${review_content}</p>
+                                    <p>리뷰작성일자: ${review_date}</p>
+                                  `;
                 $('#general_review').append(temp_html_2);
             }
         },
