@@ -35,10 +35,10 @@ class SearchController {
             page = !isNaN(page) ? page : 1;
             limit = !isNaN(limit) ? limit : 6;
             // const limit = 6;
-            let offset = 0
-            if(page > 1){
+            let offset = 0;
+            if (page > 1) {
                 offset = limit * (page - 1);
-              }
+            }
             const List = await this.searchService.findList(limit, offset);
             let count = (List.AuctionList.count += List.GeneralList.count);
             let lists = List.AuctionList.rows.concat(List.GeneralList.rows);
@@ -60,7 +60,7 @@ class SearchController {
                 limit,
                 offset
             );
-            console.log(AuctionProduct)
+            console.log(AuctionProduct);
             return res.status(200).json({
                 totalPage: Math.ceil(AuctionProduct.count / limit),
                 data: AuctionProduct.rows,
@@ -78,7 +78,7 @@ class SearchController {
                 limit,
                 offset
             );
-            console.log(GeneralProduct)
+            console.log(GeneralProduct);
             return res.status(200).json({
                 totalPage: Math.ceil(GeneralProduct.count / limit),
                 data: GeneralProduct.rows,
