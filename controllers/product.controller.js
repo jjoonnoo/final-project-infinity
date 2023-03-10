@@ -138,7 +138,7 @@ class ProductController {
         }
     };
 
-    findOneProduct = async (req, res) => {
+    generalProductFind = async (req, res) => {
         try {
             const { general_product_id } = req.params;
             const data = await this.productService.generalProductFind(
@@ -151,14 +151,14 @@ class ProductController {
         }
     };
 
-    generalProductCart = async (req, res) => {
+    generalProductAddCart = async (req, res) => {
         try {
             // const user_id = res.locals.user.user_id
-            const user_id = 99;
+            const user_id = 98;
             const { general_product_id } = req.params;
             const { product_quantity } = req.body;
 
-            const data = await this.productService.generalProductCart({
+            const data = await this.productService.generalProductAddCart({
                 user_id,
                 general_product_id,
                 product_quantity,
@@ -189,6 +189,79 @@ class ProductController {
             res.status(500).json({ message: error.message });
         }
     };
+
+    generalProductFindCart = async (req, res) => {
+        console.log('도착');
+        try {
+            // const user_id = res.locals.user.user_id
+            const user_id = 98;
+            const data = await this.productService.generalProductFindCart(
+                user_id
+            );
+
+            res.status(200).json({ data });
+        } catch (error) {
+            res.status(500).json({ message: error.message });
+        }
+    };
+
+    generalProductPurchase = async (req, res) => {
+        try {
+            // const user_id = res.locals.user.user_id
+            const user_id = 98;
+            const { general_product_id } = req.body;
+            const { product_quantity } = req.body;
+
+            const data = await this.productService.generalProductPurchase({
+                user_id,
+                general_product_id,
+                product_quantity,
+            });
+
+            res.status(201).json({ message: '구입이 완료되었습니다.' });
+        } catch (error) {
+            res.status(500).json({ message: error.message });
+        }
+    };
+
+    generalProductChangeQuantity = async (req, res) => {
+        try {
+            // const user_id = res.locals.user.user_id
+            const user_id = 98;
+            const { general_product_id } = req.body;
+            const { product_quantity } = req.body;
+
+            const data = await this.productService.generalProductChangeQuantity(
+                {
+                    user_id,
+                    general_product_id,
+                    product_quantity,
+                }
+            );
+
+            res.status(201).json({ message: '수량을 변경했습니다.' });
+        } catch (error) {
+            res.status(500).json({ message: error.message });
+        }
+    };
+
+    generalProductDeleteCart = async (req, res) => {
+        try {
+            // const user_id = res.locals.user.user_id
+            const user_id = 98;
+            const { general_product_id } = req.body;
+
+            const data = await this.productService.generalProductDeleteCart({
+                user_id,
+                general_product_id,
+            });
+
+            res.status(201).json({ message: '상품을 삭제했습니다.' });
+        } catch (error) {
+            res.status(500).json({ message: error.message });
+        }
+    };
+
     auctionProductFind = async (req, res) => {
         try {
             const { auction_product_id } = req.params;

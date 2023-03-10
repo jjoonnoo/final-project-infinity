@@ -9,13 +9,13 @@ const ProductController = require('../controllers/product.controller');
 const productController = new ProductController();
 
 /* 일반상품 상세페이지 API */
-// router.get(
-//     '/general/detail/:general_product_id',
-//     /*  authMiddleware, */ productController.generalProductFind
-// );
+router.get(
+    '/general/detail/:general_product_id',
+    /*  authMiddleware, */ productController.generalProductFind
+);
 router.post(
     '/general/detail/:general_product_id',
-    /*  authMiddleware, */ productController.generalProductCart
+    /*  authMiddleware, */ productController.generalProductAddCart
 );
 router.post(
     '/general/report/:general_product_id',
