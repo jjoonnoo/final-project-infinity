@@ -13,11 +13,4 @@ router.get('/general/detail/:id', homeController.generalDetail);
 router.get('/auction/detail/:id', homeController.auctionDetail);
 router.get('/auction/purchase/:id', homeController.auctionPurchase);
 
-/* 임시 메인페이지 render */
-router.get('/main', (req, res) => {
-    res.render('search', {
-        title: 'BNS',
-    });
-});
-
 module.exports = router;
