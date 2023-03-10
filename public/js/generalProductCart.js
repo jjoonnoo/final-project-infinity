@@ -18,7 +18,7 @@ function generalProductCart() {
                         `;
                 $('#product').append(temp_html);
             }
-            
+
             for (let i = 0; i < rows.length; i++) {
                 buyer_name = rows[i].User.name;
                 let buyer_email = rows[i].User.email;
