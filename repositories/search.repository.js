@@ -9,20 +9,20 @@ class SearchRepository {
         const GeneralSearchList = await General_product.findAndCountAll({
             where: {
                 [Op.or]: [
-                    {
-                        product_name: {
+                    
+                        {product_name: {
                             [Op.like]: '%' + searchkeyword + '%',
-                        },
-                        product_content: {
+                        }},
+                        {product_content: {
                             [Op.like]: '%' + searchkeyword + '%',
-                        },
-                        category: {
+                        }},
+                        {category: {
                             [Op.like]: '%' + searchkeyword + '%',
-                        },
-                        product_price: {
+                        }},
+                        {product_price: {
                             [Op.like]: '%' + searchkeyword + '%',
-                        },
-                    },
+                        }},
+                    
                 ],
             },
             order: [['updatedAt', 'ASC']],
@@ -35,30 +35,31 @@ class SearchRepository {
                     attributes: ['image_url'],
                 },
             ],
+            subQuery: false
         });
         const AuctionSearchList = await Auction_product.findAndCountAll({
             where: {
                 [Op.or]: [
-                    {
-                        product_name: {
+                    
+                        {product_name: {
                             [Op.like]: '%' + searchkeyword + '%',
-                        },
-                        product_content: {
+                        }},
+                        {product_content: {
                             [Op.like]: '%' + searchkeyword + '%',
-                        },
-                        category: {
+                        }},
+                        {category: {
                             [Op.like]: '%' + searchkeyword + '%',
-                        },
-                        product_buy_now_price: {
+                        }},
+                        {product_buy_now_price: {
                             [Op.like]: '%' + searchkeyword + '%',
-                        },
-                        product_start_price: {
+                        }},
+                        {product_start_price: {
                             [Op.like]: '%' + searchkeyword + '%',
-                        },
-                        product_update_price: {
+                        }},
+                        {product_update_price: {
                             [Op.like]: '%' + searchkeyword + '%',
-                        },
-                    },
+                        }},
+                    
                 ],
             },
             order: [['updatedAt', 'ASC']],
@@ -71,6 +72,7 @@ class SearchRepository {
                     attributes: ['image_url'],
                 },
             ],
+            subQuery: false
         });
         const searchList = { AuctionSearchList, GeneralSearchList };
         console.log(searchList);
@@ -89,6 +91,7 @@ class SearchRepository {
                     attributes: ['image_url'],
                 },
             ],
+            subQuery: false,
         });
         const AuctionList = await Auction_product.findAndCountAll({
             raw: true,
@@ -101,6 +104,7 @@ class SearchRepository {
                     attributes: ['image_url'],
                 },
             ],
+            subQuery: false
         });
         const List = { AuctionList, GeneralList };
         return List;
@@ -108,32 +112,32 @@ class SearchRepository {
 
     findAuctionProduct = async (limit, offset) => {
         const AuctionProduct = await Auction_product.findAndCountAll({
-            raw: true,
-            offset: offset,
-            limit: limit,
-            order: [['updatedAt', 'ASC']],
-            include: [
+            include: 
                 {
                     model: Image,
                     attributes: ['image_url'],
                 },
-            ],
+            raw: true,
+            order: [['updatedAt', 'ASC']],
+            offset: offset,
+            limit: limit,
+            subQuery: false
         });
         return AuctionProduct;
     };
 
     findGeneralProduct = async (limit, offset) => {
         const GeneralProduct = await General_product.findAndCountAll({
-            raw: true,
-            offset: offset,
-            limit: limit,
-            order: [['updatedAt', 'ASC']],
-            include: [
+            include: 
                 {
                     model: Image,
                     attributes: ['image_url'],
                 },
-            ],
+            raw: true,
+            order: [['updatedAt', 'ASC']],
+            offset: offset,
+            limit: limit,
+            subQuery: false
         });
         return GeneralProduct;
     };

@@ -3,7 +3,7 @@
     
     function getAllProducts(page) {
     axios
-      .get(`/products`, { params: { page } })
+      .get(`/api/search/products`, { params: { page } })
       .then((response) => {
         let { totalPage } = response.data;
         let { data } = response.data;
@@ -70,9 +70,7 @@
         경매상품
       </button>
     </div>
-    
-  
-      
+   
     <div class="container-fluid">
         <input
           class="searchkeyword"

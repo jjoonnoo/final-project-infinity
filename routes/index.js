@@ -12,5 +12,6 @@ router.use('/api/users', userRouter);
 router.use('/api/products', productRouter);
 router.use('/api/carts', cartRouter);
 // router.use('/orders',orderRouter)
+router.use('/api/search', searchRouter);
 
 module.exports = router;

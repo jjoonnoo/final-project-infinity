@@ -1,12 +1,8 @@
-// getProducts(1);
-// getAuctionProducts(1);
-// getGeneralProducts(1)
-
 function getProducts(page) {
-    let url = `/search`;
+    let url = `api/search/product`;
     let searchkeyword = document.getElementById('searchkeyword').value;
     if (searchkeyword) {
-        url = `/search/${searchkeyword}`;
+        url = `api/search/product/${searchkeyword}`;
     }
     axios
         .get(url, { params: { page } })
@@ -72,7 +68,7 @@ function getProducts(page) {
 
 function getAuctionProducts(page) {
     axios
-        .get(`/auctionProduct`, { params: { page } })
+        .get(`/api/search/auctionProduct`, { params: { page } })
         .then((response) => {
             let { totalPage } = response.data;
             let { data } = response.data;
@@ -140,7 +136,7 @@ function getAuctionProducts(page) {
 
 function getGeneralProducts(page) {
     axios
-        .get(`/generalProduct`, { params: { page } })
+        .get(`/api/search/generalProduct`, { params: { page } })
         .then((response) => {
             let { totalPage } = response.data;
             let { data } = response.data;
