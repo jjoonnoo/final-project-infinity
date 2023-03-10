@@ -43,16 +43,20 @@ function auctionProductDetail() {
             if (product_buy_now_price === null) {
                 let temp_html = `
                     <div class="product_region">
-                    <p>등록자: ${seller}</p>
-                    <p>등록자 별점: ${raiting}</p>
-                    <p>상품이미지:<img src="${image}" width="200"></p>
-                    <p>상품이름: ${product_name}</p>
-                    <p>상품내용: ${product_content}</p>
-                    <p>시작 가격: ${product_start}원<p>
-                    <p>현재 입찰가:${product_update}원</p>
-                    <p>카테고리: ${category}</p>                    
-                    <p>마감시간: ${product_end}</p>
-                    </div>
+                                    <div>
+                                        <img src="${image}" width="400">
+                                    </div>
+                                    <div class="product_area">
+                                        <p>등록자: ${seller}</p>
+                                        <p>등록자 별점: ${raiting}</p>
+                                        <p>상품이름: ${product_name}</p>
+                                        <p>상품내용: ${product_content}</p>
+                                        <p>시작 가격: ${product_start}원<p>
+                                        <p>현재 입찰가:${product_update}원</p>
+                                        <p>카테고리: ${category}</p>                    
+                                        <p>마감시간: ${product_end}</p>
+                                    </div>
+                                </div>
                     `;
                 $('#auction_product').append(temp_html);
             } else {
