@@ -83,7 +83,7 @@ class AuthController {
                     admin: user.dataValues.admin,
                 },
                 process.env.ACCESSTOKEN_SECRET_KEY,
-                { expiresIn: '1d' }
+                { expiresIn: '1s' }
             );
 
             // Refresh token 발급
