@@ -1,5 +1,48 @@
+<script>
+    $(document).ready(function () {
+        myProduct()
+    })
+</script>
 <body>
-    <div id="my_product">
-
+    <div id="my_products">
+        <div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>auction</th>
+                        <th scope="col">상품명</th>
+                        <th scope="col">카테고리</th>
+                        <th scope="col">상품설명</th>
+                        <th scope="col">시작가</th>
+                        <th scope="col">즉시구매가</th>
+                        <th scope="col">시작시간</th>
+                        <th scope="col">종료시간</th>
+                        <th scope="col">삭제</th>
+                        <th scope="col">수정</th>
+                    </tr>
+                </thead>
+                <tbody id="my_auction_products">
+                </tbody>
+            </table>
+        </div>
+        <hr>
+        <div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>general</th>
+                        <th scope="col">상품명</th>
+                        <th scope="col">카테고리</th>
+                        <th scope="col">상품설명</th>
+                        <th scope="col">가격</th>
+                        <th scope="col">별점</th>
+                        <th scope="col">삭제</th>
+                        <th scope="col">수정</th>
+                    </tr>
+                </thead>
+                <tbody id="my_general_products">
+                </tbody>
+            </table>
+        </div>
     </div>
 </body>

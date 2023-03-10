@@ -45,13 +45,28 @@ router.get(
 );
 
 router.post('/general', productController.generalProductRegist);
-router.patch('/general', productController.generalProductModify);
-router.delete('/general', productController.generalProductDelete);
+router.get('/general/:general_product_id', productController.getGeneralProduct);
+router.patch(
+    '/general/:general_product_id',
+    productController.generalProductModify
+);
+router.delete(
+    '/general/:general_product_id',
+    productController.generalProductDelete
+);
 router.post('/auction', productController.auctionProductRegist);
-router.patch('/auction', productController.auctionProductModify);
-router.delete('/auction', productController.auctionProductDelete);
-router.get('/general', productController.findMyProduct);
+router.get('/auction/:auction_product_id', productController.getAuctionProduct);
+router.patch(
+    '/auction/:auction_product_id',
+    productController.auctionProductModify
+);
+router.delete(
+    '/auction/:auction_product_id',
+    productController.auctionProductDelete
+);
+router.get('/my_product', productController.findMyProduct);
 router.post('/image_upload', upload.single('image'), (req, res) => {
     res.json({ url: req.file.location });
 });
+
 module.exports = router;
