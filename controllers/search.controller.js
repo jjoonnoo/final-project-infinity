@@ -1,14 +1,27 @@
-const MainService = require('../services/search.service');
+const SearchService = require('../services/search.service');
 
-class MainController {
-    mainService = new MainService();
+class SearchController {
+    searchService = new SearchService();
 
     search = async (req, res, next) => {
-        const { searchkeyword } = req.body;
+        const { searchkeyword } = req.params;
+
         try {
-            const List = await this.mainService.searchList(searchkeyword);
+            let limit = 3;
+            let offset = 0 + (req.query.page - 1) * limit;
+            const searchList = await this.searchService.searchList(
+                limit,
+                offset,
+                searchkeyword
+            );
+            let count = (searchList.AuctionSearchList.count +=
+                searchList.GeneralSearchList.count);
+            let searchlists = searchList.AuctionSearchList.rows.concat(
+                searchList.GeneralSearchList.rows
+            );
             return res.status(200).json({
-                data: List.rows,
+                totalPage: Math.ceil(count / limit),
+                data: searchlists,
             });
         } catch (error) {
             res.status(444).json({ errorMessage: error.message });
@@ -17,12 +30,52 @@ class MainController {
 
     getList = async (req, res, next) => {
         try {
+            let page = Math.abs(parseInt(req.query.page));
+            let limit = Math.abs(parseInt(req.query.limit));
+            page = !isNaN(page) ? page : 1;
+            limit = !isNaN(limit) ? limit : 6;
+            // const limit = 6;
+            let offset = (page - 1) * limit;
+            const List = await this.searchService.findList(limit, offset);
+            let count = (List.AuctionList.count += List.GeneralList.count);
+            let lists = List.AuctionList.rows.concat(List.GeneralList.rows);
+            return res.status(200).json({
+                totalPage: Math.ceil(count / limit),
+                data: lists,
+            });
+        } catch (error) {
+            res.status(444).json({ errorMessage: error.message });
+        }
+    };
+
+    getAuctionProduct = async (req, res, next) => {
+        try {
             let limit = 3;
             let offset = 0 + (req.query.page - 1) * limit;
-            const List = await this.mainService.findList(limit, offset);
+            const AuctionProduct = await this.searchService.findAuctionProduct(
+                limit,
+                offset
+            );
             return res.status(200).json({
-                totalPage: Math.ceil(List.count / limit),
-                data: List.rows,
+                totalPage: Math.ceil(AuctionProduct.count / limit),
+                data: AuctionProduct.rows,
+            });
+        } catch (error) {
+            res.status(444).json({ errorMessage: error.message });
+        }
+    };
+
+    getGeneralProduct = async (req, res, next) => {
+        try {
+            let limit = 3;
+            let offset = 0 + (req.query.page - 1) * limit;
+            const GeneralProduct = await this.searchService.findGeneralProduct(
+                limit,
+                offset
+            );
+            return res.status(200).json({
+                totalPage: Math.ceil(GeneralProduct.count / limit),
+                data: GeneralProduct.rows,
             });
         } catch (error) {
             res.status(444).json({ errorMessage: error.message });
@@ -30,4 +83,4 @@ class MainController {
     };
 }
 
-module.exports = MainController;
+module.exports = SearchController;

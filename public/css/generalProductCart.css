@@ -1,3 +1,8 @@
+a {
+  text-decoration-line: none;
+  color: black;
+}
+
 .small-container{
   background-color: rgb(255, 255, 255);
   max-width: 1080px;
@@ -6,8 +11,87 @@
   padding-right: 25px;
 }
 
+th{
+  text-align: left;
+  padding: 10px;
+  color: white;
+  background: black;
+  font-weight: normal;
+  width: 500px;
+}
+
+th.product_name {
+  padding-right: 250px;
+}
+
+th.product_quantity {
+  padding-right: 70px;
+}
+
+th.product_price {
+  padding-right: 60px;
+}
+
+td{
+  padding: 10px 10px;
+  
+}
+
+
+/* <input type="number">의 버튼을 지운다. */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
+}
+
+.pro_info {
+  position: relative; 
+  left: 10px; 
+}
+
+.cart_title {
+  font-size: 20px;
+  font-weight: bolder;
+}
+
+.cart-info{
+  width: 600px; 
+  height: 200px; 
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  position: relative; 
+  left: 50px; 
+}
+
+.cnt {
+  width: 40px;
+  text-align: center;
+  position: relative; 
+  right: 150px; 
+}
+
+.tt {
+  color: red;
+}
+
+.tt:hover {
+  text-decoration: underline;
+}
+
+.changeBtn {
+  border-radius: 10px;
+  border: none;
+  color: white;
+
+  position: relative; 
+  right: 140px; 
+  
+  background-color: black
+
+}
+
+.delivery {
+  margin-top: 80px;
 }

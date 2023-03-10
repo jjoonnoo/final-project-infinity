@@ -5,7 +5,7 @@ $(document).ready(function () {
 function generalProductCart() {
     $.ajax({
         type: 'GET',
-        url: '/products/general/cart',
+        url: '/api/carts/general',
         data: {},
         success: function (response) {
             const rows = response['data'];
@@ -38,26 +38,28 @@ function generalProductCart() {
                                 <input type='checkbox' name='cart' value=${total},${general_product_id},${product_quantity} onclick="cartSum()">
                               </td>
                               <td>
-                                <div>
+                                <div class="cart-info">
+                                  <a href="/product/general/${general_product_id}">
                                   <img src="${product_image}" width="100">
-                                  <div>
-                                    <p>${product_name}</p>                                   
-                                    <small>가격: ${product_price}원</small>
+                                  <div class="pro_info">
+                                    <p>${product_name}</p>
+                                    <small>${product_content}</small><br>                                   
+                                    <small>판매가 ${product_price}원</small>
                                     <br>
-                                    <p>${product_content}</p>                                   
-                                    <a href="#" id=${general_product_id} onclick="cartDeleteBtn(this.id)">삭제</a>
+                                    <a href="#" id=${general_product_id} class="tt" onclick="cartDeleteBtn(this.id)"><small>삭제</small></a>
                                   </div>                                                        
                                 </div>
                               </td>
                               <td>
-                                <input type="number" value="${product_quantity}" readonly>
+                                <input type="number" class="cnt" value="${product_quantity}" readonly>
                                 <button class="changeBtn" value=${general_product_id}>수량 변경</button>                             
                               </td>
                               <td>
-                                ${total}                                 
+                                ${total} 원                                 
                               </td>
                             </tr>
                           </table>
+                          <hr>
                         `;
 
                 $('#product').append(temp_html);
@@ -115,9 +117,9 @@ function selectAll(selectAll) {
 
     let final_total = product_total + delivery;
 
-    $('#testTable').remove();
+    $('#reload_table').remove();
     let temp_html = `
-                        <table id="testTable">
+                        <table id="reload_table">
                           <tr>
                             <td>총 상품 가격</td>
                             <td>${product_total}원</td>
@@ -170,9 +172,9 @@ function cartSum() {
 
     let final_total = product_total + delivery;
 
-    $('#testTable').remove();
+    $('#reload_table').remove();
     let temp_html = `
-                        <table id="testTable">
+                        <table id="reload_table">
                           <tr>
                             <td>총 상품 가격</td>
                             <td>${product_total}원</td>
@@ -217,7 +219,7 @@ function cartPurchaseBtn() {
 
     $.ajax({
         type: 'POST',
-        url: '/products/general/cart',
+        url: '/api/carts/general',
         data: {
             general_product_id: checked_product_id,
             product_quantity: checked_quantity,
@@ -242,7 +244,7 @@ function cartDeleteBtn(general_product_id) {
 
     $.ajax({
         type: 'DELETE',
-        url: '/products/general/cart/delete_product',
+        url: '/api/carts/general',
         data: { general_product_id: target_product_id },
         success: function (response) {
             alert(response['message']);
@@ -257,11 +259,15 @@ function cartDeleteBtn(general_product_id) {
 function changeQuantity(target) {
     let input_quantity = prompt('변경할 수량을 입력해주세요', '');
 
+    if (input_quantity === null) {
+        return;
+    }
+
     let target_product_id = target;
 
     $.ajax({
         type: 'PATCH',
-        url: '/products/general/cart/change_quantity',
+        url: '/api/carts/general',
         data: {
             general_product_id: target_product_id,
             product_quantity: input_quantity,
