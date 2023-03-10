@@ -4,10 +4,10 @@ class SearchController {
     searchService = new SearchService();
 
     search = async (req, res, next) => {
-        const { searchkeyword } = req.params;
-
+        let { searchkeyword } = req.params;
+        searchkeyword = searchkeyword.replace(' ', '%');
         try {
-            let limit = 3;
+            let limit = 5;
             let offset = 0 + (req.query.page - 1) * limit;
             const searchList = await this.searchService.searchList(
                 limit,
@@ -33,8 +33,7 @@ class SearchController {
             let page = Math.abs(parseInt(req.query.page));
             let limit = Math.abs(parseInt(req.query.limit));
             page = !isNaN(page) ? page : 1;
-            limit = !isNaN(limit) ? limit : 6;
-            // const limit = 6;
+            limit = !isNaN(limit) ? limit : 5;
             let offset = 0;
             if (page > 1) {
                 offset = limit * (page - 1);
@@ -42,7 +41,6 @@ class SearchController {
             const List = await this.searchService.findList(limit, offset);
             let count = (List.AuctionList.count += List.GeneralList.count);
             let lists = List.AuctionList.rows.concat(List.GeneralList.rows);
-            // console.log(lists)
             return res.status(200).json({
                 totalPage: Math.ceil(count / limit),
                 data: lists,
@@ -54,13 +52,12 @@ class SearchController {
 
     getAuctionProduct = async (req, res, next) => {
         try {
-            let limit = 3;
+            let limit = 5;
             let offset = 0 + (req.query.page - 1) * limit;
             const AuctionProduct = await this.searchService.findAuctionProduct(
                 limit,
                 offset
             );
-            console.log(AuctionProduct);
             return res.status(200).json({
                 totalPage: Math.ceil(AuctionProduct.count / limit),
                 data: AuctionProduct.rows,
@@ -72,13 +69,12 @@ class SearchController {
 
     getGeneralProduct = async (req, res, next) => {
         try {
-            let limit = 3;
+            let limit = 5;
             let offset = 0 + (req.query.page - 1) * limit;
             const GeneralProduct = await this.searchService.findGeneralProduct(
                 limit,
                 offset
             );
-            console.log(GeneralProduct);
             return res.status(200).json({
                 totalPage: Math.ceil(GeneralProduct.count / limit),
                 data: GeneralProduct.rows,
