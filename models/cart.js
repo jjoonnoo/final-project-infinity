@@ -12,8 +12,8 @@ module.exports = (sequelize, DataTypes) => {
             models.Cart.belongsTo(models.User, {
                 foreignKey: 'user_id',
             });
-            models.Cart.belongsTo(models.Auction_product, {
-                foreignKey: 'auction_product_id',
+            models.Cart.belongsTo(models.General_product, {
+                foreignKey: 'general_product_id',
             });
         }
     }

@@ -1,21 +1,40 @@
-const MainRepository = require('../repositories/search.repository');
-const { General_product } = require('../models');
-const { Auction_product } = require('../models');
-const { Products } = { General_product, Auction_product };
+const SearchRepository = require('../repositories/search.repository');
 
-class MainService {
-    mainRepository = new MainRepository(Products);
+class SearchService {
+    searchRepository = new SearchRepository();
 
-    searchList = async (searchkeyword) => {
-        const List = await this.mainRepository.searchList(searchkeyword);
+    searchList = async (limit, offset, searchkeyword) => {
+        const searchList = await this.searchRepository.searchList(
+            limit,
+            offset,
+            searchkeyword
+        );
 
-        return List;
+        return searchList;
     };
 
     findList = async (limit, offset) => {
-        const List = await this.mainRepository.findList(limit, offset);
+        const List = await this.searchRepository.findList(limit, offset);
 
         return List;
     };
+
+    findAuctionProduct = async (limit, offset) => {
+        const AuctionProduct = await this.searchRepository.findAuctionProduct(
+            limit,
+            offset
+        );
+
+        return AuctionProduct;
+    };
+
+    findGeneralProduct = async (limit, offset) => {
+        const GeneralProduct = await this.searchRepository.findGeneralProduct(
+            limit,
+            offset
+        );
+
+        return GeneralProduct;
+    };
 }
-module.exports = MainService;
+module.exports = SearchService;

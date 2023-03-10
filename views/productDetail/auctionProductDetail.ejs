@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%- title %></title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script defer type="text/javascript" src="../../js/auctionProductDetail.js"></script>
+    <link rel="stylesheet" href="../../css/auctionProductDetail.css">
+</head>
+<body>
+
+  <div id="auction_product">
+
+  </div>
+  
+  
+  <div class="button_region">
+    <hr>
+    <div class="button_area">
+    <div id="countdown"></div>
+    <div id="purchase_btn"></div>
+
+    <button id="btn2" class="openBtnBid">입찰</button>
+
+    <div class="modalBid hiddenBid">
+      <div class="bgBid"></div>
+      <div class="modalBoxBid">
+      <p>※ 금액은 5,000원 단위로만 입찰 가능합니다.</p>
+      <p>입찰 가격: <input type="text" id="bid_price">원</p>
+      <button class="modal_button" type="button" onclick="bidBtn()">입찰하기</button>
+      <button class="closeBtnBid">취소</button>
+      </div>
+    </div>
+
+    <button class="openBtn">상품신고</button>
+  
+    <div class="modal hidden">
+      <div class="bg"></div>
+      <div class="modalBox">
+        신고 제목:
+        <SELECT NAME=sltSample SIZE=1 id="report_title">
+          <OPTION VALUE='불친절한 대응' SELECTED>불친절한 대응</OPTION>
+          <OPTION VALUE='불량 상품 판매'>불량 상품 판매</OPTION>
+          <OPTION VALUE='규정위반 상품'>규정위반 상품</OPTION>
+          <OPTION VALUE='기타'>기타</OPTION>
+        </SELECT>
+        <p>신고 내용: <input type="text" id="report_content"></p>
+        <button class="modal_button" type="button" onclick="reportBtn()">신고하기</button>
+        <button class="closeBtn">취소</button>
+      </div>
+    </div>
+  </div>
+  <hr>
+  </div>
+
+
+</body>
+</html>

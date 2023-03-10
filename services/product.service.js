@@ -114,12 +114,12 @@ class ProductService {
         return data;
     };
 
-    generalProductCart = async ({
+    generalProductAddCart = async ({
         user_id,
         general_product_id,
         product_quantity,
     }) => {
-        const data = await this.productRepository.generalProductCart({
+        const data = await this.productRepository.generalProductAddCart({
             user_id,
             general_product_id,
             product_quantity,
@@ -142,6 +142,130 @@ class ProductService {
         });
 
         return data;
+    };
+
+    generalProductFindCart = async (user_id) => {
+        try {
+            const data = await this.productRepository.generalProductFindCart(
+                user_id
+            );
+
+            return data;
+        } catch (error) {
+            throw error;
+        }
+    };
+
+    generalProductPurchase = async ({
+        user_id,
+        general_product_id,
+        product_quantity,
+    }) => {
+        try {
+            const data = await this.productRepository.generalProductPurchase({
+                user_id,
+                general_product_id,
+                product_quantity,
+            });
+
+            return data;
+        } catch (error) {
+            throw error;
+        }
+    };
+
+    generalProductChangeQuantity = async ({
+        user_id,
+        general_product_id,
+        product_quantity,
+    }) => {
+        try {
+            const data =
+                await this.productRepository.generalProductChangeQuantity({
+                    user_id,
+                    general_product_id,
+                    product_quantity,
+                });
+
+            return data;
+        } catch (error) {
+            throw error;
+        }
+    };
+
+    generalProductFindCart = async (user_id) => {
+        try {
+            const data = await this.productRepository.generalProductFindCart(
+                user_id
+            );
+
+            return data;
+        } catch (error) {
+            throw error;
+        }
+    };
+
+    generalProductPurchase = async ({
+        user_id,
+        general_product_id,
+        product_quantity,
+    }) => {
+        try {
+            const data = await this.productRepository.generalProductPurchase({
+                user_id,
+                general_product_id,
+                product_quantity,
+            });
+
+            return data;
+        } catch (error) {
+            throw error;
+        }
+    };
+
+    generalProductChangeQuantity = async ({
+        user_id,
+        general_product_id,
+        product_quantity,
+    }) => {
+        try {
+            const data =
+                await this.productRepository.generalProductChangeQuantity({
+                    user_id,
+                    general_product_id,
+                    product_quantity,
+                });
+
+            return data;
+        } catch (error) {
+            throw error;
+        }
+    };
+
+    generalProductDeleteCart = async ({ user_id, general_product_id }) => {
+        try {
+            const data = await this.productRepository.generalProductDeleteCart({
+                user_id,
+                general_product_id,
+            });
+
+            return data;
+        } catch (error) {
+            throw error;
+        }
+    };
+
+    generalProductDeleteCart = async ({ user_id, general_product_id }) => {
+        try {
+            const data = await this.productRepository.generalProductDeleteCart({
+                user_id,
+                general_product_id,
+            });
+
+            return data;
+        } catch (error) {
+            throw error;
+        }
     };
 
     auctionProductFind = async (auction_product_id) => {

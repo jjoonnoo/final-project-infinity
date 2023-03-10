@@ -18,13 +18,7 @@ exports.myproduct = async (req, res) => {
         title: 'My Product',
     });
 };
-// exports.productmodify = async (req, res) => {
-//     const {product_id} = req.params
-//     res.status(200).render('mypage/productModify', {
-//         title: 'Product Modify',
-//         id: product_id
-//     });
-// };
+
 exports.generalproductmodify = async (req, res) => {
     const { general_product_id } = req.params;
     res.status(200).render('mypage/generalProductModify', {
@@ -37,5 +31,29 @@ exports.auctionproductmodify = async (req, res) => {
     res.status(200).render('mypage/auctionProductModify', {
         title: 'Product Modify',
         auction_product_id: auction_product_id,
+    });
+};
+
+exports.cart = async (req, res) => {
+    res.status(200).render('cart/generalProductCart', {
+        title: '장바구니',
+    });
+};
+
+exports.generalDetail = async (req, res) => {
+    res.status(200).render('productDetail/generalProductDetail', {
+        title: '일반 상세보기',
+    });
+};
+
+exports.auctionDetail = async (req, res) => {
+    res.status(200).render('productDetail/auctionProductDetail', {
+        title: '경매 상세보기',
+    });
+};
+
+exports.auctionPurchase = async (req, res) => {
+    res.status(200).render('purchase/auctionProductPurchase', {
+        title: '경매상품',
     });
 };

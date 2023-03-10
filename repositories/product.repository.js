@@ -6,6 +6,8 @@ const {
     Report,
     User,
     Image,
+    General_order_info,
+    General_order,
 } = require('../models');
 
 class ProductRepositoty {
@@ -186,24 +188,41 @@ class ProductRepositoty {
                     model: User,
                     attributes: ['email'],
                 },
+                {
+                    model: Image,
+                    attributes: ['image_url'],
+                },
             ],
         });
 
         return data;
     };
 
-    generalProductCart = async ({
+    generalProductAddCart = async ({
         user_id,
         general_product_id,
         product_quantity,
     }) => {
-        const data = await Cart.create({
-            user_id,
-            general_product_id,
-            product_quantity,
+        const exist_quantity = await Cart.findOne({
+            where: { user_id, general_product_id },
+            attributes: ['product_quantity'],
         });
 
-        return data;
+        if (exist_quantity !== null) {
+            const add_quantity =
+                Number(product_quantity) + exist_quantity.product_quantity;
+
+            await Cart.update(
+                { product_quantity: add_quantity },
+                { where: { user_id, general_product_id } }
+            );
+        } else if (exist_quantity === null) {
+            const data = await Cart.create({
+                user_id,
+                general_product_id,
+                product_quantity,
+            });
+        }
     };
 
     generalProductreport = async ({
@@ -222,6 +241,87 @@ class ProductRepositoty {
         return data;
     };
 
+    generalProductFindCart = async (user_id) => {
+        try {
+            const data = await Cart.findAll({
+                where: { user_id },
+                include: [
+                    {
+                        model: User,
+                        attributes: ['name', 'email', 'phone', 'address'],
+                    },
+                    {
+                        model: General_product,
+                        attributes: [
+                            'product_name',
+                            'product_content',
+                            'product_price',
+                        ],
+                        include: [
+                            {
+                                model: Image,
+                                attributes: ['image_url'],
+                            },
+                        ],
+                    },
+                ],
+            });
+
+            return data;
+        } catch (error) {
+            throw error;
+        }
+    };
+
+    generalProductPurchase = async ({
+        user_id,
+        general_product_id,
+        product_quantity,
+    }) => {
+        await General_order.create({
+            user_id,
+        });
+
+        const { general_order_id } = await General_order.findOne({
+            where: { user_id },
+            attributes: ['general_order_id'],
+            order: [['general_order_id', 'desc']],
+        });
+
+        for (let i = 0; i < general_product_id.length; i++) {
+            await General_order_info.create({
+                general_product_id: general_product_id[i],
+                general_order_id: general_order_id,
+                product_quantity: product_quantity[i],
+            });
+        }
+
+        for (let i = 0; i < general_product_id.length; i++) {
+            await Cart.destroy({
+                where: { user_id, general_product_id: general_product_id[i] },
+            });
+        }
+    };
+
+    generalProductChangeQuantity = async ({
+        user_id,
+        general_product_id,
+        product_quantity,
+    }) => {
+        const data = await Cart.update(
+            { product_quantity },
+            { where: { user_id, general_product_id } }
+        );
+        return data;
+    };
+
+    generalProductDeleteCart = async ({ user_id, general_product_id }) => {
+        const data = await Cart.destroy({
+            where: { user_id, general_product_id },
+        });
+        return data;
+    };
+
     auctionProductFind = async (auction_product_id) => {
         const data = await Auction_product.findOne({
             where: { auction_product_id },
@@ -229,6 +329,10 @@ class ProductRepositoty {
                 {
                     model: User,
                     attributes: ['email', 'raiting'],
+                },
+                {
+                    model: Image,
+                    attributes: ['image_url'],
                 },
             ],
         });
@@ -268,6 +372,12 @@ class ProductRepositoty {
     auctionProductPurchase = async (auction_product_id, user_id) => {
         const data1 = await Auction_product.findOne({
             where: { auction_product_id },
+            include: [
+                {
+                    model: Image,
+                    attributes: ['image_url'],
+                },
+            ],
         });
         const data2 = await User.findOne({ where: { user_id } });
 
