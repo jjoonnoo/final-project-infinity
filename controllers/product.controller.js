@@ -27,8 +27,20 @@ class ProductController {
             res.status(400).json({ message: error.message });
         }
     };
+    getGeneralProduct = async (req, res) => {
+        try {
+            const { general_product_id } = req.params;
+            const data = await this.productService.getGeneralProduct(
+                general_product_id
+            );
+            res.status(200).json({ data });
+        } catch (error) {
+            res.status(404).json({ message: '오류' });
+        }
+    };
     generalProductModify = async (req, res) => {
         try {
+            const { general_product_id } = req.params;
             // const user_id = res.locals.user.user_id
             const {
                 product_name,
@@ -52,7 +64,7 @@ class ProductController {
     };
     generalProductDelete = async (req, res) => {
         try {
-            const { general_product_id } = req.body;
+            const { general_product_id } = req.params;
             await this.productService.generalProductDelete(general_product_id);
             res.status(200).json({ message: 'successfully delete' });
         } catch (error) {
@@ -88,10 +100,21 @@ class ProductController {
             res.status(400).json({ message: error.message });
         }
     };
+    getAuctionProduct = async (req, res) => {
+        try {
+            const { auction_product_id } = req.params;
+            const data = await this.productService.getAuctionProduct(
+                auction_product_id
+            );
+            res.status(200).json({ data });
+        } catch (error) {
+            res.status(404).json({ message: '오류' });
+        }
+    };
     auctionProductModify = async (req, res) => {
         try {
+            const { auction_product_id } = req.params;
             const {
-                auction_product_id,
                 product_name,
                 product_content,
                 product_start_price,
@@ -119,22 +142,21 @@ class ProductController {
     };
     auctionProductDelete = async (req, res) => {
         try {
-            const { auction_product_id } = req.body;
+            const { auction_product_id } = req.params;
             await this.productService.auctionProductDelete(auction_product_id);
             res.status(200).json({ message: 'successfully delete' });
         } catch (error) {
             res.status(400).json({ message: error.message });
         }
     };
-    findMyProduct = async (res) => {
+    findMyProduct = async (req, res) => {
         try {
             // const user_id = res.locals.user.user_id
-            const data = this.productService.findMyProduct(user_id);
-            res.status(200).json(data);
+            const user_id = 99;
+            const data = await this.productService.findMyProduct(user_id);
+            res.status(200).json({ data });
         } catch (error) {
-            res.status(404).json({ message: error.message });
-            const data = this.productService.findMyProduct(user_id);
-            res.status(200).json(data);
+            res.status(404).json({ message: '오류' });
         }
     };
 
