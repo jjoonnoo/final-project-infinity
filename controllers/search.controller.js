@@ -5,7 +5,7 @@ class SearchController {
 
     search = async (req, res, next) => {
         let { searchkeyword } = req.params;
-        searchkeyword = searchkeyword.replace(" ", "%");
+        searchkeyword = searchkeyword.replace(' ', '%');
         try {
             let limit = 5;
             let offset = 0 + (req.query.page - 1) * limit;
