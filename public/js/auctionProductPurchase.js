@@ -14,7 +14,7 @@ function auctionProductPurchase() {
             const receiver = rows[1].name;
             const phone = rows[1].phone;
             const address = rows[1].address;
-            // const image
+            const image = rows[0].Images[0].image_url;
             const product_name = rows[0].product_name;
             const product_content = rows[0].product_content;
             const product_buy_now_price = rows[0].product_buy_now_price;
@@ -25,6 +25,7 @@ function auctionProductPurchase() {
                         <p>전화번호: ${phone}</p>
                         <p>주소: ${address}</p>
                         <h1>상품 정보</h1>
+                        <p>상품이미지:<img src="${image}" width="200"></p>
                         <p>상품이름: ${product_name}</p>
                         <p>상품내용: ${product_content}</p>
                         <p>즉시 구매 가격: ${product_buy_now_price}원</p>
@@ -52,6 +53,6 @@ function cancle() {
     if (!confirm('구매를 취소 하시겠습니까?')) {
         return;
     } else {
-        return history.back();
+        location.href = `/product/auction/${auction_product_id}`;
     }
 }
