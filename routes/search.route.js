@@ -8,7 +8,6 @@ const searchController = new SearchController();
 
 router.get('/product/:searchkeyword', searchController.search);
 
-// product.route로 이동 예정
 router.get('/products', searchController.getList);
 router.get('/auctionProduct', searchController.getAuctionProduct);
 router.get('/generalProduct', searchController.getGeneralProduct);

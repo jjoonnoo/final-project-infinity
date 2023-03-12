@@ -1,17 +1,21 @@
 <script>
-    getAllProducts(1);
+    // getAllProducts(1);
     
     function getAllProducts(page) {
+        $('#product_list').empty()
     axios
       .get(`/api/search/products`, { params: { page } })
       .then((response) => {
         let { totalPage } = response.data;
-        let { data } = response.data;
+        let { dataAuction } = response.data;
+        let { dataGeneral } = response.data;
 
-        const productList = document.getElementById('product-list');
+        const AuctionProductList = document.getElementById('product-list');
+        const GeneralProductList = document.getElementById('product_list');
         const pageList = document.getElementById('page-num');
         pageList.innerHTML = '';
-        productList.innerHTML = '';
+        AuctionProductList.innerHTML = '';
+        GeneralProductList.innerHTML = '';
         
         for (let i = 1; i < totalPage + 1; i++) {
           if (i === page) {
@@ -21,9 +25,9 @@
           }
         }
   
-        for (let i = 0; i < data.length; i++) {
-          let image = data[i]['Images.image_url'];
-          let price = data[i].product_buy_now_price || data[i].product_price || null;
+        for (let i = 0; i < dataAuction.length; i++) {
+          let image = dataAuction[i]['Images.image_url'];
+          let price = dataAuction[i].product_buy_now_price || dataAuction[i].product_price || null;
             if (price === null){
                   price = ' * 경매로만 구입 가능합니다. --';
                 }
@@ -35,11 +39,11 @@
             object-fit: cover;">
           <div class="product product-name">
             <h4>
-            <div>${data[i].product_name}</div></h4>
+            <div>${dataAuction[i].product_name}</div></h4>
           </div>
           <div class="product product-explanation">
             
-            <div>${data[i].product_content}</div>
+            <div>${dataAuction[i].product_content}</div>
           </div>
           
           <div class="product product-participant">
@@ -50,7 +54,39 @@
             <button type="button" class="btn btn-sm btn-outline-secondary" onclick="">자세히보기</button>
           </div>
           `;
-          productList.append(temp);
+          AuctionProductList.append(temp);
+        }
+
+        for (let i = 0; i < dataGeneral.length; i++) {
+          let image = dataGeneral[i]['Images.image_url'];
+          let price = dataGeneral[i].product_buy_now_price || dataGeneral[i].product_price || null;
+            if (price === null){
+                  price = ' * 경매로만 구입 가능합니다. --';
+                }
+          const temp = document.createElement('div');
+          temp.setAttribute('class', 'product-box');
+          temp.innerHTML = `
+          <img class="product product-image" src="${image}" style="width: 250px;
+            height: 250px;
+            object-fit: cover;">
+          <div class="product product-name">
+            <h4>
+            <div>${dataGeneral[i].product_name}</div></h4>
+          </div>
+          <div class="product product-explanation">
+            
+            <div>${dataGeneral[i].product_content}</div>
+          </div>
+          
+          <div class="product product-participant">
+            
+            <div>${price}\\</div>
+          </div>
+          <div class="btn-group" style="margin-top: 2%;">
+            <button type="button" class="btn btn-sm btn-outline-secondary" onclick="">자세히보기</button>
+          </div>
+          `;
+          GeneralProductList.append(temp);
         }
       })
       .catch((error) => {
@@ -69,26 +105,33 @@
       <button class="btn btn-outline-success" onclick="getAuctionProducts(1)">
         경매상품
       </button>
+      <button class="btn btn-outline-success" onclick="getAllProducts(1)">
+        전체상품
+      </button>
     </div>
    
-    <div class="container-fluid">
+    <!-- <div class="search-form">
         <input
-          class="searchkeyword"
+          class="form-control"
           id="searchkeyword"
           type="search"
-          placeholder="상품명/설명/가격"
+          placeholder="상품 검색하기"
           aria-label="Search"
+          size="100"
+          onkeypress="if(event.keyCode==13) {getProducts(1)}"
         />
-        <button class="btn btn-outline-success" onclick="getProducts(1)">
-          검색
-        </button>
-    </div>
-    <div
+    </div> -->
+    
+    <!-- <div
         class="product-box" style="display: inline-flex;"
         id="product-list"
     ></div>
+    <div
+        class="product-box" style="display: inline-flex;"
+        id="product_list"
+    ></div>
     <nav aria-label="Page navigation example">
         <ul id="page-num" class="pagination justify-content-center"></ul>
-    </nav>
+    </nav> -->
 
   </body>

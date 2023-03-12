@@ -1,4 +1,5 @@
 function getProducts(page) {
+    $('#product_list').empty();
     let url = `api/search/product`;
     let searchkeyword = document.getElementById('searchkeyword').value;
     if (searchkeyword) {
@@ -67,6 +68,7 @@ function getProducts(page) {
 }
 
 function getAuctionProducts(page) {
+    $('#product_list').empty();
     axios
         .get(`/api/search/auctionProduct`, { params: { page } })
         .then((response) => {
@@ -135,6 +137,7 @@ function getAuctionProducts(page) {
 }
 
 function getGeneralProducts(page) {
+    $('#product_list').empty();
     axios
         .get(`/api/search/generalProduct`, { params: { page } })
         .then((response) => {

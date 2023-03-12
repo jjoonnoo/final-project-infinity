@@ -1,8 +1,19 @@
 <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-4 mb-3 border-bottom">
     <a class="bnslogo d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none" href="/"><img src="/img/BNS - MarkMaker Logo.png" width="100" height="auto"></a>
-    <form action="/search" class="search-form">
+    <!-- <form action="/search" class="search-form">
         <input type="search" id="term" name="term" class="form-control" placeholder="상품 검색하기" aria-label="Search" size="100" onkeypress="if(event.keyCode==13) {search()}">
-    </form>
+    </form> -->
+    <div class="search-form">
+        <input
+          class="form-control"
+          id="searchkeyword"
+          type="search"
+          placeholder="상품 검색하기"
+          aria-label="Search"
+          size="100"
+          onkeypress="if(event.keyCode==13) {getProducts(1)}"
+        />
+    </div>
     <nav class="navbar navbar-expand-lg">
         <div class="container">
             <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
