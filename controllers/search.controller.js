@@ -14,39 +14,36 @@ class SearchController {
                 offset,
                 searchkeyword
             );
-            let count = (searchList.AuctionSearchList.count +=
-                searchList.GeneralSearchList.count);
-            let searchlists = searchList.AuctionSearchList.rows.concat(
-                searchList.GeneralSearchList.rows
+            let count = (searchList.count.AuctionCount +=
+                searchList.count.GeneralCount);
+            let searchlists = searchList.AuctionSearchList.concat(
+                searchList.GeneralSearchList
             );
             return res.status(200).json({
                 totalPage: Math.ceil(count / limit),
                 data: searchlists,
             });
         } catch (error) {
-            res.status(444).json({ errorMessage: error.message });
+            res.status(404).json({ errorMessage: error.message });
         }
     };
 
     getList = async (req, res, next) => {
         try {
-            let page = Math.abs(parseInt(req.query.page));
-            let limit = Math.abs(parseInt(req.query.limit));
-            page = !isNaN(page) ? page : 1;
-            limit = !isNaN(limit) ? limit : 5;
-            let offset = 0;
-            if (page > 1) {
-                offset = limit * (page - 1);
-            }
+            let limit = 5;
+            let offset = 0 + (req.query.page - 1) * limit;
             const List = await this.searchService.findList(limit, offset);
-            let count = (List.AuctionList.count += List.GeneralList.count);
-            let lists = List.AuctionList.rows.concat(List.GeneralList.rows);
+            const count = Math.max(
+                List.count.AuctionCount,
+                List.count.GeneralCount
+            );
             return res.status(200).json({
                 totalPage: Math.ceil(count / limit),
-                data: lists,
+                dataAuction: List.AuctionProduct,
+                dataGeneral: List.GeneralProduct,
             });
         } catch (error) {
-            res.status(444).json({ errorMessage: error.message });
+            res.status(404).json({ errorMessage: error.message });
         }
     };
 
@@ -60,10 +57,10 @@ class SearchController {
             );
             return res.status(200).json({
                 totalPage: Math.ceil(AuctionProduct.count / limit),
-                data: AuctionProduct.rows,
+                data: AuctionProduct.AuctionProducts,
             });
         } catch (error) {
-            res.status(444).json({ errorMessage: error.message });
+            res.status(404).json({ errorMessage: error.message });
         }
     };
 
@@ -77,10 +74,10 @@ class SearchController {
             );
             return res.status(200).json({
                 totalPage: Math.ceil(GeneralProduct.count / limit),
-                data: GeneralProduct.rows,
+                data: GeneralProduct.GeneralProducts,
             });
         } catch (error) {
-            res.status(444).json({ errorMessage: error.message });
+            res.status(404).json({ errorMessage: error.message });
         }
     };
 }
