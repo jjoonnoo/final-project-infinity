@@ -37,10 +37,10 @@
     +---partials
 ```
 #HTTP CODE
--200 OK요청이 성공적으로 되었다.
--201 created create가 성공적으로 되었다.
--400 bad request 요청 자체가 잘못되었다.
--401 unauthorized 승인되지 않았음
--403 forbidden 클라이언트는 권한이 없다
--404 not found 요청받은 것을 찾을 수 없음
--408 request timeout 요청한지 오래되어 연결이 끊김
+-**200 OK요청이 성공적으로 되었다.**
+-**201 created create가 성공적으로 되었다.**
+-**400 bad request 요청 자체가 잘못되었다.**
+-**401 unauthorized 승인되지 않았음**
+-**403 forbidden 클라이언트는 권한이 없다**
+-**404 not found 요청받은 것을 찾을 수 없음**
+-**408 request timeout 요청한지 오래되어 연결이 끊김**
