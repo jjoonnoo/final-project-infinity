@@ -36,7 +36,7 @@
     +---layouts
     +---partials
 ```
-#HTTP CODE
+# HTTP CODE
 - **200 OK요청이 성공적으로 되었다.**
 - **201 created create가 성공적으로 되었다.**
 - **400 bad request 요청 자체가 잘못되었다.**
