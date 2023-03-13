@@ -1,6 +1,5 @@
 <script>
-    // getAllProducts(1);
-    
+    getAllProducts(1);
     function getAllProducts(page) {
         $('#product_list').empty()
     axios
@@ -32,7 +31,7 @@
                   price = ' * 경매로만 구입 가능합니다. --';
                 }
           const temp = document.createElement('div');
-          temp.setAttribute('class', 'product-box');
+          temp.setAttribute('class', 'product-ox');
           temp.innerHTML = `
           <img class="product product-image" src="${image}" style="width: 250px;
             height: 250px;
@@ -64,7 +63,7 @@
                   price = ' * 경매로만 구입 가능합니다. --';
                 }
           const temp = document.createElement('div');
-          temp.setAttribute('class', 'product-box');
+          temp.setAttribute('class', 'product-ox');
           temp.innerHTML = `
           <img class="product product-image" src="${image}" style="width: 250px;
             height: 250px;
@@ -98,6 +97,7 @@
     
   </script>
   <body>
+
     <div>
       <button class="btn btn-outline-success" onclick="getGeneralProducts(1)">
         일반상품
@@ -110,28 +110,19 @@
       </button>
     </div>
    
-    <!-- <div class="search-form">
-        <input
-          class="form-control"
-          id="searchkeyword"
-          type="search"
-          placeholder="상품 검색하기"
-          aria-label="Search"
-          size="100"
-          onkeypress="if(event.keyCode==13) {getProducts(1)}"
-        />
-    </div> -->
-    
-    <!-- <div
-        class="product-box" style="display: inline-flex;"
+    <div
+        class="product-ox" style="display: inline-flex;"
         id="product-list"
     ></div>
     <div
-        class="product-box" style="display: inline-flex;"
+        class="product-ox" style="display: inline-flex;"
         id="product_list"
     ></div>
+
     <nav aria-label="Page navigation example">
         <ul id="page-num" class="pagination justify-content-center"></ul>
-    </nav> -->
+    </nav>
+
+    
 
   </body>

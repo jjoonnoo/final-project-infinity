@@ -80,6 +80,18 @@ class SearchController {
             res.status(404).json({ errorMessage: error.message });
         }
     };
+
+    recommendProducts = async (req, res, next) => {
+        try {
+            const recommendProducts =
+                await this.searchService.recommendProducts();
+            return res.status(200).json({
+                data: recommendProducts,
+            });
+        } catch (error) {
+            res.status(404).json({ errorMessage: error.message });
+        }
+    };
 }
 
 module.exports = SearchController;

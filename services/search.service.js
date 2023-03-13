@@ -36,5 +36,12 @@ class SearchService {
 
         return GeneralProduct;
     };
+
+    recommendProducts = async () => {
+        const recommendProducts =
+            await this.searchRepository.recommendProducts();
+
+        return recommendProducts;
+    };
 }
 module.exports = SearchService;

@@ -341,6 +341,69 @@ class SearchRepository {
         const GeneralProduct = { GeneralProducts, count };
         return GeneralProduct;
     };
+
+    recommendProducts = async () => {
+        const today = new Date(new Date().getTime() + 9 * 60 * 60 * 1000);
+        const startOfDay = new Date(
+            today.getFullYear(),
+            today.getMonth(),
+            today.getDate(),
+            9,
+            0,
+            0,
+            0
+        );
+        const endOfDay = new Date(
+            today.getFullYear(),
+            today.getMonth(),
+            today.getDate(),
+            32,
+            59,
+            59,
+            999
+        );
+        const endOfHour = new Date(today.getTime() + 60 * 60 * 1000);
+        console.log(today, startOfDay, endOfDay, endOfHour);
+        const recommendProducts = await Auction_product.findAll({
+            where: {
+                [Op.or]: [
+                    {
+                        product_end: {
+                            [Op.between]: [today, endOfHour],
+                        },
+                    },
+                    {
+                        product_start: {
+                            [Op.between]: [startOfDay, endOfDay],
+                        },
+                    },
+                    {
+                        [Op.and]: [
+                            {
+                                [Op.not]: {
+                                    createdAt: null,
+                                },
+                            },
+                        ],
+                    },
+                ],
+            },
+            raw: true,
+            include: [
+                {
+                    model: Image,
+                    attributes: ['image_url'],
+                },
+            ],
+            subQuery: false,
+            group: [
+                'Auction_product.auction_product_id',
+                'Images.auction_product_id',
+            ],
+        });
+        console.log(recommendProducts);
+        return recommendProducts;
+    };
 }
 
 module.exports = SearchRepository;
