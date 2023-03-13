@@ -12,4 +12,6 @@ router.get('/products', searchController.getList);
 router.get('/auctionProduct', searchController.getAuctionProduct);
 router.get('/generalProduct', searchController.getGeneralProduct);
 
+router.get('/recommendProducts', searchController.recommendProducts);
+
 module.exports = router;
