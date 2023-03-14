@@ -377,15 +377,6 @@ class SearchRepository {
                             [Op.between]: [startOfDay, endOfDay],
                         },
                     },
-                    {
-                        [Op.and]: [
-                            {
-                                [Op.not]: {
-                                    createdAt: null,
-                                },
-                            },
-                        ],
-                    },
                 ],
             },
             raw: true,
@@ -401,8 +392,30 @@ class SearchRepository {
                 'Images.auction_product_id',
             ],
         });
-        console.log(recommendProducts);
-        return recommendProducts;
+        if (!recommendProducts.length) {
+            const allProducts = await Auction_product.findAll({
+                where: {
+                    createdAt: {
+                        [Op.not]: null,
+                    },
+                },
+                raw: true,
+                include: [
+                    {
+                        model: Image,
+                        attributes: ['image_url'],
+                    },
+                ],
+                subQuery: false,
+                group: [
+                    'Auction_product.auction_product_id',
+                    'Images.auction_product_id',
+                ],
+            });
+            return allProducts;
+        } else {
+            return recommendProducts;
+        }
     };
 }
 
