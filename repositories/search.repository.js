@@ -396,8 +396,8 @@ class SearchRepository {
             const allProducts = await Auction_product.findAll({
                 where: {
                     createdAt: {
-                        [Op.not]: null
-                    }
+                        [Op.not]: null,
+                    },
                 },
                 raw: true,
                 include: [
@@ -415,7 +415,7 @@ class SearchRepository {
             return allProducts;
         } else {
             return recommendProducts;
-        }        
+        }
     };
 }
 
