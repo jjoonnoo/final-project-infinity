@@ -253,3 +253,14 @@ footer a {
     color: #3c97bf;
     text-decoration: none;
 }
+
+#login_form {
+  background-color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 0 50px;
+  height: 100%;
+  text-align: center;
+}

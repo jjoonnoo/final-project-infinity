@@ -1,9 +1,6 @@
 const bcrypt = require('bcrypt');
-
-const { User } = require('../models/index'); // sequelize의 모델
-// const AuthRepository = require('../repositories/auth.repository');
-
 const jwt = require('jsonwebtoken');
+const { User } = require('../models/index'); // sequelize의 모델
 
 require('dotenv').config();
 
@@ -12,14 +9,12 @@ const AuthService = require('../services/auth.service.js');
 
 class AuthController {
     auth_service = new AuthService(User); // AuthService의 인스턴스 생성성
-    // auth_repository = new AuthRepository(User);
+
     // 회원가입
     signup = async (req, res, next) => {
         try {
-            const { email, name, password, phone, address, admin, raiting } =
+            const { email, name, password, phone, address, admin, rating } =
                 req.body;
-
-            console.log(email, name, password, phone, address, admin, raiting);
 
             // Value 없을시 에러처리
             // if(!email || !name || !password || !phone || !address || !admin || !raiting ) {
@@ -44,7 +39,7 @@ class AuthController {
                 phone,
                 address,
                 admin,
-                raiting
+                rating
             );
             return res.status(201).json({
                 data: create_user,
@@ -75,17 +70,6 @@ class AuthController {
                 });
             }
 
-            // access token 생성
-            const access_token = jwt.sign(
-                {
-                    user_id: user.dataValues.user_id,
-                    email: user.dataValues.email,
-                    admin: user.dataValues.admin,
-                },
-                process.env.ACCESSTOKEN_SECRET_KEY,
-                { expiresIn: '1s' }
-            );
-
             // Refresh token 발급
 
             const refresh_token = jwt.sign(
@@ -98,11 +82,23 @@ class AuthController {
                 { expiresIn: '7d' }
             );
 
-            res.cookie('accessToken', access_token);
-            res.cookie('refreshToken', refresh_token);
+            // jwt토큰의 payload 안에 refresh token을 넣어서 
+            // access token을 발급하기
+
+            const access_token = jwt.sign(
+              {
+                  user_id: user.dataValues.user_id,
+                  email: user.dataValues.email,
+                  admin: user.dataValues.admin,
+                  refreshToken: refresh_token,
+              },
+              process.env.ACCESSTOKEN_SECRET_KEY,
+              { expiresIn: '1d' }
+          );
+
             return res
                 .status(200)
-                .json({ access_token, refresh_token, msg: '로그인 완료!' });
+                .json({ access_token, msg: '로그인 완료!' });
         } catch (error) {
             console.log(error);
             return res.status(400).json({ msg: '로그인 실패' });
@@ -110,10 +106,10 @@ class AuthController {
     };
 
     //로그아웃
-    signout = async (req, res) => {
-        res.clearCookie('accessToken');
-        return res.json({ msg: '로그아웃 성공' });
-    };
+    // signout = async (req, res) => {
+    //     res.clearCookie('accessToken');
+    //     return res.json({ msg: '로그아웃 성공' });
+    // };
 }
 
 module.exports = AuthController;

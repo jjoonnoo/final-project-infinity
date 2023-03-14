@@ -15,7 +15,7 @@
 <body>
   <div class="container" id="container">
     <div class="form-container sign-up-container">
-      <form action="#">
+      <form>
         <div class="input-container">
           <input type="text" id="name" placeholder="Name" />
           <input type="email" id="email" placeholder="Email" />
@@ -28,16 +28,16 @@
       </form>
     </div>
     <div class="form-container sign-in-container">
-      <form action="#">
+      <div id="login_form">
         <h1>Sign in</h1>
         <div class="social-container">
           <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
         </div>
         <span>or use your account</span>
-        <input type="email" id="email" placeholder="Email" />
-        <input type="password" id ="password" placeholder="Password" />
+        <input type="email" id="login_email" placeholder="Email" />
+        <input type="password" id ="login_password" placeholder="Password" />
         <button onclick="login()">Sign In</button>
-      </form>
+      </div>
     </div>
     <div class="overlay-container">
       <div class="overlay">
