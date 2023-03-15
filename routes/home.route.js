@@ -18,6 +18,7 @@ router.get(
 );
 router.get('/cart', homeController.cart);
 // router.get('/myorders', homeController.myOrders);
+router.get('/search/product', homeController.search);
 
 /* 일반상품 상세페이지 render */
 router.get('/product/general/:id', (req, res) => {

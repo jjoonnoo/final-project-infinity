@@ -1,4 +1,4 @@
-.product-box {
+  .product-box {
     margin: 20px;
     padding: 20px;
     border: 1px solid #ccc;
@@ -77,3 +77,30 @@
     display: inline-grid;
     margin-right: 50px
   }
+
+  .productone:hover {
+    border: 1px solid #008080;
+    box-shadow: 2px 2px 5px #008080;
+}
+
+  .productone {
+    margin: 20px;
+    padding: 10px;
+    box-shadow: 2px 2px 5px #ccc;
+}
+
+  .outline-success {
+    background-color: #fff;
+    color: #000;
+    border: 2px solid #000;
+    border-radius: 30px;
+    padding: 10px 20px;
+    margin-right: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+  .outline-success:hover {
+    background-color: #000;
+    color: #fff;
+    border: 2px solid #fff;
+}

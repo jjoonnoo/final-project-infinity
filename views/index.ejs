@@ -26,13 +26,16 @@
   
         for (let i = 0; i < dataAuction.length; i++) {
           let image = dataAuction[i]['Images.image_url'];
+          if (image === null) {
+                  image = src="/img/BNS - MarkMaker Logo.png"
+                }
           let price = dataAuction[i].product_buy_now_price || dataAuction[i].product_price || null;
             if (price === null){
                   price = ' * 경매로만 구입 가능합니다. --';
                 }
           const temp = document.createElement('div');
           temp.setAttribute('class', 'product-ox');
-          temp.innerHTML = `
+          temp.innerHTML = `<div class="productone" style="cursor: pointer;" onclick="location.href='/auction/${dataAuction[i].auction_product_id}'">
           <img class="product product-image" src="${image}" style="width: 250px;
             height: 250px;
             object-fit: cover;">
@@ -49,8 +52,6 @@
             
             <div>${price}\\</div>
           </div>
-          <div class="btn-group" style="margin-top: 2%;">
-            <button type="button" class="btn btn-sm btn-outline-secondary" onclick="">자세히보기</button>
           </div>
           `;
           AuctionProductList.append(temp);
@@ -58,13 +59,16 @@
 
         for (let i = 0; i < dataGeneral.length; i++) {
           let image = dataGeneral[i]['Images.image_url'];
+          if (image === null) {
+                  image = src="/img/BNS - MarkMaker Logo.png"
+                }
           let price = dataGeneral[i].product_buy_now_price || dataGeneral[i].product_price || null;
             if (price === null){
                   price = ' * 경매로만 구입 가능합니다. --';
                 }
           const temp = document.createElement('div');
           temp.setAttribute('class', 'product-ox');
-          temp.innerHTML = `
+          temp.innerHTML = `<div class="productone" style="cursor: pointer;" onclick="location.href='/general/${dataGeneral[i].general_product_id}'">
           <img class="product product-image" src="${image}" style="width: 250px;
             height: 250px;
             object-fit: cover;">
@@ -81,8 +85,6 @@
             
             <div>${price}\\</div>
           </div>
-          <div class="btn-group" style="margin-top: 2%;">
-            <button type="button" class="btn btn-sm btn-outline-secondary" onclick="">자세히보기</button>
           </div>
           `;
           GeneralProductList.append(temp);
@@ -98,14 +100,14 @@
   </script>
   <body>
 
-    <div>
-      <button class="btn btn-outline-success" onclick="getGeneralProducts(1)">
+    <div style="margin-left: 20px;">
+      <button class="outline-success" onclick="getGeneralProducts(1)">
         일반상품
       </button>
-      <button class="btn btn-outline-success" onclick="getAuctionProducts(1)">
+      <button class="outline-success" onclick="getAuctionProducts(1)">
         경매상품
       </button>
-      <button class="btn btn-outline-success" onclick="getAllProducts(1)">
+      <button class="outline-success" onclick="getAllProducts(1)">
         전체상품
       </button>
     </div>
