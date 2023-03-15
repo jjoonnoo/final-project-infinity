@@ -4,7 +4,7 @@ class SearchController {
     searchService = new SearchService();
 
     search = async (req, res, next) => {
-        let { searchkeyword } = req.params;
+        let { searchkeyword } = req.query;
         searchkeyword = searchkeyword.replace(' ', '%');
         try {
             let limit = 5;
@@ -14,14 +14,14 @@ class SearchController {
                 offset,
                 searchkeyword
             );
-            let count = (searchList.count.AuctionCount +=
-                searchList.count.GeneralCount);
-            let searchlists = searchList.AuctionSearchList.concat(
-                searchList.GeneralSearchList
+            const count = Math.max(
+                searchList.count.AuctionCount,
+                searchList.count.GeneralCount
             );
             return res.status(200).json({
                 totalPage: Math.ceil(count / limit),
-                data: searchlists,
+                dataAuction: searchList.AuctionSearchList,
+                dataGeneral: searchList.GeneralSearchList,
             });
         } catch (error) {
             res.status(404).json({ errorMessage: error.message });
@@ -87,6 +87,22 @@ class SearchController {
                 await this.searchService.recommendProducts();
             return res.status(200).json({
                 data: recommendProducts,
+            });
+        } catch (error) {
+            res.status(404).json({ errorMessage: error.message });
+        }
+    };
+
+    autocomplete = async (req, res, next) => {
+        const { query } = req.query;
+        console.log(query);
+        try {
+            const autocomplete = await this.searchService.autocomplete(query);
+            let autocompletes = autocomplete.AuctionProducts.concat(
+                autocomplete.GeneralProducts
+            );
+            return res.status(200).json({
+                data: autocompletes,
             });
         } catch (error) {
             res.status(404).json({ errorMessage: error.message });

@@ -57,3 +57,9 @@ exports.auctionPurchase = async (req, res) => {
         title: '경매상품',
     });
 };
+
+exports.search = async (req, res) => {
+    res.status(200).render('search', {
+        title: '검색',
+    });
+};

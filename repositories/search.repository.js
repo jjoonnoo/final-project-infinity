@@ -7,6 +7,7 @@ const { Image } = require('../models');
 class SearchRepository {
     searchList = async (limit, offset, searchkeyword) => {
         const GeneralSearchList = await General_product.findAll({
+            searchkeyword,
             where: {
                 [Op.or]: [
                     {
@@ -49,6 +50,7 @@ class SearchRepository {
         });
 
         const GeneralCount = await General_product.count({
+            searchkeyword,
             where: {
                 [Op.or]: [
                     {
@@ -88,6 +90,7 @@ class SearchRepository {
         });
 
         const AuctionSearchList = await Auction_product.findAll({
+            searchkeyword,
             where: {
                 [Op.or]: [
                     {
@@ -140,6 +143,7 @@ class SearchRepository {
         });
 
         const AuctionCount = await Auction_product.count({
+            searchkeyword,
             where: {
                 [Op.or]: [
                     {
@@ -416,6 +420,60 @@ class SearchRepository {
         } else {
             return recommendProducts;
         }
+    };
+
+    autocomplete = async (query) => {
+        const AuctionProducts = await Auction_product.findAll({
+            attributes: [
+                'product_name',
+                [sequelize.fn('LENGTH', sequelize.col('product_name')), 'len'],
+            ],
+            where: {
+                [Op.or]: [
+                    {
+                        product_name: {
+                            [Op.like]: `%${query}%`,
+                        },
+                    },
+                    {
+                        category: {
+                            [Op.like]: `%${query}%`,
+                        },
+                    },
+                ],
+            },
+            order: [['len', 'ASC']],
+            limit: 5,
+            raw: true,
+            query,
+        });
+        const GeneralProducts = await General_product.findAll({
+            attributes: [
+                'product_name',
+                [sequelize.fn('LENGTH', sequelize.col('product_name')), 'len'],
+            ],
+            where: {
+                [Op.or]: [
+                    {
+                        product_name: {
+                            [Op.like]: `%${query}%`,
+                        },
+                    },
+                    {
+                        category: {
+                            [Op.like]: `%${query}%`,
+                        },
+                    },
+                ],
+            },
+            order: [['len', 'ASC']],
+            limit: 5,
+            raw: true,
+            query,
+        });
+
+        const autocomplete = { AuctionProducts, GeneralProducts };
+        return autocomplete;
     };
 }
 

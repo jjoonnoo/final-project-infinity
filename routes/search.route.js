@@ -6,7 +6,8 @@ router.use(express.urlencoded({ extended: true }));
 const SearchController = require('../controllers/search.controller');
 const searchController = new SearchController();
 
-router.get('/product/:searchkeyword', searchController.search);
+router.get('/product', searchController.search);
+router.get('/autocomplete', searchController.autocomplete);
 
 router.get('/products', searchController.getList);
 router.get('/auctionProduct', searchController.getAuctionProduct);
