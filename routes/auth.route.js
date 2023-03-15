@@ -39,10 +39,6 @@ router.post('/signup', validate_signup, auth_Controller.signup);
 
 router.post('/signin', validate_signin, auth_Controller.signin);
 
-router.post('/refresh', (req, res) => {
-
-})
-
 // router.get("/logout", auth_Controller.logout);
 
 // 로그인, 회원가입 페이지 
