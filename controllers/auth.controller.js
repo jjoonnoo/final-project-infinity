@@ -82,23 +82,21 @@ class AuthController {
                 { expiresIn: '7d' }
             );
 
-            // jwt토큰의 payload 안에 refresh token을 넣어서 
+            // jwt토큰의 payload 안에 refresh token을 넣어서
             // access token을 발급하기
 
             const access_token = jwt.sign(
-              {
-                  user_id: user.dataValues.user_id,
-                  email: user.dataValues.email,
-                  admin: user.dataValues.admin,
-                  refreshToken: refresh_token,
-              },
-              process.env.ACCESSTOKEN_SECRET_KEY,
-              { expiresIn: '1d' }
-          );
+                {
+                    user_id: user.dataValues.user_id,
+                    email: user.dataValues.email,
+                    admin: user.dataValues.admin,
+                    refreshToken: refresh_token,
+                },
+                process.env.ACCESSTOKEN_SECRET_KEY,
+                { expiresIn: '1d' }
+            );
 
-            return res
-                .status(200)
-                .json({ access_token, msg: '로그인 완료!' });
+            return res.status(200).json({ access_token, msg: '로그인 완료!' });
         } catch (error) {
             console.log(error);
             return res.status(400).json({ msg: '로그인 실패' });
