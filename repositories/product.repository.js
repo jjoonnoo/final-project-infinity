@@ -10,7 +10,7 @@ const {
     General_order,
 } = require('../models');
 
-class ProductRepositoty {
+class ProductRepository {
     generalProductRegist = async (
         user_id,
         product_name,
@@ -59,7 +59,7 @@ class ProductRepositoty {
         category,
         img_url
     ) => {
-        await General_product.update(
+        const data1 = await General_product.update(
             {
                 product_name: product_name,
                 product_content: product_content,
@@ -68,19 +68,29 @@ class ProductRepositoty {
             },
             { where: { general_product_id: general_product_id } }
         );
-        const data = await Promise.all(
-            img_url.map((url) =>
-                Image.update({
-                    image_url: url,
-                    general_product_id: general_product_id,
-                })
-            )
-        );
-    };
-    generalProductDelete = async (general_product_id) => {
-        await General_product.destroy({
+        await Image.destroy({
             where: { general_product_id: general_product_id },
         });
+        let data2 = [];
+        if (Array.isArray(img_url) && img_url.length > 0) {
+            const validImgUrl = img_url.filter((url) => url); // 유효한 URL만 추출
+            data2 = await Promise.all(
+                validImgUrl.map((url) =>
+                    Image.create({
+                        image_url: url,
+                        general_product_id: data1.general_product_id,
+                    })
+                )
+            );
+        }
+        const result = { data1, data2 };
+        return result;
+    };
+    generalProductDelete = async (general_product_id) => {
+        const data = await General_product.destroy({
+            where: { general_product_id: general_product_id },
+        });
+        return data;
     };
     auctionProductRegist = async (
         user_id,
@@ -90,7 +100,8 @@ class ProductRepositoty {
         product_buy_now_price,
         product_start,
         product_end,
-        category
+        category,
+        img_url
     ) => {
         const data1 = await Auction_product.create({
             user_id: user_id,
@@ -103,14 +114,20 @@ class ProductRepositoty {
             product_end: product_end,
             category: category,
         });
-        const data2 = await Promise.all(
-            img_url.map((url) =>
-                Image.create({
-                    image_url: url,
-                    auction_product_id: data1.auction_product_id,
-                })
-            )
-        );
+        let data2 = [];
+        if (Array.isArray(img_url) && img_url.length > 0) {
+            const validImgUrl = img_url.filter((url) => url); // 유효한 URL만 추출
+            data2 = await Promise.all(
+                validImgUrl.map((url) =>
+                    Image.create({
+                        image_url: url,
+                        auction_product_id: data1.auction_product_id,
+                    })
+                )
+            );
+        }
+        const result = { data1, data2 };
+        return result;
     };
     getAuctionProduct = async (auction_product_id) => {
         const data1 = await Auction_product.findOne({
@@ -130,11 +147,11 @@ class ProductRepositoty {
         product_buy_now_price,
         product_start,
         product_end,
-        category
+        category,
+        img_url
     ) => {
-        await General_product.update(
+        const data1 = await Auction_product.update(
             {
-                auction_product_id: auction_product_id,
                 product_name: product_name,
                 product_content: product_content,
                 product_start_price: product_start_price,
@@ -146,14 +163,23 @@ class ProductRepositoty {
             },
             { where: { auction_product_id: auction_product_id } }
         );
-        const data = await Promise.all(
-            img_url.map((url) =>
-                Image.update({
-                    image_url: url,
-                    auction_product_id: auction_product_id,
-                })
-            )
-        );
+        await Image.destroy({
+            where: { auction_product_id: auction_product_id },
+        });
+        let data2 = [];
+        if (Array.isArray(img_url) && img_url.length > 0) {
+            const validImgUrl = img_url.filter((url) => url); // 유효한 URL만 추출
+            data2 = await Promise.all(
+                validImgUrl.map((url) =>
+                    Image.create({
+                        image_url: url,
+                        auction_product_id: auction_product_id,
+                    })
+                )
+            );
+        }
+        const result = { data1, data2 };
+        return result;
     };
     auctionProductDelete = async (auction_product_id) => {
         await Auction_product.destroy({
@@ -386,4 +412,4 @@ class ProductRepositoty {
     };
 }
 
-module.exports = ProductRepositoty;
+module.exports = ProductRepository;

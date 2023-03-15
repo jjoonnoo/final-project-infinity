@@ -1,49 +1,41 @@
-const signUpButton = document.getElementById('signUp');
-const signInButton = document.getElementById('signIn');
-const container = document.getElementById('container');
-
-signUpButton.addEventListener('click', () => {
-    container.classList.add('right-panel-active');
-});
-
-signInButton.addEventListener('click', () => {
-    container.classList.remove('right-panel-active');
-});
-
 // form and Ajax
 
 function login() {
-    let user_email = $('#email').val();
-    let user_password = $('#password').val();
-
-    if (!email || !password) {
+    let user_email = $('#email2').val();
+    let user_password = $('#password2').val();
+    const user_agent = navigator.userAgent;
+    if (!user_email || !user_password) {
         // return customAlert("이메일과 패스워드를 넣어주세요");
-        return alert('이메일, 패스워드 모두 채워주세요 ');
+        alert('이메일, 패스워드 모두 채워주세요 ');
+    } else {
+        $.ajax({
+            type: 'POST',
+            url: '/api/auth/signin',
+            headers: {
+                'x-user-agent': user_agent, // User-Agent 헤더에 userAgent 정보를 담아서 보냅니다.
+            },
+            data: {
+                email: user_email,
+                password: user_password,
+            },
+            success: function (response) {
+                localStorage.setItem(response.access_token, 'access_token');
+                localStorage.setItem(response.refresh_token, 'refresh_token');
+                // alert(response.msg);
+                // window.location.href = '/'; // 메인페이지
+                alert(response.msg);
+            },
+            error: function (error) {
+                alert(error.responseJSON.msg);
+            },
+        });
     }
-
-    console.log(user_email, user_password);
-
-    $.ajax({
-        type: 'POST',
-        url: 'auth/signin',
-        data: {
-            email: user_email,
-            password: user_password,
-        },
-        success: function (response) {
-            alert('로그인 완료!');
-            window.location.replace('/auth/login'); // 메인페이지
-        },
-        error: function (response) {
-            alert('메일 혹은 아이디가 다릅니다');
-        },
-    });
 }
 
 function register() {
     let user_name = $('#name').val();
-    let user_email = $('#email').val();
-    let user_password = $('#password').val();
+    let user_email = $('#email1').val();
+    let user_password = $('#password1').val();
     let user_repassword = $('#repassword').val();
     let user_address = $('address').val();
     let user_phone = $('#phone').val();
@@ -56,7 +48,7 @@ function register() {
 
     $.ajax({
         type: 'POST',
-        url: '/auth/signup',
+        url: '/api/auth/signup',
         data: {
             name: user_name,
             password: user_password,
@@ -74,4 +66,8 @@ function register() {
             alert('에러가 났습니다');
         },
     });
+}
+function logout() {
+    window.localStorage.clear();
+    window.location.href = '/';
 }

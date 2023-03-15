@@ -1,7 +1,6 @@
 // getProducts(1);
 // getAuctionProducts(1);
 // getGeneralProducts(1)
-
 function getProducts(page) {
     let url = `/search`;
     let searchkeyword = document.getElementById('searchkeyword').value;
