@@ -95,7 +95,6 @@ class SearchController {
 
     autocomplete = async (req, res, next) => {
         const { query } = req.query;
-        console.log(query);
         try {
             const autocomplete = await this.searchService.autocomplete(query);
             let autocompletes = autocomplete.AuctionProducts.concat(
@@ -103,6 +102,17 @@ class SearchController {
             );
             return res.status(200).json({
                 data: autocompletes,
+            });
+        } catch (error) {
+            res.status(404).json({ errorMessage: error.message });
+        }
+    };
+
+    productEndSoon = async (req, res, next) => {
+        try {
+            const productEndSoon = await this.searchService.productEndSoon();
+            return res.status(200).json({
+                data: productEndSoon,
             });
         } catch (error) {
             res.status(404).json({ errorMessage: error.message });

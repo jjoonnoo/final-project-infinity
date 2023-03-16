@@ -3,6 +3,7 @@ const { Auction_product } = require('../models');
 const sequelize = require('sequelize');
 const Op = sequelize.Op;
 const { Image } = require('../models');
+const moment = require('moment');
 
 class SearchRepository {
     searchList = async (limit, offset, searchkeyword) => {
@@ -348,23 +349,24 @@ class SearchRepository {
 
     recommendProducts = async () => {
         const today = new Date(new Date().getTime() + 9 * 60 * 60 * 1000);
+        const timezoneOffset = today.getTimezoneOffset() * 60 * 1000;
         const startOfDay = new Date(
             today.getFullYear(),
             today.getMonth(),
             today.getDate(),
-            9,
             0,
             0,
-            0
+            0,
+            0 - timezoneOffset
         );
         const endOfDay = new Date(
             today.getFullYear(),
             today.getMonth(),
             today.getDate(),
-            32,
+            23,
             59,
             59,
-            999
+            999 - timezoneOffset
         );
         const endOfHour = new Date(today.getTime() + 60 * 60 * 1000);
         console.log(today, startOfDay, endOfDay, endOfHour);
@@ -474,6 +476,21 @@ class SearchRepository {
 
         const autocomplete = { AuctionProducts, GeneralProducts };
         return autocomplete;
+    };
+
+    productEndSoon = async () => {
+        const productEndSoon = await Auction_product.findAll({
+            where: {
+                product_end: {
+                    [Op.between]: [
+                        new Date(),
+                        new Date(Date.now() + 1000 * 60 * 1000),
+                    ],
+                },
+            },
+        });
+        console.log(productEndSoon);
+        return productEndSoon;
     };
 }
 

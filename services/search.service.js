@@ -49,5 +49,11 @@ class SearchService {
 
         return autocomplete;
     };
+
+    productEndSoon = async () => {
+        const productEndSoon = await this.searchRepository.productEndSoon();
+
+        return productEndSoon;
+    };
 }
 module.exports = SearchService;

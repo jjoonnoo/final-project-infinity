@@ -377,3 +377,8 @@ function selectAutocompleteResult(product_name) {
     document.getElementById('searchkeyword').value = product_name;
     document.getElementById('autocomplete-results').innerHTML = '';
 }
+
+const socket = io();
+socket.on('customEventName', (data) => {
+    console.log(data);
+});
