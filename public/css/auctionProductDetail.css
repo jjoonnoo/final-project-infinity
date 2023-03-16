@@ -72,10 +72,14 @@
 }
 
 /* 본문 CSS */
+.all_region {
+    overflow-y: scroll;
+}
+
 .product_region {
     width: 800px;
-    margin-left: auto;
-    margin-right: auto;
+    height: 600px;
+    margin-left: 280px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -83,18 +87,15 @@
 
 .product_area {
     margin-left: 30px;
+    height: 500px;
 }
 
 .button_region {
-    width: 800px;
+    width: 470px;
     margin-top: 20px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.button_area {
-    margin-left: 180px;
+    margin-left: 480px;
     margin-bottom: 50px;
+    text-align: center;
 }
 
 #countdown {
@@ -104,13 +105,14 @@
     font-weight: bolder;
 }
 
-.button_1 {
+#btn1 {
     width: 150px;
     height: 50px;
     border: none;
     font-size: 20px;
     font-weight: bolder;
     background-color: antiquewhite;
+    margin-left: 50px;
 }
 
 .openBtnBid {
@@ -122,19 +124,48 @@
     background-color: antiquewhite;
 }
 
-.openBtn {
-    width: 150px;
-    height: 50px;
-    border: none;
-    font-size: 20px;
+.a_tag {
+    margin-left: 100px;
+    width: 1200px;
+}
+
+.category {
     font-weight: bolder;
-    background-color: antiquewhite;
+}
+
+.openBtn {
+    font-size: 15px;
+    font-weight: bolder;
+    margin-left: 980px;
+}
+
+.a_tag a {
+    text-decoration-line: none;
+    color: black;
 }
 
 #purchase_btn {
-    background-color: green;
     float: left;
     margin-right: 7px;
+}
+
+.product_name_css {
+    position: relative;
+    bottom: 50px;
+    height: 100px;
+}
+
+.product_area .product_name {
+    font-size: 40px;
+    font-weight: bolder;
+    position: relative;
+    bottom: 20px;
+}
+
+.product_info_css {
+    position: relative;
+    bottom: 20px;
+    height: 150px;
 }
 
 /* 채팅창 CSS */
