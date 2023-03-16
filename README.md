@@ -33,8 +33,12 @@
 +---seeders
 +---services
 +---views
+    +---cart
     +---layouts
+    +---mypage
     +---partials
+    +---productDetail
+    +---purchase
 ```
 # HTTP CODE
 - **200 OK요청이 성공적으로 되었다.**
