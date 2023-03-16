@@ -1,43 +1,50 @@
+
+const signUpButton = document.getElementById('signUp');
+const signInButton = document.getElementById('signIn');
+const container = document.getElementById('container');
+
+signUpButton.addEventListener('click', () => {
+    container.classList.add('right-panel-active');
+});
+
+signInButton.addEventListener('click', () => {
+    container.classList.remove('right-panel-active');
+});
+
 // form and Ajax
 
 function login() {
-    let user_email = $('#email2').val();
-    let user_password = $('#password2').val();
-    const user_agent = navigator.userAgent;
-    if (!user_email || !user_password) {
-        // return customAlert("이메일과 패스워드를 넣어주세요");
-        alert('이메일, 패스워드 모두 채워주세요 ');
-    } else {
-        $.ajax({
-            type: 'POST',
-            url: '/api/auth/signin',
-            headers: {
-                'x-user-agent': user_agent, // User-Agent 헤더에 userAgent 정보를 담아서 보냅니다.
-            },
-            data: {
-                email: user_email,
-                password: user_password,
-            },
-            success: function (response) {
-                localStorage.setItem(response.access_token, 'access_token');
-                localStorage.setItem(response.refresh_token, 'refresh_token');
-                // alert(response.msg);
-                // window.location.href = '/'; // 메인페이지
-                alert(response.msg);
-            },
-            error: function (error) {
-                alert(error.responseJSON.msg);
-            },
-        });
-    }
+    let user_email = $('#login_email').val();
+    let user_password = $('#login_password').val();
+
+    // if (!email || !password) {
+    //   return alert('이메일, 패스워드 모두 채워주세요 ')
+    // }
+
+    $.ajax({
+        type: 'POST',
+        url: '/api/auth/signin',
+        data: {
+            email: user_email,
+            password: user_password,
+        },
+
+        success: function (response) {
+            alert('로그인 완료!');
+            window.location.assign('/'); // 메인페이지
+        },
+        error: function (response) {
+            alert('메일 혹은 아이디가 다릅니다');
+        },
+    });
 }
 
 function register() {
     let user_name = $('#name').val();
-    let user_email = $('#email1').val();
-    let user_password = $('#password1').val();
+    let user_email = $('#email').val();
+    let user_password = $('#password').val();
     let user_repassword = $('#repassword').val();
-    let user_address = $('address').val();
+    let user_address = $('#address').val();
     let user_phone = $('#phone').val();
 
     console.log(user_password, user_repassword);
