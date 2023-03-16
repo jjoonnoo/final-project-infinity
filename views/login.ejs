@@ -6,25 +6,18 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Login&SignUp</title>
         <link rel="stylesheet" href="../css/login.css" />
-
-        <script
-            src="https://kit.fontawesome.com/955d830b21.js"
-            crossorigin="anonymous"
-        ></script>
-        <script type="text/javascript" src="../js/login.js"></script>
-        <!-- jquery -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     </head>
     <body>
         <div class="container" id="container">
             <div class="form-container sign-up-container">
-                <div action="#">
+                <form>
                     <div class="input-container">
                         <input type="text" id="name" placeholder="Name" />
-                        <input type="email" id="email1" placeholder="Email" />
+                        <input type="email" id="email" placeholder="Email" />
                         <input
                             type="password"
-                            id="password1"
+                            id="password"
                             placeholder="Password"
                         />
                         <input
@@ -40,24 +33,23 @@
                         <input type="text" id="phone" placeholder="Phone" />
                     </div>
                     <button id="signup" onclick="register()">Submit</button>
-                </div>
+                </form>
             </div>
             <div class="form-container sign-in-container">
-                <div action="#">
+                <div id="login_form">
                     <h1>Sign in</h1>
-                    <div class="social-container">
-                        <a href="#" class="social"
-                            ><i class="fab fa-google-plus-g"></i
-                        ></a>
-                    </div>
-                    <span>or use your account</span>
-                    <input type="email" id="email2" placeholder="Email" />
+                    <!-- <div class="social-container"> -->
+                    <!-- <i class="fab fa-google-plus-g"></i> -->
+                    <!-- <a href="#" class="social"><i class="fa-sharp fa-regular fa-key"></i></i></a> -->
+                    <!-- </div> -->
+                    <!-- <span>or use your account</span> -->
+                    <input type="email" id="login_email" placeholder="Email" />
                     <input
                         type="password"
-                        id="password2"
+                        id="login_password"
                         placeholder="Password"
                     />
-                    <button onclick="login()">Sign In</button>
+                    <button id="login_button" onclick="login()">Sign In</button>
                 </div>
             </div>
             <div class="overlay-container">
@@ -76,17 +68,5 @@
             </div>
         </div>
     </body>
-    <script>
-        const signUpButton = document.getElementById('signUp');
-        const signInButton = document.getElementById('signIn');
-        const container = document.getElementById('container');
-
-        signUpButton.addEventListener('click', () => {
-            container.classList.add('right-panel-active');
-        });
-
-        signInButton.addEventListener('click', () => {
-            container.classList.remove('right-panel-active');
-        });
-    </script>
+    <script type="text/javascript" src="/js/login.js"></script>
 </html>

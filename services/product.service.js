@@ -128,13 +128,13 @@ class ProductService {
         return data;
     };
 
-    generalProductreport = async ({
+    generalProductReport = async ({
         user_id,
         general_product_id,
         title,
         content,
     }) => {
-        const data = await this.productRepository.generalProductreport({
+        const data = await this.productRepository.generalProductReport({
             user_id,
             general_product_id,
             title,
@@ -296,23 +296,35 @@ class ProductService {
         bidder_id,
         auction_product_id,
         product_update_price,
+        product_end,
     }) => {
-        const data = await this.productRepository.auctionProductPriceUpdate({
+        await this.productRepository.auctionProductPriceUpdate({
             bidder_id,
             auction_product_id,
             product_update_price,
+            product_end,
         });
-
-        return data;
     };
 
-    auctionProductPurchase = async (auction_product_id, user_id) => {
-        const data = await this.productRepository.auctionProductPurchase(
+    auctionProductPurchaseNowFind = async (auction_product_id, user_id) => {
+        const data = await this.productRepository.auctionProductPurchaseNowFind(
             auction_product_id,
             user_id
         );
 
         return data;
+    };
+
+    auctionProductPurchaseNow = async ({
+        user_id,
+        auction_product_id,
+        product_buy_now_price,
+    }) => {
+        await this.productRepository.auctionProductPurchaseNow({
+            user_id,
+            auction_product_id,
+            product_buy_now_price,
+        });
     };
 }
 

@@ -5,10 +5,12 @@ $(document).ready(function () {
 function generalProductCart() {
     $.ajax({
         type: 'GET',
-        url: '/api/carts/general',
+        url: '/api/carts/find',
         data: {},
         success: function (response) {
             const rows = response['data'];
+
+            document.getElementById('cart_count').innerHTML = `${rows.length}`;
 
             cartSum();
 
@@ -29,8 +31,10 @@ function generalProductCart() {
                 let product_name = rows[i].General_product.product_name;
                 let product_content = rows[i].General_product.product_content;
                 let product_price = rows[i].General_product.product_price;
+                const product_price_convert = product_price.toLocaleString();
                 let product_quantity = rows[i].product_quantity;
                 let total = product_price * product_quantity;
+                const total_convert = total.toLocaleString();
 
                 let temp_html = `
                           <table>
@@ -40,12 +44,12 @@ function generalProductCart() {
                               </td>
                               <td>
                                 <div class="cart-info">
-                                  <a href="/product/general/${general_product_id}">
+                                  <a href="/general/${general_product_id}">
                                   <img src="${product_image}" width="100">
                                   <div class="pro_info">
                                     <p>${product_name}</p>
                                     <small>${product_content}</small><br>                                   
-                                    <small>판매가 ${product_price}원</small>
+                                    <small>판매가 ${product_price_convert}원</small>
                                     <br>
                                     <a href="#" id=${general_product_id} class="tt" onclick="cartDeleteBtn(this.id)"><small>삭제</small></a>
                                   </div>                                                        
@@ -56,7 +60,7 @@ function generalProductCart() {
                                 <button class="changeBtn" value=${general_product_id}>수량 변경</button>                             
                               </td>
                               <td>
-                                ${total} 원                                 
+                                ${total_convert} 원                                 
                               </td>
                             </tr>
                           </table>
@@ -95,6 +99,7 @@ function selectAll(selectAll) {
     checked_product_id = [];
     checked_quantity = [];
     product_total = Number();
+
     let len = $("input[name='cart']:checked").length;
     let delivery = 0;
 
@@ -105,6 +110,7 @@ function selectAll(selectAll) {
             checked_product_id.push(division[1]);
             checked_quantity.push(division[2]);
             delivery = 2500;
+            delivery_convert = delivery.toLocaleString();
         });
     }
 
@@ -115,27 +121,31 @@ function selectAll(selectAll) {
     }
 
     product_total = sum;
+    product_total_convert = product_total.toLocaleString();
 
     let final_total = product_total + delivery;
+    final_total_covert = final_total.toLocaleString();
 
     $('#reload_table').remove();
     let temp_html = `
                         <table id="reload_table">
+                          <div class="frame">
                           <tr>
-                            <td>총 상품 가격</td>
-                            <td>${product_total}원</td>
+                            <td bgcolor="#a5a4a2"><font color="white">총 상품 가격</font></td>
+                            <td>${product_total_convert}원</td>
+                          </tr>                
+                          <tr>
+                            <td bgcolor="#a5a4a2"><font color="white">배송비<hr></font></td>
+                            <td>${delivery_convert}원<hr></td>
                           </tr>
                           <tr>
-                            <td>배송비</td>
-                            <td>${delivery}원</td>
+                            <td bgcolor="#a5a4a2"><font color="white">총 주문 금액</font></td>
+                            <td>${final_total_covert}원</td> 
                           </tr>
-                          <tr>
-                            <td>총 주문 금액</td>
-                            <td>${final_total}원</td> 
-                          </tr>
+                          </div>
                           <tr>
                             <td>
-                              <button type="button" onclick="cartPurchaseBtn()">구매하기</button>
+                              <button class="purchase_btn" type="button" onclick="cartPurchaseBtn()">구매하기</button>
                             </td>
                           </tr>
                         </table>
@@ -150,6 +160,8 @@ function cartSum() {
     checked_product_id = [];
     checked_quantity = [];
     product_total = Number();
+    let delivery_convert = 0;
+
     let len = $("input[name='cart']:checked").length;
     let delivery = 0;
 
@@ -160,6 +172,7 @@ function cartSum() {
             checked_product_id.push(division[1]);
             checked_quantity.push(division[2]);
             delivery = 2500;
+            delivery_convert = delivery.toLocaleString();
         });
     }
 
@@ -170,27 +183,32 @@ function cartSum() {
     }
 
     product_total = sum;
+    product_total_convert = product_total.toLocaleString();
 
     let final_total = product_total + delivery;
+
+    final_total_covert = final_total.toLocaleString();
 
     $('#reload_table').remove();
     let temp_html = `
                         <table id="reload_table">
+                          <div class="frame">
                           <tr>
-                            <td>총 상품 가격</td>
-                            <td>${product_total}원</td>
+                            <td bgcolor="#a5a4a2"><font color="white">총 상품 가격</font></td>
+                            <td>${product_total_convert}원</td>
+                          </tr>                
+                          <tr>
+                            <td bgcolor="#a5a4a2"><font color="white">배송비<hr></font></td>
+                            <td>${delivery_convert}원<hr></td>
                           </tr>
                           <tr>
-                            <td>배송비</td>
-                            <td>${delivery}원</td>
+                            <td bgcolor="#a5a4a2"><font color="white">총 주문 금액</font></td>
+                            <td>${final_total_covert}원</td> 
                           </tr>
-                          <tr>
-                            <td>총 주문 금액</td>
-                            <td>${final_total}원</td> 
-                          </tr>
+                          </div>
                           <tr>
                             <td>
-                              <button type="button" onclick="cartPurchaseBtn()">구매하기</button>
+                              <button class="purchase_btn" type="button" onclick="cartPurchaseBtn()">구매하기</button>
                             </td>
                           </tr>
                         </table>
@@ -220,7 +238,7 @@ function cartPurchaseBtn() {
 
     $.ajax({
         type: 'POST',
-        url: '/api/carts/general',
+        url: '/api/carts/purchase',
         data: {
             general_product_id: checked_product_id,
             product_quantity: checked_quantity,
@@ -245,7 +263,7 @@ function cartDeleteBtn(general_product_id) {
 
     $.ajax({
         type: 'DELETE',
-        url: '/api/carts/general',
+        url: '/api/carts/delete',
         data: { general_product_id: target_product_id },
         success: function (response) {
             alert(response['message']);
@@ -268,7 +286,7 @@ function changeQuantity(target) {
 
     $.ajax({
         type: 'PATCH',
-        url: '/api/carts/general',
+        url: '/api/carts/quantity',
         data: {
             general_product_id: target_product_id,
             product_quantity: input_quantity,

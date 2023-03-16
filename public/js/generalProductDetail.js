@@ -2,12 +2,12 @@ $(document).ready(function () {
     generalProductDetail();
 });
 
-general_product_id = location.pathname.split('/')[3];
+general_product_id = location.pathname.split('/')[2];
 
 function generalProductDetail() {
     $.ajax({
         type: 'GET',
-        url: `/products/general/detail/${general_product_id}`,
+        url: `/api/products/general/${general_product_id}`,
         data: {},
         success: function (response) {
             const rows = response['data'];
@@ -17,10 +17,6 @@ function generalProductDetail() {
                 return history.back();
             }
 
-            // console.log(rows);
-            // console.log(rows.Images);
-            // console.log(rows.Images[0].image_url);
-            // console.log(rows.Images[1].image_url)
             if (rows === null) {
                 alert('존재하지 않는 상품입니다.');
                 return history.back();
@@ -31,6 +27,7 @@ function generalProductDetail() {
             const product_name = rows.product_name;
             const product_content = rows.product_content;
             const product_price = rows.product_price;
+            const product_price_convert = product_price.toLocaleString();
             const category = rows.category;
 
             let temp_html = `
@@ -42,7 +39,7 @@ function generalProductDetail() {
                                     <p>등록자: ${seller}</p>
                                     <p>상품이름: ${product_name}</p>
                                     <p>상품내용: ${product_content}</p>
-                                    <p>상품가격: ${product_price}</p>
+                                    <p>상품가격: ${product_price_convert} 원</p>
                                     <p>카테고리: ${category}</p>
                                     <p>수량<input type=number min='1' id='quantity' value='1'>개</input></p>
                                 </div>
@@ -83,7 +80,7 @@ function cartBtn() {
 
     $.ajax({
         type: 'POST',
-        url: `/products/general/detail/${general_product_id}`,
+        url: `/api/products/cart/${general_product_id}`,
         data: { product_quantity: product_quantity },
         success: function (response) {
             alert(response['message']);
@@ -105,7 +102,7 @@ function reportBtn() {
 
     $.ajax({
         type: 'POST',
-        url: `/products/general/report/${general_product_id}`,
+        url: `/api/products/general/report/${general_product_id}`,
         data: { title: title, content: content },
         success: function (response) {
             alert(response['message']);

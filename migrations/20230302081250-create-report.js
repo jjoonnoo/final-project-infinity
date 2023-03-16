@@ -10,6 +10,7 @@ module.exports = {
                 type: Sequelize.INTEGER,
             },
             user_id: {
+                allowNull: false,
                 type: Sequelize.INTEGER,
             },
             general_product_id: {
@@ -19,9 +20,11 @@ module.exports = {
                 type: Sequelize.INTEGER,
             },
             title: {
+                allowNull: false,
                 type: Sequelize.STRING,
             },
             content: {
+                allowNull: false,
                 type: Sequelize.STRING,
             },
             createdAt: {

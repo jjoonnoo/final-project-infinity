@@ -5,22 +5,22 @@ const ProductController = require('../controllers/product.controller');
 const productController = new ProductController();
 
 router.get(
-    '/general',
+    '/find',
     /*  authMiddleware, */ productController.generalProductFindCart
 );
 
 router.post(
-    '/general',
+    '/purchase',
     /*  authMiddleware, */ productController.generalProductPurchase
 );
 
 router.patch(
-    '/general',
+    '/quantity',
     /*  authMiddleware, */ productController.generalProductChangeQuantity
 );
 
 router.delete(
-    '/general',
+    '/delete',
     /*  authMiddleware, */ productController.generalProductDeleteCart
 );
 

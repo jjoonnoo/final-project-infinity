@@ -42,6 +42,7 @@ module.exports = (sequelize, DataTypes) => {
             bidder_id: DataTypes.INTEGER,
             product_start: DataTypes.DATE,
             product_end: DataTypes.DATE,
+            bid_count: DataTypes.INTEGER,
             category: DataTypes.STRING,
         },
         {
