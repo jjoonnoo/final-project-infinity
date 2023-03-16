@@ -40,7 +40,7 @@ function register() {
     let user_address = $('address').val();
     let user_phone = $('#phone').val();
 
-    console.log(user_password, user_repassword);
+    // console.log(user_password, user_repassword);
 
     if (user_password !== user_repassword) {
         return alert('동일한 패스워드를 입력하세요');

@@ -17,9 +17,9 @@ function generalProductDetail() {
                 return history.back();
             }
 
-            console.log(rows);
-            console.log(rows.Images);
-            console.log(rows.Images[0].image_url);
+            // console.log(rows);
+            // console.log(rows.Images);
+            // console.log(rows.Images[0].image_url);
             // console.log(rows.Images[1].image_url)
             if (rows === null) {
                 alert('존재하지 않는 상품입니다.');

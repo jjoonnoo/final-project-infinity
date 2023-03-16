@@ -68,7 +68,6 @@ class AuthController {
                 deviceAliasCode: false,
             });
             const user_device_type = detector.detect(user_agent).device['type'];
-            console.log(user_device_type);
             const user = await this.auth_service.findByEmail(email);
             const passwordTest = await bcrypt.compare(password, user.password);
             // const ip = "112.184.163.168" 내 아이피주소
