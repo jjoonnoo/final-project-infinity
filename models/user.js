@@ -33,6 +33,9 @@ module.exports = (sequelize, DataTypes) => {
             models.User.hasOne(models.Auction_order, {
                 foreignKey: 'user_id',
             });
+            models.User.hasMany(models.Login_session, {
+                foreignKey: 'user_id',
+            });
         }
     }
     User.init(

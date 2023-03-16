@@ -6,33 +6,67 @@ class ProductController {
     generalProductRegist = async (req, res) => {
         try {
             // const user_id = res.locals.user.user_id
-            const { product_name, product_content, product_price, category } =
-                req.body;
+            const user_id = 99;
+            const {
+                product_name,
+                product_content,
+                product_price,
+                category,
+                img_url,
+            } = req.body;
             await this.productService.generalProductRegist(
                 user_id,
                 product_name,
                 product_content,
                 product_price,
-                category
+                category,
+                img_url
             );
             res.status(201).json({ message: 'succesfully regist' });
         } catch (error) {
             res.status(400).json({ message: error.message });
         }
     };
+    getGeneralProduct = async (req, res) => {
+        try {
+            const { general_product_id } = req.params;
+            const data = await this.productService.getGeneralProduct(
+                general_product_id
+            );
+            res.status(200).json({ data });
+        } catch (error) {
+            res.status(404).json({ message: '오류' });
+        }
+    };
     generalProductModify = async (req, res) => {
         try {
+            const { general_product_id } = req.params;
             // const user_id = res.locals.user.user_id
-            const { product_name, product_content, product_price, category } =
-                req.body;
-            await this.productService.generalProductModify(
-                user_id,
+            const {
                 product_name,
                 product_content,
                 product_price,
-                category
+                category,
+                img_url,
+            } = req.body;
+            await this.productService.generalProductModify(
+                general_product_id,
+                product_name,
+                product_content,
+                product_price,
+                category,
+                img_url
             );
             res.status(200).json({ message: 'successfully modify' });
+        } catch (error) {
+            res.status(400).json({ message: error.message });
+        }
+    };
+    generalProductDelete = async (req, res) => {
+        try {
+            const { general_product_id } = req.params;
+            await this.productService.generalProductDelete(general_product_id);
+            res.status(200).json({ message: 'successfully delete' });
         } catch (error) {
             res.status(400).json({ message: error.message });
         }
@@ -40,6 +74,7 @@ class ProductController {
     auctionProductRegist = async (req, res) => {
         try {
             // const user_id = res.locals.user.user_id
+            const user_id = 99;
             const {
                 product_name,
                 product_content,
@@ -48,6 +83,7 @@ class ProductController {
                 product_start,
                 product_end,
                 category,
+                img_url,
             } = req.body;
             await this.productService.auctionProductRegist(
                 user_id,
@@ -57,17 +93,29 @@ class ProductController {
                 product_buy_now_price,
                 product_start,
                 product_end,
-                category
+                category,
+                img_url
             );
             res.status(201).json({ message: 'succesfully regist' });
         } catch (error) {
             res.status(400).json({ message: error.message });
         }
     };
+    getAuctionProduct = async (req, res) => {
+        try {
+            const { auction_product_id } = req.params;
+            const data = await this.productService.getAuctionProduct(
+                auction_product_id
+            );
+            res.status(200).json({ data });
+        } catch (error) {
+            res.status(404).json({ message: '오류' });
+        }
+    };
     auctionProductModify = async (req, res) => {
         try {
+            const { auction_product_id } = req.params;
             const {
-                auction_product_id,
                 product_name,
                 product_content,
                 product_start_price,
@@ -75,6 +123,7 @@ class ProductController {
                 product_start,
                 product_end,
                 category,
+                img_url,
             } = req.body;
             await this.productService.auctionProductModify(
                 auction_product_id,
@@ -84,27 +133,38 @@ class ProductController {
                 product_buy_now_price,
                 product_start,
                 product_end,
-                category
+                category,
+                img_url
             );
             res.status(200).json({ message: 'successfully modify' });
         } catch (error) {
             res.status(400).json({ message: error.message });
         }
     };
-    findMyProduct = async (res) => {
+    auctionProductDelete = async (req, res) => {
+        try {
+            const { auction_product_id } = req.params;
+            await this.productService.auctionProductDelete(auction_product_id);
+            res.status(200).json({ message: 'successfully delete' });
+        } catch (error) {
+            res.status(400).json({ message: error.message });
+        }
+    };
+    findMyProduct = async (req, res) => {
         try {
             // const user_id = res.locals.user.user_id
-            const data = this.productService.findMyProduct(user_id);
-            res.status(200).json(data);
+            const user_id = 99;
+            const data = await this.productService.findMyProduct(user_id);
+            res.status(200).json({ data });
         } catch (error) {
-            res.status(404).json({ message: error.message });
+            res.status(404).json({ message: '오류' });
         }
     };
 
-    findOneProduct = async (req, res) => {
+    generalProductFind = async (req, res) => {
         try {
             const { general_product_id } = req.params;
-            const data = await this.productService.findOneProduct(
+            const data = await this.productService.generalProductFind(
                 general_product_id
             );
 
@@ -114,14 +174,14 @@ class ProductController {
         }
     };
 
-    productAddCart = async (req, res) => {
+    generalProductAddCart = async (req, res) => {
         try {
             // const user_id = res.locals.user.user_id
-            const user_id = 99;
+            const user_id = 98;
             const { general_product_id } = req.params;
             const { product_quantity } = req.body;
 
-            const data = await this.productService.productAddCart({
+            const data = await this.productService.generalProductAddCart({
                 user_id,
                 general_product_id,
                 product_quantity,
@@ -133,14 +193,14 @@ class ProductController {
         }
     };
 
-    reportProduct = async (req, res) => {
+    generalProductreport = async (req, res) => {
         try {
             // const user_id = res.locals.user.user_id
             const user_id = 99;
             const { general_product_id } = req.params;
             const { title, content } = req.body;
 
-            const data = await this.productService.reportProduct({
+            const data = await this.productService.generalProductreport({
                 user_id,
                 general_product_id,
                 title,
@@ -152,18 +212,147 @@ class ProductController {
             res.status(500).json({ message: error.message });
         }
     };
-    //   auctionProductService = new AuctionProductService
 
-    //   findOneProduct = async (req, res) => {
-    //     try {
-    //       const { auction_product_id } = req.params
-    //       const data = await this.auctionProductService.findOneProduct({ auction_product_id })
+    generalProductFindCart = async (req, res) => {
+        console.log('도착');
+        try {
+            // const user_id = res.locals.user.user_id
+            const user_id = 98;
+            const data = await this.productService.generalProductFindCart(
+                user_id
+            );
 
-    //       res.status(200).json({ data })
-    //     } catch (error) {
-    //       res.status(500).json({ message: error.message })
-    //     }
-    //   }
+            res.status(200).json({ data });
+        } catch (error) {
+            res.status(500).json({ message: error.message });
+        }
+    };
+
+    generalProductPurchase = async (req, res) => {
+        try {
+            // const user_id = res.locals.user.user_id
+            const user_id = 98;
+            const { general_product_id } = req.body;
+            const { product_quantity } = req.body;
+
+            const data = await this.productService.generalProductPurchase({
+                user_id,
+                general_product_id,
+                product_quantity,
+            });
+
+            res.status(201).json({ message: '구입이 완료되었습니다.' });
+        } catch (error) {
+            res.status(500).json({ message: error.message });
+        }
+    };
+
+    generalProductChangeQuantity = async (req, res) => {
+        try {
+            // const user_id = res.locals.user.user_id
+            const user_id = 98;
+            const { general_product_id } = req.body;
+            const { product_quantity } = req.body;
+
+            const data = await this.productService.generalProductChangeQuantity(
+                {
+                    user_id,
+                    general_product_id,
+                    product_quantity,
+                }
+            );
+
+            res.status(201).json({ message: '수량을 변경했습니다.' });
+        } catch (error) {
+            res.status(500).json({ message: error.message });
+        }
+    };
+
+    generalProductDeleteCart = async (req, res) => {
+        try {
+            // const user_id = res.locals.user.user_id
+            const user_id = 98;
+            const { general_product_id } = req.body;
+
+            const data = await this.productService.generalProductDeleteCart({
+                user_id,
+                general_product_id,
+            });
+
+            res.status(201).json({ message: '상품을 삭제했습니다.' });
+        } catch (error) {
+            res.status(500).json({ message: error.message });
+        }
+    };
+
+    auctionProductFind = async (req, res) => {
+        try {
+            const { auction_product_id } = req.params;
+            const data = await this.productService.auctionProductFind(
+                auction_product_id
+            );
+
+            res.status(200).json({ data });
+        } catch (error) {
+            res.status(500).json({ message: error.message });
+        }
+    };
+
+    auctionProductReport = async (req, res) => {
+        try {
+            // const user_id = res.locals.user.user_id
+            const user_id = 98;
+            const { auction_product_id } = req.params;
+            const { title, content } = req.body;
+
+            const data = await this.productService.auctionProductReport({
+                user_id,
+                auction_product_id,
+                title,
+                content,
+            });
+
+            res.status(201).json({ message: '신고가 완료되었습니다.' });
+        } catch (error) {
+            res.status(500).json({ message: error.message });
+        }
+    };
+
+    auctionProductPriceUpdate = async (req, res) => {
+        try {
+            // const user_id = res.locals.user.user_id
+            const user_id = 98;
+            const bidder_id = user_id;
+            const { auction_product_id } = req.params;
+            const { product_update_price } = req.body;
+
+            const data = await this.productService.auctionProductPriceUpdate({
+                bidder_id,
+                auction_product_id,
+                product_update_price,
+            });
+
+            res.status(201).json({ message: '입찰 등록이 됐습니다.' });
+        } catch (error) {
+            res.status(500).json({ message: error.message });
+        }
+    };
+
+    auctionProductPurchase = async (req, res) => {
+        // const user_id = res.locals.user.user_id
+        const user_id = 98;
+        try {
+            const { auction_product_id } = req.params;
+            const data = await this.productService.auctionProductPurchase(
+                auction_product_id,
+                user_id
+            );
+
+            res.status(200).json({ data });
+        } catch (error) {
+            res.status(500).json({ message: error.message });
+        }
+    };
 }
 
 module.exports = ProductController;

@@ -5,51 +5,92 @@ const {
     Cart,
     Report,
     User,
+    Image,
+    General_order_info,
+    General_order,
 } = require('../models');
-// const Sequelize = require('sequelize')
-// require('dotenv') = process.env
-// const sequelize = new Sequelize()
 
-class ProductRepositoty {
+class ProductRepository {
     generalProductRegist = async (
         user_id,
         product_name,
         product_content,
         product_price,
-        category
+        category,
+        img_url
     ) => {
-        try {
-            await General_product.create({
-                user_id: user_id,
-                product_name: product_name,
-                product_content: product_content,
-                product_price: product_price,
-                category: category,
-            });
-        } catch (error) {
-            throw error;
+        const data1 = await General_product.create({
+            user_id: user_id,
+            product_name: product_name,
+            product_content: product_content,
+            product_price: product_price,
+            category: category,
+        });
+        let data2 = [];
+        if (Array.isArray(img_url) && img_url.length > 0) {
+            const validImgUrl = img_url.filter((url) => url); // 유효한 URL만 추출
+            data2 = await Promise.all(
+                validImgUrl.map((url) =>
+                    Image.create({
+                        image_url: url,
+                        general_product_id: data1.general_product_id,
+                    })
+                )
+            );
         }
+        const result = { data1, data2 };
+        return result;
+    };
+    getGeneralProduct = async (general_product_id) => {
+        const data1 = await General_product.findOne({
+            where: { general_product_id: general_product_id },
+        });
+        const data2 = await Image.findAll({
+            where: { general_product_id: general_product_id },
+        });
+        const result = { data1, data2 };
+        return result;
     };
     generalProductModify = async (
         general_product_id,
         product_name,
         product_content,
         product_price,
-        category
+        category,
+        img_url
     ) => {
-        try {
-            await General_product.update(
-                {
-                    product_name: product_name,
-                    product_content: product_content,
-                    product_price: product_price,
-                    category: category,
-                },
-                { where: { general_product_id: general_product_id } }
+        const data1 = await General_product.update(
+            {
+                product_name: product_name,
+                product_content: product_content,
+                product_price: product_price,
+                category: category,
+            },
+            { where: { general_product_id: general_product_id } }
+        );
+        await Image.destroy({
+            where: { general_product_id: general_product_id },
+        });
+        let data2 = [];
+        if (Array.isArray(img_url) && img_url.length > 0) {
+            const validImgUrl = img_url.filter((url) => url); // 유효한 URL만 추출
+            data2 = await Promise.all(
+                validImgUrl.map((url) =>
+                    Image.create({
+                        image_url: url,
+                        general_product_id: data1.general_product_id,
+                    })
+                )
             );
-        } catch (error) {
-            throw error;
         }
+        const result = { data1, data2 };
+        return result;
+    };
+    generalProductDelete = async (general_product_id) => {
+        const data = await General_product.destroy({
+            where: { general_product_id: general_product_id },
+        });
+        return data;
     };
     auctionProductRegist = async (
         user_id,
@@ -59,23 +100,44 @@ class ProductRepositoty {
         product_buy_now_price,
         product_start,
         product_end,
-        category
+        category,
+        img_url
     ) => {
-        try {
-            await Auction_product.create({
-                user_id: user_id,
-                product_name: product_name,
-                product_content: product_content,
-                product_start_price: product_start_price,
-                product_buy_now_price: product_buy_now_price,
-                product_update_price: product_start_price,
-                product_start: product_start,
-                product_end: product_end,
-                category: category,
-            });
-        } catch (error) {
-            throw error;
+        const data1 = await Auction_product.create({
+            user_id: user_id,
+            product_name: product_name,
+            product_content: product_content,
+            product_start_price: product_start_price,
+            product_buy_now_price: product_buy_now_price,
+            product_update_price: product_start_price,
+            product_start: product_start,
+            product_end: product_end,
+            category: category,
+        });
+        let data2 = [];
+        if (Array.isArray(img_url) && img_url.length > 0) {
+            const validImgUrl = img_url.filter((url) => url); // 유효한 URL만 추출
+            data2 = await Promise.all(
+                validImgUrl.map((url) =>
+                    Image.create({
+                        image_url: url,
+                        auction_product_id: data1.auction_product_id,
+                    })
+                )
+            );
         }
+        const result = { data1, data2 };
+        return result;
+    };
+    getAuctionProduct = async (auction_product_id) => {
+        const data1 = await Auction_product.findOne({
+            where: { auction_product_id: auction_product_id },
+        });
+        const data2 = await Image.findAll({
+            where: { auction_product_id: auction_product_id },
+        });
+        const result = { data1, data2 };
+        return result;
     };
     auctionProductModify = async (
         auction_product_id,
@@ -85,59 +147,148 @@ class ProductRepositoty {
         product_buy_now_price,
         product_start,
         product_end,
-        category
+        category,
+        img_url
     ) => {
-        try {
-            await General_product.update(
-                {
-                    user_id: user_id,
-                    product_name: product_name,
-                    product_content: product_content,
-                    product_start_price: product_start_price,
-                    product_buy_now_price: product_buy_now_price,
-                    product_update_price: product_start_price,
-                    product_start: product_start,
-                    product_end: product_end,
-                    category: category,
-                },
-                { where: { auction_product_id: auction_product_id } }
+        const data1 = await Auction_product.update(
+            {
+                product_name: product_name,
+                product_content: product_content,
+                product_start_price: product_start_price,
+                product_buy_now_price: product_buy_now_price,
+                product_update_price: product_start_price,
+                product_start: product_start,
+                product_end: product_end,
+                category: category,
+            },
+            { where: { auction_product_id: auction_product_id } }
+        );
+        await Image.destroy({
+            where: { auction_product_id: auction_product_id },
+        });
+        let data2 = [];
+        if (Array.isArray(img_url) && img_url.length > 0) {
+            const validImgUrl = img_url.filter((url) => url); // 유효한 URL만 추출
+            data2 = await Promise.all(
+                validImgUrl.map((url) =>
+                    Image.create({
+                        image_url: url,
+                        auction_product_id: auction_product_id,
+                    })
+                )
             );
-        } catch (error) {
-            throw error;
         }
+        const result = { data1, data2 };
+        return result;
+    };
+    auctionProductDelete = async (auction_product_id) => {
+        await Auction_product.destroy({
+            where: { auction_product_id: auction_product_id },
+        });
     };
     findMyProduct = async (user_id) => {
-        try {
-            const data1 = await General_product.findAll({
-                where: { user_id: user_id },
+        const data1 = await General_product.findAll({
+            where: { user_id: user_id },
+        });
+        const data2 = await Auction_product.findAll({
+            where: { user_id: user_id },
+        });
+        const result = { data1, data2 };
+        return result;
+    };
+    generalProductFind = async (general_product_id) => {
+        const data = await General_product.findOne({
+            where: { general_product_id },
+            include: [
+                {
+                    model: Review,
+                    attributes: ['user_id', 'content', 'createdAt'],
+                    include: [
+                        {
+                            model: User,
+                            attributes: ['email'],
+                        },
+                    ],
+                },
+                {
+                    model: User,
+                    attributes: ['email'],
+                },
+                {
+                    model: Image,
+                    attributes: ['image_url'],
+                },
+            ],
+        });
+
+        return data;
+    };
+
+    generalProductAddCart = async ({
+        user_id,
+        general_product_id,
+        product_quantity,
+    }) => {
+        const exist_quantity = await Cart.findOne({
+            where: { user_id, general_product_id },
+            attributes: ['product_quantity'],
+        });
+
+        if (exist_quantity !== null) {
+            const add_quantity =
+                Number(product_quantity) + exist_quantity.product_quantity;
+
+            await Cart.update(
+                { product_quantity: add_quantity },
+                { where: { user_id, general_product_id } }
+            );
+        } else if (exist_quantity === null) {
+            const data = await Cart.create({
+                user_id,
+                general_product_id,
+                product_quantity,
             });
-            const data2 = await Auction_product.findAll({
-                where: { user_id: user_id },
-            });
-            const result = { data1, data2 };
-            return result;
-        } catch (error) {
-            throw error;
         }
     };
-    findOneProduct = async (general_product_id) => {
+
+    generalProductreport = async ({
+        user_id,
+        general_product_id,
+        title,
+        content,
+    }) => {
+        const data = await Report.create({
+            user_id,
+            general_product_id,
+            title,
+            content,
+        });
+
+        return data;
+    };
+
+    generalProductFindCart = async (user_id) => {
         try {
-            const data = await General_product.findOne({
-                where: { general_product_id },
+            const data = await Cart.findAll({
+                where: { user_id },
                 include: [
                     {
-                        model: Review,
-                        attributes: ['user_id', 'content', 'createdAt'],
-                        include: [
-                            {
-                                model: User,
-                                attributes: ['email'],
-                            },
-                        ],
+                        model: User,
+                        attributes: ['name', 'email', 'phone', 'address'],
                     },
                     {
-                        model: User,
-                        attributes: ['email'],
+                        model: General_product,
+                        attributes: [
+                            'product_name',
+                            'product_content',
+                            'product_price',
+                        ],
+                        include: [
+                            {
+                                model: Image,
+                                attributes: ['image_url'],
+                            },
+                        ],
                     },
                 ],
             });
@@ -148,47 +299,117 @@ class ProductRepositoty {
         }
     };
 
-    productAddCart = async ({
+    generalProductPurchase = async ({
         user_id,
         general_product_id,
         product_quantity,
     }) => {
-        // const te = await Cart.findAll()
-        // console.log(te)
+        await General_order.create({
+            user_id,
+        });
 
-        // if (a) {
-        //     console.log('이미 장바구니에 담긴 상품입니다.')
-        //     alert('이미 장바구니에 담긴 상품입니다.')
-        //     return window.location.reload()
-        // }
+        const { general_order_id } = await General_order.findOne({
+            where: { user_id },
+            attributes: ['general_order_id'],
+            order: [['general_order_id', 'desc']],
+        });
 
-        try {
-            const data = await Cart.create({
-                user_id,
-                general_product_id,
-                product_quantity,
+        for (let i = 0; i < general_product_id.length; i++) {
+            await General_order_info.create({
+                general_product_id: general_product_id[i],
+                general_order_id: general_order_id,
+                product_quantity: product_quantity[i],
             });
+        }
 
-            return data;
-        } catch (error) {
-            throw error;
+        for (let i = 0; i < general_product_id.length; i++) {
+            await Cart.destroy({
+                where: { user_id, general_product_id: general_product_id[i] },
+            });
         }
     };
 
-    reportProduct = async ({ user_id, general_product_id, title, content }) => {
-        try {
-            const data = await Report.create({
-                user_id,
-                general_product_id,
-                title,
-                content,
-            });
+    generalProductChangeQuantity = async ({
+        user_id,
+        general_product_id,
+        product_quantity,
+    }) => {
+        const data = await Cart.update(
+            { product_quantity },
+            { where: { user_id, general_product_id } }
+        );
+        return data;
+    };
 
-            return data;
-        } catch (error) {
-            throw error;
-        }
+    generalProductDeleteCart = async ({ user_id, general_product_id }) => {
+        const data = await Cart.destroy({
+            where: { user_id, general_product_id },
+        });
+        return data;
+    };
+
+    auctionProductFind = async (auction_product_id) => {
+        const data = await Auction_product.findOne({
+            where: { auction_product_id },
+            include: [
+                {
+                    model: User,
+                    attributes: ['email', 'raiting'],
+                },
+                {
+                    model: Image,
+                    attributes: ['image_url'],
+                },
+            ],
+        });
+
+        return data;
+    };
+
+    auctionProductReport = async ({
+        user_id,
+        auction_product_id,
+        title,
+        content,
+    }) => {
+        const data = await Report.create({
+            user_id,
+            auction_product_id,
+            title,
+            content,
+        });
+
+        return data;
+    };
+
+    auctionProductPriceUpdate = async ({
+        bidder_id,
+        auction_product_id,
+        product_update_price,
+    }) => {
+        const data = await Auction_product.update(
+            { bidder_id, product_update_price },
+            { where: { auction_product_id } }
+        );
+
+        return data;
+    };
+
+    auctionProductPurchase = async (auction_product_id, user_id) => {
+        const data1 = await Auction_product.findOne({
+            where: { auction_product_id },
+            include: [
+                {
+                    model: Image,
+                    attributes: ['image_url'],
+                },
+            ],
+        });
+        const data2 = await User.findOne({ where: { user_id } });
+
+        const data = [data1, data2];
+        return data;
     };
 }
 
-module.exports = ProductRepositoty;
+module.exports = ProductRepository;
