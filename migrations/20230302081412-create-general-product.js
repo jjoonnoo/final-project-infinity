@@ -24,7 +24,7 @@ module.exports = {
             category: {
                 type: Sequelize.STRING,
             },
-            raiting: {
+            rating: {
                 type: Sequelize.FLOAT,
                 defaultValue: 5.0,
             },

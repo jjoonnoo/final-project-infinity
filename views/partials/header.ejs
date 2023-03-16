@@ -4,20 +4,20 @@
     <a
         class="bnslogo d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none"
         href="/"
-    >
-        <img src="/img/BNS - MarkMaker Logo.png" width="100" height="auto" />
-    </a>
-    <form action="/search" class="search-form">
+        ><img src="/img/BNS - MarkMaker Logo.png" width="100" height="auto"
+    /></a>
+    <form class="search-form" onsubmit="searchProducts(); return false;">
         <input
             type="search"
-            id="term"
-            name="term"
+            id="searchkeyword"
+            name="searchkeyword"
             class="form-control"
             placeholder="상품 검색하기"
             aria-label="Search"
             size="100"
-            onkeypress="if(event.keyCode==13) {search()}"
+            onkeyup="{autocompletes(event)}"
         />
+        <div id="autocomplete-results"></div>
     </form>
     <nav class="navbar navbar-expand-lg">
         <div class="container">
