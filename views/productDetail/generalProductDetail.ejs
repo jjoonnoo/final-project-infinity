@@ -1,13 +1,10 @@
 <body>
+    <div class="a_tag">
+        <a href="#" class="openBtn">상품신고 🚨</a>
+        <hr />
+    </div>
     <div id="general_product"></div>
 
-    <div class="button_region">
-        <hr />
-        <div class="button_area">
-            <button id="button_1" onclick="cartBtn()">장바구니 담기</button>
-            <button id="button_2" class="openBtn">상품신고</button>
-        </div>
-    </div>
     <div class="modal hidden">
         <div class="bg"></div>
         <div class="modalBox">
@@ -30,7 +27,7 @@
     </div>
 
     <div id="general_review" class="review_region">
-        <h2>리뷰</h2>
+        <h2>리뷰<input type="text" id="review_count" readonly /></h2>
     </div>
     <script
         type="text/javascript"

@@ -1,4 +1,3 @@
-console.log('연결');
 $(document).ready(function () {
     auctionProductDetail();
 });
@@ -15,14 +14,14 @@ function auctionProductDetail() {
         data: {},
         success: function (response) {
             const rows = response['data'];
-            console.log(rows);
+
             if (rows === null) {
                 alert('존재하지 않는 상품입니다.');
                 return history.back();
             }
 
             const seller = rows.User.email;
-            const raiting = rows.User.raiting;
+            const rating = rows.User.rating;
             const image = rows.Images[0].image_url;
             const product_name = rows.product_name;
             const product_content = rows.product_content;
@@ -61,24 +60,46 @@ function auctionProductDetail() {
 
             if (product_buy_now_price === null) {
                 let temp_html = `
-                    <div class="product_region">
+                                <div class="product_region">
                                     <div>
                                         <img src="${image}" width="400">
                                     </div>
                                     <div class="product_area">
-                                        <p>등록자: ${seller}</p>
-                                        <p>등록자 별점: ${raiting}</p>
-                                        <p>상품이름: ${product_name}</p>
-                                        <p>상품내용: ${product_content}</p>
-                                        <p>시작 가격: ${product_start_convert}원<p>
-                                        <p>현재 입찰가:${product_update_convert}원</p>
-                                        <p>카테고리: ${category}</p>                    
-                                        <p>마감시간: ${product_end}</p>
-                                        <p>입찰 횟수: ${bid_count}</p>
-                                    </div>
+                                        <div class="product_name_css">
+                                            <small>상품명</small>
+                                            <hr>
+                                            <div class="product_name">  
+                                                ${product_name}
+                                            </div>
+                                        </div>
+                                        <div class="product_info_css">
+                                        <small>상품내용</small>
+                                        <hr>
+                                        ${product_content}
+                                        </div>
+                                        <small>시작 가격</small> &nbsp;&nbsp;${product_start_convert} 원
+                                        <hr>
+                                        <small>현재 입찰가</small> ${product_update_convert} 원
+                                        <hr>                    
+                                        <small>마감시간</small>
+                                        <p>${product_end}</p>
+                                        <hr> 
+                                        <small>입찰 횟수</small> ${bid_count}
+                                    </div>  
                                 </div>
                     `;
                 $('#auction_product').append(temp_html);
+
+                let temp_html_categoty = `
+                                    <small class="category">카테고리: ${category}</small>
+                                    `;
+                $('.a_tag').prepend(temp_html_categoty);
+
+                let temp_html_seller = `
+                                    <small>판매자│ ${seller}</small><br>
+                                    <small>별점│ ${rating}</small> 
+                                    `;
+                $('.a_tag').append(temp_html_seller);
             } else {
                 let temp_html = `
                                 <div class="product_region">
@@ -86,26 +107,48 @@ function auctionProductDetail() {
                                         <img src="${image}" width="400">
                                     </div>
                                     <div class="product_area">
-                                        <p>등록자: ${seller}</p>
-                                        <p>등록자 별점: ${raiting}</p>
-                                        <p>상품이름: ${product_name}</p>
-                                        <p>상품내용: ${product_content}</p>
-                                        <p>즉시 구매가: ${product_buy_now_price_convert}원</p>
-                                        <p>시작 가격: ${product_start_convert}원<p>
-                                        <p>현재 입찰가:${product_update_convert}원</p>
-                                        <p>카테고리: ${category}</p>                    
-                                        <p>마감시간: ${product_end}</p>
-                                        <p>입찰 횟수: ${bid_count}</p>
-                                    </div>
+                                        <div class="product_name_css">
+                                            <small>상품명</small>
+                                            <hr>
+                                            <div class="product_name">  
+                                                ${product_name}
+                                            </div>
+                                        </div>
+                                        <div class="product_info_css">
+                                        <small>상품내용</small>
+                                        <hr>
+                                        ${product_content}
+                                        </div>
+                                        <small>즉시 구매가</small> ${product_buy_now_price_convert} 원
+                                        <hr>
+                                        <small>시작 가격</small> &nbsp;&nbsp;${product_start_convert} 원
+                                        <hr>
+                                        <small>현재 입찰가</small> ${product_update_convert} 원
+                                        <hr>                    
+                                        <small>마감시간</small>
+                                        <p>${product_end}</p>
+                                        <hr> 
+                                        <small>입찰 횟수</small> ${bid_count}
+                                    </div>  
                                 </div>
                                 `;
                 $('#auction_product').append(temp_html);
 
                 let temp_html_btn = `
-                                    <a href="#"><button id="btn1" class="button_1" onclick="purchaseNow()">즉시 구매</button></a>
+                                    <a href="#"><button id="btn1" onclick="purchaseNow()">즉시 구매</button></a>
                                     `;
-                // setTimeout(() => $('#purchase_btn').append(temp_html_btn), 1500)
                 $('#purchase_btn').append(temp_html_btn);
+
+                let temp_html_categoty = `
+                                    <small class="category">카테고리: ${category}</small>
+                                    `;
+                $('.a_tag').prepend(temp_html_categoty);
+
+                let temp_html_seller = `
+                                    <small>판매자│ ${seller}</small><br>
+                                    <small>별점│ ${rating}</small> 
+                                    `;
+                $('.a_tag').append(temp_html_seller);
             }
         },
         error: function (error) {
