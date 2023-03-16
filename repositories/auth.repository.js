@@ -11,10 +11,6 @@ const {
 } = require('../models');
 
 class AuthRepository {
-    // constructor(Model) {
-    //     this.Model = Model;
-    // }
-
     findByEmail = async (email) => {
         const user = await User.findOne({
             where: { email: email },

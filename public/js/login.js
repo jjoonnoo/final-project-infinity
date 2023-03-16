@@ -29,11 +29,11 @@ function login() {
         },
 
         success: function (response) {
-            alert('로그인 완료!');
+            alert(response.msg);
             window.location.href = '/'; // 메인페이지
         },
-        error: function (response) {
-            alert('메일 혹은 아이디가 다릅니다');
+        error: function (error) {
+            alert(error.responseJSON.msg);
         },
     });
 }
