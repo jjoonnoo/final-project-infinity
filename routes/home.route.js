@@ -27,4 +27,6 @@ router.get('/general/:id', homeController.generalDetail);
 router.get('/auction/:id', homeController.auctionDetail);
 router.get('/purchase/:id', homeController.auctionPurchase);
 
+router.get('/chatbot', homeController.chatBot);
+
 module.exports = router;
