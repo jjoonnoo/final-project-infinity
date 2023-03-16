@@ -417,12 +417,10 @@ class ProductRepository {
                 { where: { auction_product_id } }
             );
         }
-
         const { bid_count } = await Auction_product.findOne({
             where: { auction_product_id },
             attributes: ['bid_count'],
         });
-
         if (bid_count === null) {
             await Auction_product.create(
                 { bid_count: 1 },

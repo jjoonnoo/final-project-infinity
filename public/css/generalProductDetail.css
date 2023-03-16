@@ -35,25 +35,61 @@
 }
 
 /* 본문 CSS */
+.a_tag {
+    margin-left: 100px;
+    width: 1200px;
+}
+
+.category {
+    font-weight: bolder;
+}
+
+.openBtn {
+    font-size: 15px;
+    font-weight: bolder;
+    margin-left: 980px;
+}
+
+.a_tag a {
+    text-decoration-line: none;
+    color: black;
+}
+
 .product_region {
     width: 800px;
-    margin-left: auto;
-    margin-right: auto;
+    height: 600px;
+    margin-left: 280px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.button_region {
-    width: 800px;
-    margin-top: 20px;
-    margin-left: auto;
-    margin-right: auto;
+.product_area {
+    margin-left: 30px;
+    height: 400px;
+}
+
+.product_name_css {
+    position: relative;
+    bottom: 50px;
+    height: 100px;
+}
+
+.product_name_css .product_name {
+    font-size: 40px;
+    font-weight: bolder;
+    position: relative;
+    bottom: 20px;
+}
+
+.product_info_css {
+    position: relative;
+    bottom: 20px;
+    height: 150px;
 }
 
 .button_area {
-    margin-left: 480px;
-    margin-bottom: 50px;
+    margin-left: 150px;
 }
 
 #button_1 {
@@ -75,7 +111,29 @@
 }
 
 .review_region {
-    width: 800px;
-    margin-left: auto;
+    width: 500px;
+    margin-left: 400px;
     margin-right: auto;
+    margin-bottom: 100px;
+}
+
+.review_region input {
+    border: none;
+    background: transparent;
+    width: 40px;
+    text-align: center;
+    font-size: 25px;
+}
+
+.review_region input:focus {
+    outline: 2px solid #d50000;
+    outline: none;
+}
+
+#quantity {
+    width: 50px;
+}
+
+.review_date_css {
+    margin-left: 300px;
 }
