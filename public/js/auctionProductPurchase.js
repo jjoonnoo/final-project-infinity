@@ -24,9 +24,8 @@ function auctionProductPurchase() {
             const product_name = rows[0].product_name;
             const product_content = rows[0].product_content;
             product_buy_now_price = rows[0].product_buy_now_price;
-            const product_buy_now_price_convert = product_buy_now_price.toLocaleString()
-
-            
+            const product_buy_now_price_convert =
+                product_buy_now_price.toLocaleString();
 
             let temp_html = `
                         <div class="all_frame">
@@ -100,14 +99,14 @@ function auctionProductPurchase() {
 
 function purchase() {
     if (!confirm('구매 하시겠습니까?')) {
-        alert('구매를 취소했습니다.')
+        alert('구매를 취소했습니다.');
         location.href = `/auction/${auction_product_id}`;
         return;
     } else {
         $.ajax({
             type: 'POST',
             url: `/api/products/purchase/${auction_product_id}`,
-            data: { product_buy_now_price: product_buy_now_price},
+            data: { product_buy_now_price: product_buy_now_price },
             success: function (response) {
                 alert(response['message']);
             },
@@ -115,6 +114,6 @@ function purchase() {
                 console.log(error);
             },
         });
-        return location.href = '/' // 메인 페이지로 이동
+        return (location.href = '/'); // 메인 페이지로 이동
     }
 }

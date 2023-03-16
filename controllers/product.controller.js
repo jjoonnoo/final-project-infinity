@@ -328,7 +328,7 @@ class ProductController {
                 bidder_id,
                 auction_product_id,
                 product_update_price,
-                product_end
+                product_end,
             });
 
             res.status(201).json({ message: '입찰 등록이 됐습니다.' });
@@ -342,10 +342,11 @@ class ProductController {
         const user_id = 98;
         try {
             const { auction_product_id } = req.params;
-            const data = await this.productService.auctionProductPurchaseNowFind(
-                auction_product_id,
-                user_id
-            );
+            const data =
+                await this.productService.auctionProductPurchaseNowFind(
+                    auction_product_id,
+                    user_id
+                );
 
             res.status(200).json({ data });
         } catch (error) {
@@ -358,12 +359,12 @@ class ProductController {
             // const user_id = res.locals.user.user_id
             const user_id = 98;
             const { auction_product_id } = req.params;
-            const { product_buy_now_price } = req.body
+            const { product_buy_now_price } = req.body;
 
             await this.productService.auctionProductPurchaseNow({
                 user_id,
                 auction_product_id,
-                product_buy_now_price
+                product_buy_now_price,
             });
 
             res.status(201).json({ message: '낙찰이 완료되었습니다.' });

@@ -11,7 +11,7 @@ function generalProductDetail() {
         data: {},
         success: function (response) {
             const rows = response['data'];
-            
+
             if (rows === null) {
                 alert('존재하지 않는 상품입니다.');
                 return history.back();
@@ -27,7 +27,7 @@ function generalProductDetail() {
             const product_name = rows.product_name;
             const product_content = rows.product_content;
             const product_price = rows.product_price;
-            const product_price_convert = product_price.toLocaleString()
+            const product_price_convert = product_price.toLocaleString();
             const category = rows.category;
 
             let temp_html = `

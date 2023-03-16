@@ -9,9 +9,9 @@ function generalProductCart() {
         data: {},
         success: function (response) {
             const rows = response['data'];
-            
-            document.getElementById("cart_count").innerHTML = `${rows.length}`;
-            
+
+            document.getElementById('cart_count').innerHTML = `${rows.length}`;
+
             cartSum();
 
             if (rows.length === 0) {
@@ -31,10 +31,10 @@ function generalProductCart() {
                 let product_name = rows[i].General_product.product_name;
                 let product_content = rows[i].General_product.product_content;
                 let product_price = rows[i].General_product.product_price;
-                const product_price_convert = product_price.toLocaleString()
+                const product_price_convert = product_price.toLocaleString();
                 let product_quantity = rows[i].product_quantity;
                 let total = product_price * product_quantity;
-                const total_convert = total.toLocaleString()
+                const total_convert = total.toLocaleString();
 
                 let temp_html = `
                           <table>
@@ -99,7 +99,7 @@ function selectAll(selectAll) {
     checked_product_id = [];
     checked_quantity = [];
     product_total = Number();
-    
+
     let len = $("input[name='cart']:checked").length;
     let delivery = 0;
 
@@ -110,10 +110,10 @@ function selectAll(selectAll) {
             checked_product_id.push(division[1]);
             checked_quantity.push(division[2]);
             delivery = 2500;
-            delivery_convert = delivery.toLocaleString()
+            delivery_convert = delivery.toLocaleString();
         });
     }
-    
+
     let sum = Number('');
 
     for (i = 0; i < checked_price.length; i++) {
@@ -121,10 +121,10 @@ function selectAll(selectAll) {
     }
 
     product_total = sum;
-    product_total_convert = product_total.toLocaleString()
+    product_total_convert = product_total.toLocaleString();
 
     let final_total = product_total + delivery;
-    final_total_covert = final_total.toLocaleString()
+    final_total_covert = final_total.toLocaleString();
 
     $('#reload_table').remove();
     let temp_html = `
@@ -160,8 +160,8 @@ function cartSum() {
     checked_product_id = [];
     checked_quantity = [];
     product_total = Number();
-    let delivery_convert = 0
-    
+    let delivery_convert = 0;
+
     let len = $("input[name='cart']:checked").length;
     let delivery = 0;
 
@@ -172,10 +172,10 @@ function cartSum() {
             checked_product_id.push(division[1]);
             checked_quantity.push(division[2]);
             delivery = 2500;
-            delivery_convert = delivery.toLocaleString()
+            delivery_convert = delivery.toLocaleString();
         });
     }
-    
+
     let sum = Number('');
 
     for (i = 0; i < checked_price.length; i++) {
@@ -183,11 +183,11 @@ function cartSum() {
     }
 
     product_total = sum;
-    product_total_convert = product_total.toLocaleString()
+    product_total_convert = product_total.toLocaleString();
 
     let final_total = product_total + delivery;
 
-    final_total_covert = final_total.toLocaleString()
+    final_total_covert = final_total.toLocaleString();
 
     $('#reload_table').remove();
     let temp_html = `

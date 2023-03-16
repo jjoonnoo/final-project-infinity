@@ -14,7 +14,7 @@ function auctionProductDetail() {
         data: {},
         success: function (response) {
             const rows = response['data'];
-            console.log(rows)
+            console.log(rows);
             if (rows === null) {
                 alert('존재하지 않는 상품입니다.');
                 return history.back();
@@ -25,31 +25,32 @@ function auctionProductDetail() {
             const image = rows.Images[0].image_url;
             const product_name = rows.product_name;
             const product_content = rows.product_content;
-            bid_count = rows.bid_count
+            bid_count = rows.bid_count;
             product_buy_now_price = rows.product_buy_now_price;
 
             if (bid_count === null) {
-                bid_count = 0
+                bid_count = 0;
             }
 
             if (product_buy_now_price !== null) {
-                product_buy_now_price_convert = product_buy_now_price.toLocaleString()
+                product_buy_now_price_convert =
+                    product_buy_now_price.toLocaleString();
             }
 
             const category = rows.category;
             product_update = rows.product_update_price;
-            const product_update_convert = product_update.toLocaleString()
+            const product_update_convert = product_update.toLocaleString();
             product_start = rows.product_start_price;
-            const product_start_convert = product_start.toLocaleString()
+            const product_start_convert = product_start.toLocaleString();
             product_end_format = rows.product_end;
             product_end = product_end_format.replace('T', ' ').slice(0, -5);
             const date = new Date(product_end);
             en_date = date.toLocaleString('en');
-            
-            if (product_buy_now_price === product_update ) {
-                en_date = 0
+
+            if (product_buy_now_price === product_update) {
+                en_date = 0;
                 ttt(en_date, 'countdown');
-            }  else {
+            } else {
                 CountDownTimer(en_date, 'countdown');
             }
 
@@ -112,20 +113,19 @@ function auctionProductDetail() {
     });
 }
 
-
 /* 경매상품 입찰 */
 function bidBtn() {
     time_out = new Date(en_date) - new Date();
     const bid_price = $('#bid_price').val();
     const compare_price = Number(bid_price);
-    en_date
-    Remaining_time = Math.floor(time_out / 1000 / 60)
-    let add_time = ''
+    en_date;
+    Remaining_time = Math.floor(time_out / 1000 / 60);
+    let add_time = '';
 
     if (Remaining_time < 1) {
-        const end_time = new Date(product_end_format)
-        const add_minutes = end_time.setMinutes(end_time.getMinutes() + 1)
-        add_time = new Date(add_minutes).toISOString()
+        const end_time = new Date(product_end_format);
+        const add_minutes = end_time.setMinutes(end_time.getMinutes() + 1);
+        add_time = new Date(add_minutes).toISOString();
     }
 
     if (time_out < 0) {
@@ -134,29 +134,29 @@ function bidBtn() {
     } else {
         if (product_update < 100000) {
             if (compare_price % 5000 !== 0) {
-                alert('금액 단위는 5,000원 입니다.')
-                return
+                alert('금액 단위는 5,000원 입니다.');
+                return;
             }
         }
 
         if (100000 <= product_update && product_update < 500000) {
             if (compare_price % 10000 !== 0) {
-                alert('금액 단위는 10,000원 입니다.')
-                return
+                alert('금액 단위는 10,000원 입니다.');
+                return;
             }
         }
 
         if (500000 <= product_update && product_update < 1000000) {
             if (compare_price % 50000 !== 0) {
-                alert('금액 단위는 50,000원 입니다.')
-                return
+                alert('금액 단위는 50,000원 입니다.');
+                return;
             }
         }
 
         if (1000000 <= product_update) {
             if (compare_price % 100000 !== 0) {
-                alert('금액 단위는 100,000원 입니다.')
-                return
+                alert('금액 단위는 100,000원 입니다.');
+                return;
             }
         }
 
@@ -215,7 +215,7 @@ function bidBtn() {
                 }
             }
         }
-        
+
         $.ajax({
             type: 'PATCH',
             url: `/api/products/bid_price/${auction_product_id}`,
@@ -304,15 +304,15 @@ function CountDownTimer(dt, id) {
     function showRemaining() {
         const now = new Date();
         const distance = end - now;
-        
-            if (distance < 0) {
-                clearInterval(timer);
-                document.getElementById(id).innerHTML = '경매가 종료된 상품입니다.';
-                // hideBtn1();
-                // hideBtn2();
-                return;
-            }
-        
+
+        if (distance < 0) {
+            clearInterval(timer);
+            document.getElementById(id).innerHTML = '경매가 종료된 상품입니다.';
+            // hideBtn1();
+            // hideBtn2();
+            return;
+        }
+
         let days = Math.floor(distance / _day);
         let hours = Math.floor((distance % _day) / _hour);
         let minutes = Math.floor((distance % _hour) / _minute);
@@ -328,18 +328,19 @@ function CountDownTimer(dt, id) {
     timer = setInterval(showRemaining, 1000);
 }
 
-function ttt (dt, id) {
+function ttt(dt, id) {
     let end = new Date(dt);
 
     function showRemaining() {
         const now = new Date();
         const distance = end - now;
-        
-            if (distance < 0) {
-                clearInterval(timer);
-                document.getElementById(id).innerHTML = '즉시 구매로 경매가 종료된 상품입니다.';
-                return;
-            }
+
+        if (distance < 0) {
+            clearInterval(timer);
+            document.getElementById(id).innerHTML =
+                '즉시 구매로 경매가 종료된 상품입니다.';
+            return;
+        }
     }
     timer = setInterval(showRemaining, 1000);
 }
@@ -349,10 +350,10 @@ function purchaseNow() {
 
     if (time_out < 0) {
         alert('경매가 마감되었습니다.');
-        return ;
+        return;
     }
 
-    location.href = `/purchase/${auction_product_id}`
+    location.href = `/purchase/${auction_product_id}`;
 }
 
 // const socket = io();

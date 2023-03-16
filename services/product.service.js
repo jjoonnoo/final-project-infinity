@@ -296,13 +296,13 @@ class ProductService {
         bidder_id,
         auction_product_id,
         product_update_price,
-        product_end
+        product_end,
     }) => {
         await this.productRepository.auctionProductPriceUpdate({
             bidder_id,
             auction_product_id,
             product_update_price,
-            product_end
+            product_end,
         });
     };
 
@@ -318,12 +318,12 @@ class ProductService {
     auctionProductPurchaseNow = async ({
         user_id,
         auction_product_id,
-        product_buy_now_price
+        product_buy_now_price,
     }) => {
         await this.productRepository.auctionProductPurchaseNow({
             user_id,
             auction_product_id,
-            product_buy_now_price
+            product_buy_now_price,
         });
     };
 }
