@@ -6,7 +6,7 @@ class ProductController {
     generalProductRegist = async (req, res) => {
         try {
             // const user_id = res.locals.user.user_id
-            const user_id = 100;
+            const user_id = 99;
             const {
                 product_name,
                 product_content,
@@ -74,6 +74,7 @@ class ProductController {
     auctionProductRegist = async (req, res) => {
         try {
             // const user_id = res.locals.user.user_id
+            const user_id = 99;
             const {
                 product_name,
                 product_content,

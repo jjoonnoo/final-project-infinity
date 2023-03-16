@@ -1,29 +1,29 @@
 .all_frame {
-  width: 1080px;
-  margin-left: auto;
-  margin-right: auto;
+    width: 1080px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .product_frame {
-  display: flex;
-  align-items: center;
+    display: flex;
+    align-items: center;
 }
 
 .image_frame {
-  float: left;
-  background-color: aqua;
+    float: left;
+    background-color: aqua;
 }
 
 .info_frame {
-  margin-left: 50px;
+    margin-left: 50px;
 }
 
 .info_name {
-  font-size: 50px;
-  position: absolute;
-  top: 250px;
+    font-size: 50px;
+    position: absolute;
+    top: 250px;
 }
 
 #productPrice {
-  margin-top: 80px;
+    margin-top: 80px;
 }

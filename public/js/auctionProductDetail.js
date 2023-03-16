@@ -1,3 +1,4 @@
+console.log('연결');
 $(document).ready(function () {
     auctionProductDetail();
 });

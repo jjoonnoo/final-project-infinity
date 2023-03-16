@@ -1,54 +1,79 @@
 <body>
-  <section class="cart-section" i="cart-section">
-    <div class="small-container">
-      <div id="product">
-        <div class="cart_title">
-          <caption><h2>배송상품</h2></caption>
+    <section class="cart-section" i="cart-section">
+        <div class="small-container">
+            <div id="product">
+                <div class="cart_title">
+                    <caption>
+                        <h2>배송상품</h2>
+                    </caption>
+                </div>
+                <table border="1">
+                    <tr>
+                        <th>
+                            <input
+                                type="checkbox"
+                                value="selectAll"
+                                onclick="selectAll(this)"
+                            />
+                        </th>
+                        <th class="product_name">상품</th>
+                        <th class="product_quantity">수량</th>
+                        <th class="product_price">총 가격</th>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="delivery">
+                <h2>배송지 정보</h2>
+                <hr />
+                <table>
+                    <tr class="left_tr">
+                        <td>
+                            <div class="delivery_title">
+                                <span class="input-name">&nbsp;받는 분</span>
+                            </div>
+                            <input
+                                id="content1"
+                                type="text"
+                                placeholder="받는 분"
+                                readonly
+                            />
+                        </td>
+                    </tr>
+                    <tr class="left_tr">
+                        <td>
+                            <div class="delivery_title">
+                                <span class="input-name">&nbsp;연락처</span>
+                            </div>
+                            <input
+                                id="content2"
+                                type="text"
+                                placeholder="연락처"
+                                readonly
+                            />
+                        </td>
+                    </tr>
+                    <tr class="left_tr">
+                        <td>
+                            <div class="delivery_title">
+                                <span class="input-name">&nbsp;주소</span>
+                            </div>
+                            <textarea
+                                id="content3"
+                                placeholder="주소"
+                                readonly
+                            ></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="height: 80px"></td>
+                    </tr>
+                </table>
+            </div>
+            <div id="productPrice">
+                <h2>최종 결제정보</h2>
+                <hr />
+            </div>
         </div>
-        <table border="1">
-          <tr>
-            <th><input type='checkbox' value="selectAll" onclick="selectAll(this)"/></th>
-            <th class="product_name">상품</th>
-            <th class="product_quantity">수량</th>
-            <th class="product_price">총 가격</th>
-          </tr>
-        </table>
-      </div>
-
-      
-
-      <div class="delivery">
-        <h2>배송지 정보</h2>
-        <hr>
-        <table>
-          <tr class="left_tr">
-            <td>
-              <div class="delivery_title"><span class="input-name">&nbsp;받는 분</span></div>
-              <input id="content1" type="text" placeholder="받는 분" readonly>
-            </td>
-          </tr>
-          <tr class="left_tr">
-            <td>
-              <div class="delivery_title"><span class="input-name">&nbsp;연락처</span></div>
-              <input id="content2" type="text" placeholder="연락처" readonly>
-            </td>
-          </tr>
-          <tr class="left_tr">
-            <td>
-              <div class="delivery_title"><span class="input-name">&nbsp;주소</span></div>
-              <textarea id="content3" placeholder="주소" readonly></textarea>
-            </td>
-          </tr>
-          <tr>
-            <td style="height:80px">
-            </td>
-          </tr>
-        </table>
-      </div>
-      <div id="productPrice">
-        <h2>최종 결제정보</h2>
-        <hr> 
-      </div>
-    </div>
-</section>
+    </section>
 </body>

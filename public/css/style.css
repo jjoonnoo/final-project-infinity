@@ -1,12 +1,14 @@
-header{
+header {
     /* background-color: rgba(0, 0, 128, 0.575); */
 }
-a { color: var(--bs-dark); }
-.bnslogo{
-    padding-bottom: 1px
+a {
+    color: var(--bs-dark);
 }
-.bnsbody{
-    width:auto;
+.bnslogo {
+    padding-bottom: 1px;
+}
+.bnsbody {
+    width: auto;
     margin-top: 100px;
     border-radius: 6px;
     text-align: center;

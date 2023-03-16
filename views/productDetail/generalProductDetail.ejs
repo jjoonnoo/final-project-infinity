@@ -1,32 +1,40 @@
 <body>
-  <div id="general_product"></div>
+    <div id="general_product"></div>
 
-  <div class="button_region">
-    <hr>
-    <div class="button_area">
-      <button id="button_1" onclick='cartBtn()'>장바구니 담기</button>
-      <button id="button_2" class="openBtn">상품신고</button>
+    <div class="button_region">
+        <hr />
+        <div class="button_area">
+            <button id="button_1" onclick="cartBtn()">장바구니 담기</button>
+            <button id="button_2" class="openBtn">상품신고</button>
+        </div>
     </div>
-  </div>
-  <div class="modal hidden">
-    <div class="bg"></div>
-    <div class="modalBox">
-      신고 제목:
-      <SELECT NAME=sltSample SIZE=1 id="report_title">
-        <OPTION VALUE='불친절한 대응' SELECTED>불친절한 대응</OPTION>
-        <OPTION VALUE='불량 상품 판매'>불량 상품 판매</OPTION>
-        <OPTION VALUE='규정위반 상품'>규정위반 상품</OPTION>
-        <OPTION VALUE='기타'>기타</OPTION>
-      </SELECT>
-      <p>신고 내용: <input type="text" id="report_content"></p>
-      <button class="modal_button" type="button" onclick="reportBtn()">신고하기</button>
-      <button class="closeBtn">취소</button>
+    <div class="modal hidden">
+        <div class="bg"></div>
+        <div class="modalBox">
+            신고 제목:
+            <select name="sltSample" size="1" id="report_title">
+                <option value="불친절한 대응" selected>불친절한 대응</option>
+                <option value="불량 상품 판매">불량 상품 판매</option>
+                <option value="규정위반 상품">규정위반 상품</option>
+                <option value="기타">기타</option>
+            </select>
+            <p>
+                신고 내용:
+                <input type="text" id="report_content" />
+            </p>
+            <button class="modal_button" type="button" onclick="reportBtn()">
+                신고하기
+            </button>
+            <button class="closeBtn">취소</button>
+        </div>
     </div>
-  </div>
 
-  <div id="general_review" class="review_region">
-    <h2>리뷰</h2>
-  </div>
-  <script type="text/javascript" src="../../js/generalProductDetail.js"></script>
-  <link rel="stylesheet" href="../../css/generalProductDetail.css">
+    <div id="general_review" class="review_region">
+        <h2>리뷰</h2>
+    </div>
+    <script
+        type="text/javascript"
+        src="../../js/generalProductDetail.js"
+    ></script>
+    <link rel="stylesheet" href="../../css/generalProductDetail.css" />
 </body>

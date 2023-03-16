@@ -1,110 +1,133 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%- title %></title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="../js/search.js" defer type="text/javascript"></script>
-</head>
 <script>
     getAllProducts(1);
-    
     function getAllProducts(page) {
-    axios
-      .get(`/products`, { params: { page } })
-      .then((response) => {
-        let { totalPage } = response.data;
-        let { data } = response.data;
+        $('#product_list').empty();
+        axios
+            .get(`/api/search/products`, { params: { page } })
+            .then((response) => {
+                let { totalPage } = response.data;
+                let { dataAuction } = response.data;
+                let { dataGeneral } = response.data;
 
-        const productList = document.getElementById('product-list');
-        const pageList = document.getElementById('page-num');
-        pageList.innerHTML = '';
-        productList.innerHTML = '';
-        
-        for (let i = 1; i < totalPage + 1; i++) {
-          if (i === page) {
-            pageList.innerHTML += `<li class="page-item active"><a class="page-link" onclick="getAllProducts(${i})" style="color: black; background-color: transparent; border-color: transparent;">${i}</a></li>`;
-          } else {
-            pageList.innerHTML += `<li class="page-item"><a class="page-link" onclick="getAllProducts(${i})">${i}</a></li>`;
-          }
-        }
-  
-        for (let i = 0; i < data.length; i++) {
-          let image = data[i]['Images.image_url'];
-          let price = data[i].product_buy_now_price || data[i].product_price || null;
-            if (price === null){
-                  price = ' * 경매로만 구입 가능합니다. --';
+                const AuctionProductList =
+                    document.getElementById('product-list');
+                const GeneralProductList =
+                    document.getElementById('product_list');
+                const pageList = document.getElementById('page-num');
+                pageList.innerHTML = '';
+                AuctionProductList.innerHTML = '';
+                GeneralProductList.innerHTML = '';
+
+                for (let i = 1; i < totalPage + 1; i++) {
+                    if (i === page) {
+                        pageList.innerHTML += `<li class="page-item active"><a class="page-link" onclick="getAllProducts(${i})" style="color: black; background-color: transparent; border-color: transparent;">${i}</a></li>`;
+                    } else {
+                        pageList.innerHTML += `<li class="page-item"><a class="page-link" onclick="getAllProducts(${i})">${i}</a></li>`;
+                    }
                 }
-          const temp = document.createElement('div');
-          temp.setAttribute('class', 'product-box');
-          temp.innerHTML = `
+
+                for (let i = 0; i < dataAuction.length; i++) {
+                    let image = dataAuction[i]['Images.image_url'];
+                    if (image === null) {
+                        image = src = '/img/BNS - MarkMaker Logo.png';
+                    }
+                    let price =
+                        dataAuction[i].product_buy_now_price ||
+                        dataAuction[i].product_price ||
+                        null;
+                    if (price === null) {
+                        price = ' * 경매로만 구입 가능합니다. --';
+                    }
+                    const temp = document.createElement('div');
+                    temp.setAttribute('class', 'product-ox');
+                    temp.innerHTML = `<div class="productone" style="cursor: pointer;" onclick="location.href='/auction/${dataAuction[i].auction_product_id}'">
           <img class="product product-image" src="${image}" style="width: 250px;
             height: 250px;
             object-fit: cover;">
           <div class="product product-name">
             <h4>
-            <div>${data[i].product_name}</div></h4>
+            <div>${dataAuction[i].product_name}</div></h4>
           </div>
           <div class="product product-explanation">
             
-            <div>${data[i].product_content}</div>
+            <div>${dataAuction[i].product_content}</div>
           </div>
           
           <div class="product product-participant">
             
             <div>${price}\\</div>
           </div>
-          <div class="btn-group" style="margin-top: 2%;">
-            <button type="button" class="btn btn-sm btn-outline-secondary" onclick="">자세히보기</button>
           </div>
           `;
-          productList.append(temp);
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
-  
-    
-    
-  </script>
-  <body>
-    <div>
-      <button class="btn btn-outline-success" onclick="getGeneralProducts(1)">
-        일반상품
-      </button>
-      <button class="btn btn-outline-success" onclick="getAuctionProducts(1)">
-        경매상품
-      </button>
-    </div>
-    
-  
-      
-    <div class="container-fluid">
-        <input
-          class="searchkeyword"
-          id="searchkeyword"
-          type="search"
-          placeholder="상품명/설명/가격"
-          aria-label="Search"
-        />
-        <button class="btn btn-outline-success" onclick="getProducts(1)">
-          검색
+                    AuctionProductList.append(temp);
+                }
+
+                for (let i = 0; i < dataGeneral.length; i++) {
+                    let image = dataGeneral[i]['Images.image_url'];
+                    if (image === null) {
+                        image = src = '/img/BNS - MarkMaker Logo.png';
+                    }
+                    let price =
+                        dataGeneral[i].product_buy_now_price ||
+                        dataGeneral[i].product_price ||
+                        null;
+                    if (price === null) {
+                        price = ' * 경매로만 구입 가능합니다. --';
+                    }
+                    const temp = document.createElement('div');
+                    temp.setAttribute('class', 'product-ox');
+                    temp.innerHTML = `<div class="productone" style="cursor: pointer;" onclick="location.href='/general/${dataGeneral[i].general_product_id}'">
+          <img class="product product-image" src="${image}" style="width: 250px;
+            height: 250px;
+            object-fit: cover;">
+          <div class="product product-name">
+            <h4>
+            <div>${dataGeneral[i].product_name}</div></h4>
+          </div>
+          <div class="product product-explanation">
+            
+            <div>${dataGeneral[i].product_content}</div>
+          </div>
+          
+          <div class="product product-participant">
+            
+            <div>${price}\\</div>
+          </div>
+          </div>
+          `;
+                    GeneralProductList.append(temp);
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
+</script>
+<body>
+    <div style="margin-left: 20px">
+        <button class="outline-success" onclick="getGeneralProducts(1)">
+            일반상품
+        </button>
+        <button class="outline-success" onclick="getAuctionProducts(1)">
+            경매상품
+        </button>
+        <button class="outline-success" onclick="getAllProducts(1)">
+            전체상품
         </button>
     </div>
+
     <div
-        class="product-box"
+        class="product-ox"
+        style="display: inline-flex"
         id="product-list"
     ></div>
+    <div
+        class="product-ox"
+        style="display: inline-flex"
+        id="product_list"
+    ></div>
+
     <nav aria-label="Page navigation example">
         <ul id="page-num" class="pagination justify-content-center"></ul>
     </nav>
-
-  </body>
-</html>
+</body>

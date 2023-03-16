@@ -3,6 +3,11 @@ exports.homepage = async (req, res) => {
         title: 'Home',
     });
 };
+exports.loginandsignup = async (req, res) => {
+    res.status(200).render('login', {
+        layout: false,
+    });
+};
 exports.myinfo = async (req, res) => {
     res.status(200).render('mypage/myInfo', {
         title: 'My Info',
@@ -33,7 +38,16 @@ exports.auctionproductmodify = async (req, res) => {
         auction_product_id: auction_product_id,
     });
 };
-
+exports.purchasehistory = async (req, res) => {
+    res.status(200).render('mypage/purchaseHistory', {
+        title: 'Purchase History',
+    });
+};
+exports.salehistory = async (req, res) => {
+    res.status(200).render('mypage/saleHistory', {
+        title: 'Sale History',
+    });
+};
 exports.generalcart = async (req, res) => {
     res.status(200).render('cart/generalProductCart', {
         title: '장바구니',
@@ -55,5 +69,11 @@ exports.auctionDetail = async (req, res) => {
 exports.auctionPurchase = async (req, res) => {
     res.status(200).render('purchase/auctionProductPurchase', {
         title: '경매상품',
+    });
+};
+
+exports.search = async (req, res) => {
+    res.status(200).render('search', {
+        title: '검색',
     });
 };

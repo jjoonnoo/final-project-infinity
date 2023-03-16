@@ -2,8 +2,8 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
     async up(queryInterface, Sequelize) {
-        await queryInterface.createTable('General_products', {
-            general_product_id: {
+        await queryInterface.createTable('Login_sessions', {
+            login_session_id: {
                 allowNull: false,
                 autoIncrement: true,
                 primaryKey: true,
@@ -12,21 +12,11 @@ module.exports = {
             user_id: {
                 type: Sequelize.INTEGER,
             },
-            product_name: {
+            device_type: {
                 type: Sequelize.STRING,
             },
-            product_content: {
+            refresh_token: {
                 type: Sequelize.STRING,
-            },
-            product_price: {
-                type: Sequelize.INTEGER,
-            },
-            category: {
-                type: Sequelize.STRING,
-            },
-            rating: {
-                type: Sequelize.FLOAT,
-                defaultValue: 5.0,
             },
             createdAt: {
                 allowNull: false,
@@ -37,10 +27,10 @@ module.exports = {
                 type: Sequelize.DATE,
             },
         });
-        await queryInterface.addConstraint('General_products', {
+        await queryInterface.addConstraint('Login_sessions', {
             fields: ['user_id'],
             type: 'foreign key',
-            name: 'FK_General_products_Users',
+            name: 'FK_Login_sessions_Users',
             references: {
                 table: 'Users',
                 field: 'user_id',
@@ -50,6 +40,6 @@ module.exports = {
         });
     },
     async down(queryInterface, Sequelize) {
-        await queryInterface.dropTable('General_products');
+        await queryInterface.dropTable('Login_sessions');
     },
 };

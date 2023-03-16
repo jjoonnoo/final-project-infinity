@@ -4,7 +4,6 @@ const app = express();
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
 const router = require('./routes');
-const authRouter = require('./routes/auth.route');
 
 require('dotenv').config();
 app.set('views', './views');
@@ -16,8 +15,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use('/', router);
 app.use(express.static('public'));
-
-app.use('/auth', authRouter);
 
 let socket_list = [];
 
@@ -33,6 +30,6 @@ io.on('connection', (socket) => {
     });
 });
 
-server.listen(process.env.PORT, function () {
+server.listen(process.env.PORT, '0.0.0.0', function () {
     console.log(`http://localhost:${process.env.PORT}/`);
 });

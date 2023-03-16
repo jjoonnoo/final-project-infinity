@@ -36,5 +36,18 @@ class SearchService {
 
         return GeneralProduct;
     };
+
+    recommendProducts = async () => {
+        const recommendProducts =
+            await this.searchRepository.recommendProducts();
+
+        return recommendProducts;
+    };
+
+    autocomplete = async (query) => {
+        const autocomplete = await this.searchRepository.autocomplete(query);
+
+        return autocomplete;
+    };
 }
 module.exports = SearchService;

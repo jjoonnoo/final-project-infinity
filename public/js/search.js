@@ -1,26 +1,41 @@
-// getProducts(1);
-// getAuctionProducts(1);
-// getGeneralProducts(1)
+function searchProducts() {
+    let searchkeyword = document.getElementById('searchkeyword').value;
+    if (!searchkeyword) {
+        return;
+    }
+    window.location.href = `/search/product?searchkeyword=${searchkeyword}`;
+}
+if (window.location.pathname === '/search/product') {
+    getProducts(1);
+}
 
 function getProducts(page) {
-    let url = `/search`;
-    let searchkeyword = document.getElementById('searchkeyword').value;
-    if (searchkeyword) {
-        url = `/search/${searchkeyword}`;
-    }
+    let searchkeyword = new URLSearchParams(window.location.search).get(
+        'searchkeyword'
+    );
+    let url = `/api/search/product?searchkeyword=${searchkeyword}`;
     axios
         .get(url, { params: { page } })
         .then((response) => {
             let { totalPage } = response.data;
-            let { data } = response.data;
+            let { dataAuction } = response.data;
+            let { dataGeneral } = response.data;
             if (totalPage === 0) {
                 alert('검색 결과가 없습니다.');
                 window.location.replace(`/`);
             }
-            const productList = document.getElementById('product-list');
-            const pageList = document.getElementById('page-num');
+
+            const AuctionProductList = document.getElementById(
+                'product-search-list'
+            );
+            const GeneralProductList = document.getElementById(
+                'product-search_list'
+            );
+
+            const pageList = document.getElementById('page-search-num');
             pageList.innerHTML = '';
-            productList.innerHTML = '';
+            AuctionProductList.innerHTML = '';
+            GeneralProductList.innerHTML = '';
 
             for (let i = 1; i < totalPage + 1; i++) {
                 if (i === page) {
@@ -30,39 +45,76 @@ function getProducts(page) {
                 }
             }
 
-            for (let i = 0; i < data.length; i++) {
-                let image = data[i]['Images.image_url'];
+            for (let i = 0; i < dataAuction.length; i++) {
+                let image = dataAuction[i]['Images.image_url'];
+                if (image === null) {
+                    image = '/img/BNS - MarkMaker Logo.png';
+                }
                 let price =
-                    data[i].product_buy_now_price ||
-                    data[i].product_price ||
+                    dataAuction[i].product_buy_now_price ||
+                    dataAuction[i].product_price ||
                     null;
                 if (price === null) {
                     price = ' * 경매로만 구입 가능합니다. --';
                 }
                 const temp = document.createElement('div');
-                temp.setAttribute('class', 'product-box');
-                temp.innerHTML = `
-                <img class="product product-image" src="${image}" style="width: 250px;
-                  height: 250px;
-                  object-fit: cover;">
-                <div class="product product-name">
-                  <h4>
-                  <div>${data[i].product_name}</div></h4>
-                </div>
-                <div class="product product-explanation">
-                  
-                  <div>${data[i].product_content}</div>
-                </div>
+                temp.setAttribute('class', 'product-ox');
+                temp.innerHTML = `<div class="productone" style="cursor: pointer;" onclick="location.href='/auction/${dataAuction[i].auction_product_id}'">
+              <img class="product product-image" src="${image}" style="width: 250px;
+                height: 250px;
+                object-fit: cover;">
+              <div class="product product-name">
+                <h4>
+                <div>${dataAuction[i].product_name}</div></h4>
+              </div>
+              <div class="product product-explanation">
                 
-                <div class="product product-participant">
-                  
-                  <div>${price}\\</div>
-                </div>
-                <div class="btn-group" style="margin-top: 2%;">
-                  <button type="button" class="btn btn-sm btn-outline-secondary" onclick="">자세히보기</button>
-                </div>
-                `;
-                productList.append(temp);
+                <div>${dataAuction[i].product_content}</div>
+              </div>
+              
+              <div class="product product-participant">
+                
+                <div>${price}\\</div>
+              </div>
+              </div>
+              `;
+                AuctionProductList.append(temp);
+            }
+
+            for (let i = 0; i < dataGeneral.length; i++) {
+                let image = dataGeneral[i]['Images.image_url'];
+                if (image === null) {
+                    image = '/img/BNS - MarkMaker Logo.png';
+                }
+                let price =
+                    dataGeneral[i].product_buy_now_price ||
+                    dataGeneral[i].product_price ||
+                    null;
+                if (price === null) {
+                    price = ' * 경매로만 구입 가능합니다. --';
+                }
+                const temp = document.createElement('div');
+                temp.setAttribute('class', 'product-ox');
+                temp.innerHTML = `<div class="productone" style="cursor: pointer;" onclick="location.href='/general/${dataGeneral[i].general_product_id}'">
+              <img class="product product-image" src="${image}" style="width: 250px;
+                height: 250px;
+                object-fit: cover;">
+              <div class="product product-name">
+                <h4>
+                <div>${dataGeneral[i].product_name}</div></h4>
+              </div>
+              <div class="product product-explanation">
+                
+                <div>${dataGeneral[i].product_content}</div>
+              </div>
+              
+              <div class="product product-participant">
+                
+                <div>${price}\\</div>
+              </div>
+              </div>
+              `;
+                GeneralProductList.append(temp);
             }
         })
         .catch((error) => {
@@ -71,8 +123,9 @@ function getProducts(page) {
 }
 
 function getAuctionProducts(page) {
+    $('#product_list').empty();
     axios
-        .get(`/auctionProduct`, { params: { page } })
+        .get(`/api/search/auctionProduct`, { params: { page } })
         .then((response) => {
             let { totalPage } = response.data;
             let { data } = response.data;
@@ -92,6 +145,9 @@ function getAuctionProducts(page) {
 
             for (let i = 0; i < data.length; i++) {
                 let image = data[i]['Images.image_url'];
+                if (image === null) {
+                    image = src = '/img/BNS - MarkMaker Logo.png';
+                }
                 let price = data[i].product_buy_now_price;
                 if (price === null) {
                     price = '--';
@@ -101,8 +157,8 @@ function getAuctionProducts(page) {
                     update_price = '--';
                 }
                 const temp = document.createElement('div');
-                temp.setAttribute('class', 'product-box');
-                temp.innerHTML = `
+                temp.setAttribute('class', 'product-ox');
+                temp.innerHTML = `<div class="productone" style="cursor: pointer;" onclick="location.href='/auction/${data[i].auction_product_id}'">
           <img class="product product-image" src="${image}" style="width: 250px;
             height: 250px;
             object-fit: cover;">
@@ -126,8 +182,6 @@ function getAuctionProducts(page) {
             즉시 구매가
             <div>${price}\\</div>
           </div>
-          <div class="btn-group" style="margin-top: 2%;">
-            <button type="button" class="btn btn-sm btn-outline-secondary" onclick="">자세히보기</button>
           </div>
           `;
                 productList.append(temp);
@@ -139,8 +193,9 @@ function getAuctionProducts(page) {
 }
 
 function getGeneralProducts(page) {
+    $('#product_list').empty();
     axios
-        .get(`/generalProduct`, { params: { page } })
+        .get(`/api/search/generalProduct`, { params: { page } })
         .then((response) => {
             let { totalPage } = response.data;
             let { data } = response.data;
@@ -160,9 +215,12 @@ function getGeneralProducts(page) {
 
             for (let i = 0; i < data.length; i++) {
                 let image = data[i]['Images.image_url'];
+                if (image === null) {
+                    image = src = '/img/BNS - MarkMaker Logo.png';
+                }
                 const temp = document.createElement('div');
-                temp.setAttribute('class', 'product-box');
-                temp.innerHTML = `
+                temp.setAttribute('class', 'product-ox');
+                temp.innerHTML = `<div class="productone" style="cursor: pointer;" onclick="location.href='/general/${data[i].general_product_id}'">
           <img class="product product-image" src="${image}" style="width: 250px;
             height: 250px;
             object-fit: cover;">
@@ -179,8 +237,6 @@ function getGeneralProducts(page) {
             
             <div>${data[i].product_price}\\</div>
           </div>
-          <div class="btn-group" style="margin-top: 2%;">
-            <button type="button" class="btn btn-sm btn-outline-secondary" onclick="">자세히보기</button>
           </div>
           `;
                 productList.append(temp);
@@ -189,4 +245,135 @@ function getGeneralProducts(page) {
         .catch((error) => {
             console.log(error);
         });
+}
+
+function recommendProducts() {
+    axios
+        .get(`/api/search/recommendProducts`)
+        .then((response) => {
+            let { data } = response.data;
+
+            const productList = document.getElementById(
+                'recommend-Products-list'
+            );
+
+            productList.innerHTML = '';
+
+            for (let i = 0; i < data.length; i++) {
+                let image = data[i]['Images.image_url'];
+                if (image === null) {
+                    image = src = '/img/BNS - MarkMaker Logo.png';
+                }
+                let price = data[i].product_buy_now_price;
+                if (price === null) {
+                    price = '--';
+                }
+                let update_price = data[i].product_update_price;
+                if (update_price === null) {
+                    update_price = '--';
+                }
+                const temp = document.createElement('div');
+                temp.setAttribute('class', 'product-box');
+                if (i === 0) {
+                    temp.setAttribute('style', 'display: block;');
+                } else {
+                    temp.setAttribute('style', 'display: none;');
+                }
+                temp.innerHTML = `<div style="cursor: pointer;" onclick="location.href='/auction/${data[i].auction_product_id}'">
+              <div class="product-box__image">
+              <img class="product-image" src="${image}">
+            </div>
+            <div class="product-box__details">
+              <h4 class="product-name">${data[i].product_name}</h4>
+              <div class="product-content">${data[i].product_content}</div>
+              <div class="product-participant">경매 시작가: <span>${data[i].product_start_price}원</span></div>
+              <div class="product-participant">최근 경매가: <span>${update_price}원</span></div>
+              <div class="product-participant">즉시 구매가: <span>${price}원</span></div>
+            </div>
+          </div>`;
+                productList.append(temp);
+            }
+
+            const slideDuration = 2000;
+            if (data.length > 1) {
+                let slideInterval = setInterval(() => {
+                    const firstProduct = productList.children[0];
+                    const productWidth = firstProduct.offsetWidth;
+                    productList.style.transition = 'transform 0.5s ease-in-out';
+                    productList.style.transform = `translateX(-${productWidth}px)`;
+                    setTimeout(() => {
+                        productList.appendChild(firstProduct);
+                        const nextProduct = productList.children[0];
+                        nextProduct.setAttribute('style', 'display: block;');
+                        firstProduct.setAttribute('style', 'display: none;');
+                        productList.style.transition = 'none';
+                        productList.style.transform = 'translateX(0)';
+                    }, 500);
+                }, slideDuration);
+
+                productList.addEventListener('mouseenter', () => {
+                    clearInterval(slideInterval);
+                });
+
+                productList.addEventListener('mouseleave', () => {
+                    slideInterval = setInterval(() => {
+                        const firstProduct = productList.children[0];
+                        const productWidth = firstProduct.offsetWidth;
+                        productList.style.transition =
+                            'transform 0.5s ease-in-out';
+                        productList.style.transform = `translateX(-${productWidth}px)`;
+                        setTimeout(() => {
+                            productList.appendChild(firstProduct);
+                            const nextProduct = productList.children[0];
+                            nextProduct.setAttribute(
+                                'style',
+                                'display: block;'
+                            );
+                            firstProduct.setAttribute(
+                                'style',
+                                'display: none;'
+                            );
+                            productList.style.transition = 'none';
+                            productList.style.transform = 'translateX(0)';
+                        }, 500);
+                    }, slideDuration);
+                });
+            }
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+}
+
+function autocompletes(event) {
+    const query = event.target.value;
+
+    if (query.length < 1) {
+        document.getElementById('autocomplete-results').innerHTML = '';
+        return;
+    }
+
+    searchRequest = fetch(`/api/search/autocomplete?query=${query}`)
+        .then((response) => response.json())
+        .then((data) => {
+            const results = data.data;
+            if (results.length === 0) {
+                document.getElementById('autocomplete-results').innerHTML =
+                    "<div class='autocomplete-result'>검색 결과가 없습니다.</div>";
+                return;
+            }
+
+            let html = '';
+            for (let i = 0; i < results.length; i++) {
+                const product_name = results[i].product_name;
+                html += `<div class="autocomplete-result" onclick="selectAutocompleteResult('${product_name}')">${product_name}</div>`;
+            }
+            document.getElementById('autocomplete-results').innerHTML = html;
+        })
+        .catch((error) => console.error(error));
+}
+
+function selectAutocompleteResult(product_name) {
+    document.getElementById('searchkeyword').value = product_name;
+    document.getElementById('autocomplete-results').innerHTML = '';
 }

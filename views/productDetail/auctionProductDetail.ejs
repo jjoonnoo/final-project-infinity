@@ -1,7 +1,7 @@
 <body>
-  <script src="/socket.io/socket.io.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
 
-  <!-- <div id="container">
+    <!-- <div id="container">
     <div id="chat_view">
 
     </div>
@@ -9,58 +9,63 @@
       <input type="text" id="msg">
       <input type="submit" id="send" value="전송">
     </form>
-  </div>
-  
-  <div id="auction_product">
-
   </div> -->
-  
-  
-  <div class="button_region">
-    <hr>
-    <div class="button_area">
-    <div id="countdown"></div>
-    <div id="purchase_btn"></div>
 
-    <button id="btn2" class="openBtnBid">입찰</button>
+    <div id="auction_product"></div>
 
-    <div class="modalBid hiddenBid">
-      <div class="bgBid"></div>
-      <div class="modalBoxBid">
-      <p>※ 입찰 후 취소 시 수수료가 부과되므로 신중히 입찰하세요.</p>
-      <p>입찰 가격: <input type="text" id="bid_price">원</p>
-      <button class="modal_button" type="button" onclick="bidBtn()">입찰하기</button>
-      <button class="closeBtnBid">취소</button>
-      <p>※ 입찰 금액 단위</p>
-      <p>○ 입찰가 100만원이상 ▶ 10만원</p>
-      <p>○ 입찰가 50만원이상 ~ 100만원미만 ▶ 5만원</p>
-      <p>○ 입찰가 10만원이상 ~ 50만원미만 ▶ 1만원</p>
-      <p>○ 입찰가 10만원미만 ▶ 5천원</p>
-      </div>
+    <div class="button_region">
+        <hr />
+        <div class="button_area"></div>
+        <div id="countdown"></div>
+        <div id="purchase_btn"></div>
+
+        <button id="btn2" class="openBtnBid">입찰</button>
+
+        <div class="modalBid hiddenBid">
+            <div class="bgBid"></div>
+            <div class="modalBoxBid">
+                <p>※ 입찰 후 취소 시 수수료가 부과되므로 신중히 입찰하세요.</p>
+                <p>입찰 가격: <input type="text" id="bid_price" />원</p>
+                <button class="modal_button" type="button" onclick="bidBtn()">
+                    입찰하기
+                </button>
+                <button class="closeBtnBid">취소</button>
+                <p>※ 입찰 금액 단위</p>
+                <p>○ 입찰가 100만원이상 ▶ 10만원</p>
+                <p>○ 입찰가 50만원이상 ~ 100만원미만 ▶ 5만원</p>
+                <p>○ 입찰가 10만원이상 ~ 50만원미만 ▶ 1만원</p>
+                <p>○ 입찰가 10만원미만 ▶ 5천원</p>
+            </div>
+        </div>
+
+        <button class="openBtn">상품신고</button>
+
+        <div class="modal hidden">
+            <div class="bg"></div>
+            <div class="modalBox">
+                신고 제목:
+                <select name="sltSample" size="1" id="report_title">
+                    <option value="불친절한 대응" selected>
+                        불친절한 대응
+                    </option>
+                    <option value="불량 상품 판매">불량 상품 판매</option>
+                    <option value="규정위반 상품">규정위반 상품</option>
+                    <option value="기타">기타</option>
+                </select>
+                <p>신고 내용: <input type="text" id="report_content" /></p>
+                <button
+                    class="modal_button"
+                    type="button"
+                    onclick="reportBtn()"
+                >
+                    신고하기
+                </button>
+                <button class="closeBtn">취소</button>
+            </div>
+        </div>
     </div>
+    <hr />
 
-    <button class="openBtn">상품신고</button>
-  
-    <div class="modal hidden">
-      <div class="bg"></div>
-      <div class="modalBox">
-        신고 제목:
-        <SELECT NAME=sltSample SIZE=1 id="report_title">
-          <OPTION VALUE='불친절한 대응' SELECTED>불친절한 대응</OPTION>
-          <OPTION VALUE='불량 상품 판매'>불량 상품 판매</OPTION>
-          <OPTION VALUE='규정위반 상품'>규정위반 상품</OPTION>
-          <OPTION VALUE='기타'>기타</OPTION>
-        </SELECT>
-        <p>신고 내용: <input type="text" id="report_content"></p>
-        <button class="modal_button" type="button" onclick="reportBtn()">신고하기</button>
-        <button class="closeBtn">취소</button>
-      </div>
-    </div>
-  </div>
-  <hr>
-
-
-  
-  <script type="text/javascript" src="../js/auctionProductDetail.js"></script>
-  <link rel="stylesheet" href="../css/auctionProductDetail.css">
+    <script type="text/javascript" src="../js/auctionProductDetail.js"></script>
+    <link rel="stylesheet" href="../css/auctionProductDetail.css" />
 </body>
