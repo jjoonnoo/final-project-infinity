@@ -1,5 +1,87 @@
+<body>
+    <div>
+        <select
+            class="form-select"
+            id="product_type"
+            onchange="changeProductType()"
+            style="display: none"
+        >
+            <option selected>상품의 종류를 선택하세요</option>
+            <option value="1">경매</option>
+            <option value="2">일반</option>
+        </select>
+        <form id="auction_product_regist">
+            <div>
+                <label for="product_name2">상품명</label>
+                <div>
+                    <input
+                        id="product_name2"
+                        type="text"
+                        placeholder="상품명을 입력하세요"
+                        required
+                    />
+                </div>
+            </div>
+            <div>
+                <select class="form-select" id="product_category2">
+                    <option selected>상품의 분류를 선택하세요</option>
+                    <option value="의류">의류</option>
+                    <option value="잡화">잡화</option>
+                    <option value="식품">식품</option>
+                    <option value="가구">가구</option>
+                    <option value="가전">가전</option>
+                    <option value="스포츠">스포츠</option>
+                    <option value="여행">여행</option>
+                    <option value="도서">도서</option>
+                    <option value="서비스">서비스</option>
+                    <option value="그외">그외</option>
+                </select>
+            </div>
+            <div>
+                <label for="product_content2">상품설명</label>
+                <div>
+                    <input
+                        id="product_content2"
+                        type="text"
+                        placeholder="상품에 대한 설명을 해주세요"
+                        required
+                    />
+                </div>
+            </div>
+            <label for="product_image2">상품이미지 등록</label>
+            <div>
+                <input
+                    id="product_image2"
+                    onchange="upload_image()"
+                    type="file"
+                    placeholder="상품에 대한 설명을 해주세요"
+                    accept="image/*"
+                />
+            </div>
+            <div id="image_container2"></div>
+            <div>
+                <label for="product_price">가격</label>
+                <div>
+                    <input
+                        id="product_price"
+                        type="number"
+                        placeholder="상품의 가격을 입력하세요"
+                        required
+                    />
+                </div>
+            </div>
+            <button
+                onclick="modifyGeneralProduct(<%= general_product_id %>)"
+                class="btn btn-outline-secondary"
+            >
+                수정하기
+            </button>
+        </form>
+    </div>
+</body>
 <script>
     $(document).ready(function () {
-        alert("general")
+        $('#product_type').val(2).prop('selected',true)
+        getGeneralProduct(<%= general_product_id %>)
     })
 </script>

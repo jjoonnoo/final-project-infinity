@@ -1,4 +1,4 @@
-  .product-box {
+.product-box {
     margin: 20px;
     padding: 20px;
     border: 1px solid #ccc;
@@ -9,60 +9,60 @@
     flex-direction: column;
     flex: 0 0 auto;
     margin-right: 10px;
-  }
-  
-  .product-box:hover {
+}
+
+.product-box:hover {
     border: 1px solid #008080;
     box-shadow: 2px 2px 5px #008080;
-  }
-  
-  .product-image {
+}
+
+.product-image {
     width: 100%;
     height: 200px;
     object-fit: cover;
     margin-bottom: 10px;
-  }
-  
-  .product-name {
+}
+
+.product-name {
     font-weight: bold;
     font-size: 1.2rem;
     margin-bottom: 5px;
-  }
-  
-  .product-explanation {
+}
+
+.product-explanation {
     font-size: 1rem;
     margin-bottom: 10px;
-  }
-  
-  .product-participant {
+}
+
+.product-participant {
     font-size: 1rem;
     margin-bottom: 5px;
-  }
-  
-  .btn-group {
+}
+
+.btn-group {
     display: flex;
     justify-content: center;
     margin-top: 10px;
-  }
-  
-  .btn-outline-secondary {
+}
+
+.btn-outline-secondary {
     color: #008080;
     border-color: #008080;
     margin-right: 10px;
-  }
-  
-  .btn-outline-secondary:hover {
+}
+
+.btn-outline-secondary:hover {
     background-color: #008080;
     color: #fff;
-  }
-  #recommend-Products {
+}
+#recommend-Products {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100%;
-  }
-  
-  #recommend-Products-list {
+}
+
+#recommend-Products-list {
     display: contents;
     flex-wrap: nowrap;
     overflow-x: scroll;
@@ -70,26 +70,26 @@
     flex-direction: row;
     white-space: nowrap;
     width: 100%;
-  }
+}
 
-  #recommend-Products-list-container {
+#recommend-Products-list-container {
     text-align: center;
     display: inline-grid;
-    margin-right: 50px
-  }
+    margin-right: 50px;
+}
 
-  .productone:hover {
+.productone:hover {
     border: 1px solid #008080;
     box-shadow: 2px 2px 5px #008080;
 }
 
-  .productone {
+.productone {
     margin: 20px;
     padding: 10px;
     box-shadow: 2px 2px 5px #ccc;
 }
 
-  .outline-success {
+.outline-success {
     background-color: #fff;
     color: #000;
     border: 2px solid #000;
@@ -99,7 +99,7 @@
     cursor: pointer;
     transition: all 0.3s ease;
 }
-  .outline-success:hover {
+.outline-success:hover {
     background-color: #000;
     color: #fff;
     border: 2px solid #fff;

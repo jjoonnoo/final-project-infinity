@@ -1,81 +1,81 @@
 /* 신고하기 모달 css */
 .modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .modal .bg {
-  width: 100%;
-  height: 100%;
-  /* background-color: rgba(0, 0, 0, 0.6); */
+    width: 100%;
+    height: 100%;
+    /* background-color: rgba(0, 0, 0, 0.6); */
 }
 
 .modalBox {
-  position: absolute;
-  background-color: #fff;
-  width: 400px;
-  height: 200px;
-  padding: 15px;
+    position: absolute;
+    background-color: #fff;
+    width: 400px;
+    height: 200px;
+    padding: 15px;
 }
 
 .modalBox button {
-  display: block;
-  width: 80px;
-  margin: 0 auto;
+    display: block;
+    width: 80px;
+    margin: 0 auto;
 }
 
 .hidden {
-  display: none;
+    display: none;
 }
 
 /* 본문 CSS */
 .product_region {
-  width: 800px;
-  margin-left: auto;
-  margin-right: auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .button_region {
-  width: 800px;
-  margin-top: 20px;
-  margin-left: auto;
-  margin-right: auto;
+    width: 800px;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .button_area {
-  margin-left: 480px;
-  margin-bottom: 50px;
+    margin-left: 480px;
+    margin-bottom: 50px;
 }
 
 #button_1 {
-  width: 150px;
-  height: 50px;
-  border: none;
-  font-size: 20px;
-  font-weight: bolder;
-  background-color: antiquewhite;
+    width: 150px;
+    height: 50px;
+    border: none;
+    font-size: 20px;
+    font-weight: bolder;
+    background-color: antiquewhite;
 }
 
 #button_2 {
-  width: 150px;
-  height: 50px;
-  border: none;
-  font-size: 20px;
-  font-weight: bolder;
-  background-color: antiquewhite;
+    width: 150px;
+    height: 50px;
+    border: none;
+    font-size: 20px;
+    font-weight: bolder;
+    background-color: antiquewhite;
 }
 
 .review_region {
-  width: 800px;
-  margin-left: auto;
-  margin-right: auto;
+    width: 800px;
+    margin-left: auto;
+    margin-right: auto;
 }

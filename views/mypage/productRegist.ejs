@@ -1,124 +1,203 @@
 <body>
     <div>
-        <select class="form-select" id="product_type" onchange="changeProductType()">
+        <select
+            class="form-select"
+            id="product_type"
+            onchange="changeProductType()"
+        >
             <option selected>상품의 종류를 선택하세요</option>
             <option value="1">경매</option>
             <option value="2">일반</option>
         </select>
-        <form id="auction_product_regist" style="display:none">
+        <div id="auction_product_regist" style="display: none">
             <div>
                 <label for="product_name1">상품명</label>
                 <div>
-                    <input id="product_name1" type="text" placeholder="상품명을 입력하세요" required>
+                    <input
+                        id="product_name1"
+                        type="text"
+                        placeholder="상품명을 입력하세요"
+                        required
+                    />
                 </div>
             </div>
             <div>
                 <select class="form-select" id="product_category1">
                     <option selected>상품의 분류를 선택하세요</option>
-                    <option value="1">의류</option>
-                    <option value="2">잡화</option>
-                    <option value="3">식품</option>
-                    <option value="4">가구</option>
-                    <option value="5">가전</option>
-                    <option value="6">스포츠</option>
-                    <option value="7">여행</option>
-                    <option value="8">도서</option>
-                    <option value="9">서비스</option>
-                    <option value="10">그외</option>
+                    <option value="의류">의류</option>
+                    <option value="잡화">잡화</option>
+                    <option value="식품">식품</option>
+                    <option value="가구">가구</option>
+                    <option value="가전">가전</option>
+                    <option value="스포츠">스포츠</option>
+                    <option value="여행">여행</option>
+                    <option value="도서">도서</option>
+                    <option value="서비스">서비스</option>
+                    <option value="그외">그외</option>
                 </select>
             </div>
             <div>
                 <label for="product_content1">상품설명</label>
                 <div>
-                    <input id="product_content1" type="text" placeholder="상품에 대한 설명을 해주세요" required>
+                    <input
+                        id="product_content1"
+                        type="text"
+                        placeholder="상품에 대한 설명을 해주세요"
+                        required
+                    />
                 </div>
             </div>
             <div>
                 <label for="product_image1">상품이미지 등록</label>
                 <div>
-                    <input id="product_image1" onchange="upload_image()" type="file" placeholder="상품에 대한 설명을 해주세요" accept="image/*" required>
+                    <input
+                        id="product_image1"
+                        onchange="upload_image()"
+                        type="file"
+                        placeholder="상품에 대한 설명을 해주세요"
+                        accept="image/*"
+                        required
+                    />
                 </div>
-                <div id="image_container1">
-
-                </div>
+                <div id="image_container1"></div>
             </div>
             <div>
                 <label for="product_start_price">시작가</label>
                 <div>
-                    <input id="product_start_price" type="number" placeholder="시작가격을 입력하세요" min=1 required>
+                    <input
+                        id="product_start_price"
+                        type="number"
+                        placeholder="시작가격을 입력하세요"
+                        min="1"
+                        required
+                    />
                 </div>
             </div>
-            
+
             <div>
                 <label for="product_buy_now_price">즉시구매가</label>
                 <div>
-                    <input id="product_buy_now_price" type="number" placeholder="즉시구매가격을 입력하세요" min=1 required>
+                    <input
+                        id="product_buy_now_price"
+                        type="number"
+                        placeholder="즉시구매가격을 입력하세요"
+                        min="1"
+                        required
+                    />
                 </div>
             </div>
             <div>
                 <div>
-                    <label for="product_start_date">시작하는 날짜와 시간을 선택하세요: </label>
-                    <input id="product_start_date" type="datetime-local" min="" required>
+                    <label for="product_start_date"
+                        >시작하는 날짜와 시간을 선택하세요:</label
+                    >
+                    <input
+                        id="product_start_date"
+                        type="datetime-local"
+                        min=""
+                        required
+                    />
                 </div>
             </div>
             <div>
                 <div>
-                    <label for="product_end_date">끝나는 날짜와 시간을 선택하세요: </label>
-                    <input id="product_end_date" type="datetime-local" min="" required>
+                    <label for="product_end_date"
+                        >끝나는 날짜와 시간을 선택하세요:</label
+                    >
+                    <input
+                        id="product_end_date"
+                        type="datetime-local"
+                        min=""
+                        required
+                    />
                 </div>
             </div>
-            <button onclick="registAuctionProduct()" class="btn btn-outline-secondary">등록하기</button>
-        </form>
-        
-        <form id="general_product_regist" style="display: none;">
+            <button
+                onclick="registAuctionProduct()"
+                class="btn btn-outline-secondary"
+            >
+                등록하기
+            </button>
+        </div>
+
+        <div id="general_product_regist" style="display: none">
             <div>
                 <label for="product_name2">상품명</label>
                 <div>
-                    <input id="product_name2" type="text" placeholder="상품명을 입력하세요" required>
+                    <input
+                        id="product_name2"
+                        type="text"
+                        placeholder="상품명을 입력하세요"
+                        required
+                    />
                 </div>
             </div>
             <div>
                 <select class="form-select" id="product_category2">
                     <option selected>상품의 분류를 선택하세요</option>
-                    <option value="1">의류</option>
-                    <option value="2">잡화</option>
-                    <option value="3">식품</option>
-                    <option value="4">가구</option>
-                    <option value="5">가전</option>
-                    <option value="6">스포츠</option>
-                    <option value="7">여행</option>
-                    <option value="8">도서</option>
-                    <option value="9">서비스</option>
-                    <option value="10">그외</option>
+                    <option value="의류">의류</option>
+                    <option value="잡화">잡화</option>
+                    <option value="식품">식품</option>
+                    <option value="가구">가구</option>
+                    <option value="가전">가전</option>
+                    <option value="스포츠">스포츠</option>
+                    <option value="여행">여행</option>
+                    <option value="도서">도서</option>
+                    <option value="서비스">서비스</option>
+                    <option value="그외">그외</option>
                 </select>
             </div>
             <div>
                 <label for="product_content2">상품설명</label>
                 <div>
-                    <input id="product_content2" type="text" placeholder="상품에 대한 설명을 해주세요" required>
+                    <input
+                        id="product_content2"
+                        type="text"
+                        placeholder="상품에 대한 설명을 해주세요"
+                        required
+                    />
                 </div>
             </div>
             <label for="product_image2">상품이미지 등록</label>
             <div>
-                <input id="product_image2" onchange="upload_image()" type="file" placeholder="상품에 대한 설명을 해주세요" accept="image/*" required>
+                <input
+                    id="product_image2"
+                    onchange="upload_image()"
+                    type="file"
+                    placeholder="상품에 대한 설명을 해주세요"
+                    accept="image/*"
+                    required
+                />
             </div>
-            <div id="image_container2">
-
-            </div>
+            <div id="image_container2"></div>
             <div>
                 <label for="product_price">가격</label>
                 <div>
-                    <input id="product_price" type="number" placeholder="상품의 가격을 입력하세요" required>
+                    <input
+                        id="product_price"
+                        type="number"
+                        placeholder="상품의 가격을 입력하세요"
+                        required
+                    />
                 </div>
             </div>
-            <button onclick="registGeneralProduct()" class="btn btn-outline-secondary">등록하기</button>
-        </form>
+            <button
+                onclick="registGeneralProduct()"
+                class="btn btn-outline-secondary"
+            >
+                등록하기
+            </button>
+        </div>
     </div>
 </body>
 <script>
-    let date = new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, -8);
-    document.getElementById('product_start_date').value= date;
-    document.getElementById('product_start_date').setAttribute("min",date)
-    document.getElementById('product_end_date').value= date;
-    document.getElementById('product_end_date').setAttribute("min",date)
+    let date = new Date(
+        new Date().getTime() - new Date().getTimezoneOffset() * 60000
+    )
+        .toISOString()
+        .slice(0, -8);
+    document.getElementById('product_start_date').value = date;
+    document.getElementById('product_start_date').setAttribute('min', date);
+    document.getElementById('product_end_date').value = date;
+    document.getElementById('product_end_date').setAttribute('min', date);
 </script>

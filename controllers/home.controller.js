@@ -3,6 +3,11 @@ exports.homepage = async (req, res) => {
         title: 'Home',
     });
 };
+exports.loginandsignup = async (req, res) => {
+    res.status(200).render('login', {
+        layout: false,
+    });
+};
 exports.myinfo = async (req, res) => {
     res.status(200).render('mypage/myInfo', {
         title: 'My Info',
@@ -33,7 +38,16 @@ exports.auctionproductmodify = async (req, res) => {
         auction_product_id: auction_product_id,
     });
 };
-
+exports.purchasehistory = async (req, res) => {
+    res.status(200).render('mypage/purchaseHistory', {
+        title: 'Purchase History',
+    });
+};
+exports.salehistory = async (req, res) => {
+    res.status(200).render('mypage/saleHistory', {
+        title: 'Sale History',
+    });
+};
 exports.cart = async (req, res) => {
     res.status(200).render('cart/generalProductCart', {
         title: '장바구니',
