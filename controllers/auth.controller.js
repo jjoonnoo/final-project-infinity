@@ -1,7 +1,4 @@
 const bcrypt = require('bcrypt');
-
-// const AuthRepository = require('../repositories/auth.repository');
-
 const jwt = require('jsonwebtoken');
 const request_ip = require('request-ip');
 const ipinfo = require('ipinfo');
@@ -14,11 +11,10 @@ const AuthService = require('../services/auth.service.js');
 
 class AuthController {
     auth_service = new AuthService(); // AuthService의 인스턴스 생성성
-    // auth_repository = new AuthRepository(User);
     // 회원가입
     signup = async (req, res, next) => {
         try {
-            const { email, name, password, phone, address, admin, raiting } =
+            const { email, name, password, phone, address, admin, rating } =
                 req.body;
 
             // Value 없을시 에러처리
@@ -44,7 +40,7 @@ class AuthController {
                 phone,
                 address,
                 admin,
-                raiting
+                rating
             );
             res.status(201).json({
                 data: create_user,
@@ -85,17 +81,6 @@ class AuthController {
                 });
             }
 
-            // access token 생성
-            const access_token = jwt.sign(
-                {
-                    user_id: user.user_id,
-                    email: user.email,
-                    admin: user.admin,
-                },
-                process.env.ACCESSTOKEN_SECRET_KEY,
-                { expiresIn: '1s' }
-            );
-
             // Refresh token 발급
 
             const refresh_token = jwt.sign(
@@ -108,20 +93,27 @@ class AuthController {
                 { expiresIn: '7d' }
             );
 
-            // res.cookie('accessToken', access_token);
-            // res.cookie('refreshToken', refresh_token);
-            res.status(200).json({
-                access_token,
-                refresh_token,
-                msg: '로그인 완료!',
-            });
+            // jwt토큰의 payload 안에 refresh token을 넣어서
+            // access token을 발급하기
+
+            const access_token = jwt.sign(
+                {
+                    user_id: user.dataValues.user_id,
+                    email: user.dataValues.email,
+                    admin: user.dataValues.admin,
+                    refreshToken: refresh_token,
+                },
+                process.env.ACCESSTOKEN_SECRET_KEY,
+                { expiresIn: '1d' }
+            );
+
+            return res.status(200).json({ access_token, msg: '로그인 완료!' });
         } catch (error) {
             // console.log(error);
             res.status(400).json({ msg: '로그인 실패' });
         }
     };
 
-    //로그아웃
     signout = async (req, res) => {
         res.clearCookie('accessToken');
         res.json({ msg: '로그아웃 성공' });
