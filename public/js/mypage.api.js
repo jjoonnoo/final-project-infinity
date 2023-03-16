@@ -526,13 +526,7 @@ function getSaleHistory() {
         // },
         data: {},
         success: function (response) {
-            console.log(response.data);
             const auction_data = response.data.auction_data;
-            //product_name,content,end,update_price
-            //auction_data[i]['product_name'] product관련
-            //auction_data[i].Auction_order.User['name'] 낙찰자 관련
-            console.log(auction_data[0].Auction_order.auction_order_id);
-            console.log(auction_data[0].Auction_order.User['name']);
             const general_data = response.data.general_data;
             for (let i = 0; i < auction_data.length; i++) {
                 if (!auction_data[i].Auction_order) {

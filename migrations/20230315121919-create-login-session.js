@@ -10,12 +10,15 @@ module.exports = {
                 type: Sequelize.INTEGER,
             },
             user_id: {
+                allowNull: false,
                 type: Sequelize.INTEGER,
             },
             device_type: {
+                allowNull: false,
                 type: Sequelize.STRING,
             },
             refresh_token: {
+                allowNull: false,
                 type: Sequelize.STRING,
             },
             createdAt: {

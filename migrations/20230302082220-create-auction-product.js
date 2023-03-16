@@ -10,18 +10,23 @@ module.exports = {
                 type: Sequelize.INTEGER,
             },
             user_id: {
+                allowNull: false,
                 type: Sequelize.INTEGER,
             },
             product_name: {
+                allowNull: false,
                 type: Sequelize.STRING,
             },
             product_content: {
+                allowNull: false,
                 type: Sequelize.STRING,
             },
             product_start_price: {
+                allowNull: false,
                 type: Sequelize.INTEGER,
             },
             product_buy_now_price: {
+                allowNull: false,
                 type: Sequelize.INTEGER,
             },
             product_update_price: {
@@ -31,12 +36,18 @@ module.exports = {
                 type: Sequelize.INTEGER,
             },
             product_start: {
+                allowNull: false,
                 type: Sequelize.DATE,
             },
             product_end: {
+                allowNull: false,
                 type: Sequelize.DATE,
             },
+            bid_count: {
+                type: Sequelize.INTEGER,
+            },
             category: {
+                allowNull: false,
                 type: Sequelize.STRING,
             },
             createdAt: {

@@ -29,11 +29,11 @@ function login() {
         },
 
         success: function (response) {
-            alert('로그인 완료!');
-            window.location.assign('/'); // 메인페이지
+            alert(response.msg);
+            window.location.href = '/'; // 메인페이지
         },
-        error: function (response) {
-            alert('메일 혹은 아이디가 다릅니다');
+        error: function (error) {
+            alert(error.responseJSON.msg);
         },
     });
 }
@@ -46,7 +46,7 @@ function register() {
     let user_address = $('#address').val();
     let user_phone = $('#phone').val();
 
-    console.log(user_password, user_repassword);
+    // console.log(user_password, user_repassword);
 
     if (user_password !== user_repassword) {
         return alert('동일한 패스워드를 입력하세요');

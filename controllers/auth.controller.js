@@ -12,7 +12,7 @@ const AuthService = require('../services/auth.service.js');
 class AuthController {
     auth_service = new AuthService(); // AuthService의 인스턴스 생성성
     // 회원가입
-    signup = async (req, res, next) => {
+    signup = async (req, res) => {
         try {
             const { email, name, password, phone, address, admin, rating } =
                 req.body;
@@ -58,13 +58,12 @@ class AuthController {
         try {
             const { email, password } = req.body;
             // const user_agent = req.headers['x-user-agent'];
-            const detector = new DeviceDetector({
-                clientIndexes: true,
-                deviceIndexes: true,
-                deviceAliasCode: false,
-            });
+            // const detector = new DeviceDetector({
+            //     clientIndexes: true,
+            //     deviceIndexes: true,
+            //     deviceAliasCode: false,
+            // });
             // const user_device_type = detector.detect(user_agent).device['type'];
-            console.log(user_device_type);
             const user = await this.auth_service.findByEmail(email);
             const passwordTest = await bcrypt.compare(password, user.password);
             // const ip = "112.184.163.168" 내 아이피주소
@@ -107,9 +106,8 @@ class AuthController {
                 { expiresIn: '1d' }
             );
 
-            return res.status(200).json({ access_token, msg: '로그인 완료!' });
+            res.status(200).json({ access_token, msg: '로그인 완료!' });
         } catch (error) {
-            // console.log(error);
             res.status(400).json({ msg: '로그인 실패' });
         }
     };
