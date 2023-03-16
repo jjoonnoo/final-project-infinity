@@ -77,3 +77,10 @@ exports.search = async (req, res) => {
         title: '검색',
     });
 };
+
+exports.chatBot = async (req, res) => {
+    res.status(200).render('chatbot', {
+        title: '상담',
+        layout: false,
+    });
+};
