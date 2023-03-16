@@ -1,19 +1,34 @@
-body { background-color: rgb(221, 232, 249);}
+body {
+    background-color: rgb(221, 232, 249);
+}
 
-.chat-content { height: 350px; overflow-y: scroll;}
+.chat-content {
+    height: 350px;
+    overflow-y: scroll;
+}
 
-.line { margin-top: 10px; display: flex;}
+.line {
+    margin-top: 10px;
+    display: flex;
+}
 
-.chat-box {background: #ffffff; padding: 5px; max-width: 200px;}
+.chat-box {
+    background: #ffffff;
+    padding: 5px;
+    max-width: 200px;
+}
 
-.mine { background: yellow; margin: auto;}
+.mine {
+    background: yellow;
+    margin: auto;
+}
 
 .chat-input {
-  position: relative;
-  margin-left: 150px;
+    position: relative;
+    margin-left: 150px;
 }
 
 .cs {
-  height: 40px;
-  margin-left: 100px;
+    height: 40px;
+    margin-left: 100px;
 }
