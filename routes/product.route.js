@@ -10,21 +10,21 @@ const productController = new ProductController();
 
 /* 일반상품 상세페이지 API */
 router.get(
-    '/general/detail/:general_product_id',
+    '/general/:general_product_id',
     /*  authMiddleware, */ productController.generalProductFind
 );
 router.post(
-    '/general/detail/:general_product_id',
+    '/cart/:general_product_id',
     /*  authMiddleware, */ productController.generalProductAddCart
 );
 router.post(
     '/general/report/:general_product_id',
-    /*  authMiddleware, */ productController.generalProductreport
+    /*  authMiddleware, */ productController.generalProductReport
 );
 
 /* 경매상품 상세페이지 API */
 router.get(
-    '/auction/detail/:auction_product_id',
+    '/auction/:auction_product_id',
     /*  authMiddleware, */ productController.auctionProductFind
 );
 
@@ -34,14 +34,19 @@ router.post(
 );
 
 router.patch(
-    '/auction/update/:auction_product_id',
+    '/bid_price/:auction_product_id',
     /* authMiddleware, */ productController.auctionProductPriceUpdate
 );
 
-/* 경매상품 구매페이지 API */
+/* 경매상품 즉시 구매페이지 API */
 router.get(
-    '/auction/purchase/:auction_product_id',
-    /* authMiddleware, */ productController.auctionProductPurchase
+    '/now_purchase/:auction_product_id',
+    /* authMiddleware, */ productController.auctionProductPurchaseNowFind
+);
+
+router.post(
+    '/purchase/:auction_product_id',
+    /* authMiddleware, */ productController.auctionProductPurchaseNow
 );
 
 router.post('/general', productController.generalProductRegist);

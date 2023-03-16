@@ -8,6 +8,7 @@ const {
     Image,
     General_order_info,
     General_order,
+    Auction_order
 } = require('../models');
 
 class ProductRepositoty {
@@ -225,7 +226,7 @@ class ProductRepositoty {
         }
     };
 
-    generalProductreport = async ({
+    generalProductReport = async ({
         user_id,
         general_product_id,
         title,
@@ -245,6 +246,7 @@ class ProductRepositoty {
         try {
             const data = await Cart.findAll({
                 where: { user_id },
+                order:[["createdAt", "desc"]],
                 include: [
                     {
                         model: User,
@@ -328,7 +330,7 @@ class ProductRepositoty {
             include: [
                 {
                     model: User,
-                    attributes: ['email', 'raiting'],
+                    attributes: ['email', 'rating'],
                 },
                 {
                     model: Image,
@@ -360,16 +362,56 @@ class ProductRepositoty {
         bidder_id,
         auction_product_id,
         product_update_price,
+        product_end
     }) => {
-        const data = await Auction_product.update(
-            { bidder_id, product_update_price },
-            { where: { auction_product_id } }
-        );
+        if (product_end === '') {
+            await Auction_product.update(
+                { bidder_id, product_update_price },
+                { where: { auction_product_id } }
+            );
+            
+            const order = await Auction_order.findOne({
+                where: { auction_product_id }
+            })
 
-        return data;
+            if (order === null) {
+                await Auction_order.create(
+                    { user_id: bidder_id, auction_product_id }
+                );
+            } else {
+                await Auction_order.update(
+                    { user_id: bidder_id },
+                    { where: { auction_product_id } }
+                );
+            }
+
+        } else {
+            await Auction_product.update(
+                { bidder_id, product_update_price, product_end },
+                { where: { auction_product_id } }
+            );
+        }
+        
+        const { bid_count } = await Auction_product.findOne({
+            where: { auction_product_id },
+            attributes: ['bid_count']
+        })
+
+        if (bid_count === null) {
+            await Auction_product.create(
+                { bid_count: 1 },
+                { where: { auction_product_id } }
+            )
+        } else {
+            const add_count = bid_count + 1
+            await Auction_product.update(
+                { bid_count: add_count },
+                { where: { auction_product_id } }
+            );
+        }
     };
 
-    auctionProductPurchase = async (auction_product_id, user_id) => {
+    auctionProductPurchaseNowFind = async (auction_product_id, user_id) => {
         const data1 = await Auction_product.findOne({
             where: { auction_product_id },
             include: [
@@ -383,6 +425,31 @@ class ProductRepositoty {
 
         const data = [data1, data2];
         return data;
+    };
+
+    auctionProductPurchaseNow = async ({
+        user_id,
+        auction_product_id,
+        product_buy_now_price
+    }) => {
+        await Auction_product.update(
+            { bidder_id: user_id, product_update_price: product_buy_now_price },
+            { where: { auction_product_id } }
+        );
+
+        const order = await Auction_order.findOne({
+            where: { auction_product_id }
+        })
+
+        if (order === null) {
+            await Auction_order.create(
+                { user_id, auction_product_id }
+            );} else {
+                await Auction_order.update(
+                    { user_id },
+                    { where: { auction_product_id } }
+                );
+            }
     };
 }
 

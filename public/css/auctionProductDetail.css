@@ -57,7 +57,7 @@
   position: absolute;
   background-color: #fff;
   width: 400px;
-  height: 200px;
+  height: 400px;
   padding: 15px;
 }
 
@@ -135,4 +135,42 @@
   background-color: green;
   float: left;
   margin-right: 7px;
+}
+
+/* 채팅창 CSS */
+#container {
+  width: 500px;
+  height: 500px;
+  border: 1px solid black;
+  background-color: grey;
+}
+
+#chat_view {
+  height: 90%;
+  overflow-y: scroll;
+}
+
+#msg {
+  width: 80%;
+  height: 32px;
+  border-radius: 8px;
+}
+
+#send {
+  width: 16%;
+  height: 34px;
+  border-radius: 50px;
+  background: black;
+  color: white;
+}
+
+.msg_line {
+  margin: 15px;
+}
+
+.msg_box {
+  border: 1px solid black;
+  background: white;
+  padding: 2px 5px;
+  border-radius: 10px;
 }

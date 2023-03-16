@@ -192,14 +192,14 @@ class ProductController {
         }
     };
 
-    generalProductreport = async (req, res) => {
+    generalProductReport = async (req, res) => {
         try {
             // const user_id = res.locals.user.user_id
             const user_id = 99;
             const { general_product_id } = req.params;
             const { title, content } = req.body;
 
-            const data = await this.productService.generalProductreport({
+            const data = await this.productService.generalProductReport({
                 user_id,
                 general_product_id,
                 title,
@@ -213,7 +213,6 @@ class ProductController {
     };
 
     generalProductFindCart = async (req, res) => {
-        console.log('도착');
         try {
             // const user_id = res.locals.user.user_id
             const user_id = 98;
@@ -323,12 +322,13 @@ class ProductController {
             const user_id = 98;
             const bidder_id = user_id;
             const { auction_product_id } = req.params;
-            const { product_update_price } = req.body;
+            const { product_update_price, product_end } = req.body;
 
-            const data = await this.productService.auctionProductPriceUpdate({
+            await this.productService.auctionProductPriceUpdate({
                 bidder_id,
                 auction_product_id,
                 product_update_price,
+                product_end
             });
 
             res.status(201).json({ message: '입찰 등록이 됐습니다.' });
@@ -337,17 +337,36 @@ class ProductController {
         }
     };
 
-    auctionProductPurchase = async (req, res) => {
+    auctionProductPurchaseNowFind = async (req, res) => {
         // const user_id = res.locals.user.user_id
         const user_id = 98;
         try {
             const { auction_product_id } = req.params;
-            const data = await this.productService.auctionProductPurchase(
+            const data = await this.productService.auctionProductPurchaseNowFind(
                 auction_product_id,
                 user_id
             );
 
             res.status(200).json({ data });
+        } catch (error) {
+            res.status(500).json({ message: error.message });
+        }
+    };
+
+    auctionProductPurchaseNow = async (req, res) => {
+        try {
+            // const user_id = res.locals.user.user_id
+            const user_id = 98;
+            const { auction_product_id } = req.params;
+            const { product_buy_now_price } = req.body
+
+            await this.productService.auctionProductPurchaseNow({
+                user_id,
+                auction_product_id,
+                product_buy_now_price
+            });
+
+            res.status(201).json({ message: '낙찰이 완료되었습니다.' });
         } catch (error) {
             res.status(500).json({ message: error.message });
         }

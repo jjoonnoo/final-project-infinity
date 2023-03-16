@@ -1,8 +1,11 @@
 const express = require('express');
 const expressLayouts = require('express-ejs-layouts');
 const app = express();
+const server = require('http').createServer(app);
+const io = require('socket.io')(server)
 const router = require('./routes');
 const authRouter = require('./routes/auth.route');
+
 
 require('dotenv').config();
 app.set('views', './views');
@@ -17,6 +20,20 @@ app.use(express.static('public'));
 
 app.use('/auth', authRouter);
 
-app.listen(process.env.PORT, function () {
+let socket_list = [];
+
+io.on('connection', (socket) => {
+  socket_list.push(socket)
+  
+  socket.on('request_message', (msg) => {
+    io.emit('response_message', msg);
+  });
+
+  socket.on('disconnect', async () => {
+      console.log('user disconnected');
+  });
+});
+
+server.listen(process.env.PORT, function () {
     console.log(`http://localhost:${process.env.PORT}/`);
 });

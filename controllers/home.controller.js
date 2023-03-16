@@ -34,7 +34,7 @@ exports.auctionproductmodify = async (req, res) => {
     });
 };
 
-exports.cart = async (req, res) => {
+exports.generalcart = async (req, res) => {
     res.status(200).render('cart/generalProductCart', {
         title: '장바구니',
     });
