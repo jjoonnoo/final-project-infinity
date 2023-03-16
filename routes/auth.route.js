@@ -41,7 +41,6 @@ router.post('/signin', validate_signin, auth_Controller.signin);
 
 // 로그인, 회원가입 페이지
 
-
 // 토큰검증API
 router.get('/signin/check', authMiddleware, async (req, res) => {
     res.json({ user: res.locals.user });

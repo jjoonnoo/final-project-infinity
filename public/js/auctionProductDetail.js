@@ -1,8 +1,9 @@
-$(document).ready(async function () {
+console.log('연결');
+$(document).ready(function () {
     auctionProductDetail();
 });
 
-auction_product_id = location.pathname.split('/')[3];
+auction_product_id = location.pathname.split('/')[2];
 
 let en_date;
 
@@ -10,11 +11,11 @@ let en_date;
 function auctionProductDetail() {
     $.ajax({
         type: 'GET',
-        url: `/products/auction/detail/${auction_product_id}`,
+        url: `/api/products/auction/${auction_product_id}`,
         data: {},
         success: function (response) {
             const rows = response['data'];
-
+            console.log(rows);
             if (rows === null) {
                 alert('존재하지 않는 상품입니다.');
                 return history.back();
@@ -25,16 +26,34 @@ function auctionProductDetail() {
             const image = rows.Images[0].image_url;
             const product_name = rows.product_name;
             const product_content = rows.product_content;
+            bid_count = rows.bid_count;
             product_buy_now_price = rows.product_buy_now_price;
+
+            if (bid_count === null) {
+                bid_count = 0;
+            }
+
+            if (product_buy_now_price !== null) {
+                product_buy_now_price_convert =
+                    product_buy_now_price.toLocaleString();
+            }
+
             const category = rows.category;
             product_update = rows.product_update_price;
+            const product_update_convert = product_update.toLocaleString();
             product_start = rows.product_start_price;
-            const product_end_format = rows.product_end;
+            const product_start_convert = product_start.toLocaleString();
+            product_end_format = rows.product_end;
             product_end = product_end_format.replace('T', ' ').slice(0, -5);
             const date = new Date(product_end);
             en_date = date.toLocaleString('en');
 
-            CountDownTimer(en_date, 'countdown');
+            if (product_buy_now_price === product_update) {
+                en_date = 0;
+                ttt(en_date, 'countdown');
+            } else {
+                CountDownTimer(en_date, 'countdown');
+            }
 
             if (product_update === null) {
                 product_update = 0;
@@ -43,16 +62,21 @@ function auctionProductDetail() {
             if (product_buy_now_price === null) {
                 let temp_html = `
                     <div class="product_region">
-                    <p>등록자: ${seller}</p>
-                    <p>등록자 별점: ${raiting}</p>
-                    <p>상품이미지:<img src="${image}" width="200"></p>
-                    <p>상품이름: ${product_name}</p>
-                    <p>상품내용: ${product_content}</p>
-                    <p>시작 가격: ${product_start}원<p>
-                    <p>현재 입찰가:${product_update}원</p>
-                    <p>카테고리: ${category}</p>                    
-                    <p>마감시간: ${product_end}</p>
-                    </div>
+                                    <div>
+                                        <img src="${image}" width="400">
+                                    </div>
+                                    <div class="product_area">
+                                        <p>등록자: ${seller}</p>
+                                        <p>등록자 별점: ${raiting}</p>
+                                        <p>상품이름: ${product_name}</p>
+                                        <p>상품내용: ${product_content}</p>
+                                        <p>시작 가격: ${product_start_convert}원<p>
+                                        <p>현재 입찰가:${product_update_convert}원</p>
+                                        <p>카테고리: ${category}</p>                    
+                                        <p>마감시간: ${product_end}</p>
+                                        <p>입찰 횟수: ${bid_count}</p>
+                                    </div>
+                                </div>
                     `;
                 $('#auction_product').append(temp_html);
             } else {
@@ -66,19 +90,21 @@ function auctionProductDetail() {
                                         <p>등록자 별점: ${raiting}</p>
                                         <p>상품이름: ${product_name}</p>
                                         <p>상품내용: ${product_content}</p>
-                                        <p>즉시 구매가: ${product_buy_now_price}원</p>
-                                        <p>시작 가격: ${product_start}원<p>
-                                        <p>현재 입찰가:${product_update}원</p>
+                                        <p>즉시 구매가: ${product_buy_now_price_convert}원</p>
+                                        <p>시작 가격: ${product_start_convert}원<p>
+                                        <p>현재 입찰가:${product_update_convert}원</p>
                                         <p>카테고리: ${category}</p>                    
                                         <p>마감시간: ${product_end}</p>
+                                        <p>입찰 횟수: ${bid_count}</p>
                                     </div>
                                 </div>
                                 `;
                 $('#auction_product').append(temp_html);
 
                 let temp_html_btn = `
-                                    <a href="/product/auction_purchase/${auction_product_id}"><button id="btn1" class="button_1">즉시 구매</button></a>
+                                    <a href="#"><button id="btn1" class="button_1" onclick="purchaseNow()">즉시 구매</button></a>
                                     `;
+                // setTimeout(() => $('#purchase_btn').append(temp_html_btn), 1500)
                 $('#purchase_btn').append(temp_html_btn);
             }
         },
@@ -93,15 +119,52 @@ function bidBtn() {
     time_out = new Date(en_date) - new Date();
     const bid_price = $('#bid_price').val();
     const compare_price = Number(bid_price);
+    en_date;
+    Remaining_time = Math.floor(time_out / 1000 / 60);
+    let add_time = '';
+
+    if (Remaining_time < 1) {
+        const end_time = new Date(product_end_format);
+        const add_minutes = end_time.setMinutes(end_time.getMinutes() + 1);
+        add_time = new Date(add_minutes).toISOString();
+    }
 
     if (time_out < 0) {
         alert('경매가 마감되었습니다.');
         return window.location.reload();
     } else {
-        if (compare_price % 5000 !== 0) {
-            alert('금액 단위는 5,000원 입니다.');
-            return;
+        if (product_update < 100000) {
+            if (compare_price % 5000 !== 0) {
+                alert('금액 단위는 5,000원 입니다.');
+                return;
+            }
         }
+
+        if (100000 <= product_update && product_update < 500000) {
+            if (compare_price % 10000 !== 0) {
+                alert('금액 단위는 10,000원 입니다.');
+                return;
+            }
+        }
+
+        if (500000 <= product_update && product_update < 1000000) {
+            if (compare_price % 50000 !== 0) {
+                alert('금액 단위는 50,000원 입니다.');
+                return;
+            }
+        }
+
+        if (1000000 <= product_update) {
+            if (compare_price % 100000 !== 0) {
+                alert('금액 단위는 100,000원 입니다.');
+                return;
+            }
+        }
+
+        // if (compare_price % 5000 !== 0) {
+        //     alert('금액 단위는 5,000원 입니다.');
+        //     return;
+        // }
 
         if (compare_price === 0) {
             alert('가격을 입력해주세요.');
@@ -131,7 +194,7 @@ function bidBtn() {
             ) {
                 return;
             } else {
-                location.href = `/product/auction_purchase/${auction_product_id}`;
+                location.href = `/purchase/${auction_product_id}`;
                 compare_price = 'null';
             }
         }
@@ -148,7 +211,7 @@ function bidBtn() {
                 ) {
                     return;
                 } else {
-                    location.href = `/product/auction_purchase/${auction_product_id}`;
+                    location.href = `/purchase/${auction_product_id}`;
                     compare_price = 'null';
                 }
             }
@@ -156,8 +219,8 @@ function bidBtn() {
 
         $.ajax({
             type: 'PATCH',
-            url: `/products/auction/update/${auction_product_id}`,
-            data: { product_update_price: bid_price },
+            url: `/api/products/bid_price/${auction_product_id}`,
+            data: { product_update_price: bid_price, product_end: add_time },
             success: function (response) {
                 alert(response['message']);
                 window.location.reload();
@@ -181,7 +244,7 @@ function reportBtn() {
 
     $.ajax({
         type: 'POST',
-        url: `/products/auction/report/${auction_product_id}`,
+        url: `/api/products/auction/report/${auction_product_id}`,
         data: { title: title, content: content },
         success: function (response) {
             alert(response['message']);
@@ -220,14 +283,14 @@ document.querySelector('.closeBtnBid').addEventListener('click', close_bid);
 document.querySelector('.bgBid').addEventListener('click', close_bid);
 
 /* 버튼 숨기기 */
-function hideBtn1() {
-    const btn1 = document.getElementById('btn1');
-    btn1.style.display = 'none';
-}
-function hideBtn2() {
-    const btn2 = document.getElementById('btn2');
-    btn2.style.display = 'none';
-}
+// function hideBtn1() {
+//     const btn1 = document.getElementById('btn1');
+//     btn1.style.display = 'none';
+// }
+// function hideBtn2() {
+//     const btn2 = document.getElementById('btn2');
+//     btn2.style.display = 'none';
+// }
 
 /* 경매 마감 타이머 */
 function CountDownTimer(dt, id) {
@@ -246,15 +309,15 @@ function CountDownTimer(dt, id) {
         if (distance < 0) {
             clearInterval(timer);
             document.getElementById(id).innerHTML = '경매가 종료된 상품입니다.';
-            hideBtn1();
-            hideBtn2();
+            // hideBtn1();
+            // hideBtn2();
             return;
         }
 
         let days = Math.floor(distance / _day);
         let hours = Math.floor((distance % _day) / _hour);
         let minutes = Math.floor((distance % _hour) / _minute);
-        let seconds = Math.floor((distance % _minute) / _second);
+        seconds = Math.floor((distance % _minute) / _second);
 
         document.getElementById(id).innerHTML = '경매 마감까지 ';
         document.getElementById(id).innerHTML += days + '일 ';
@@ -265,3 +328,70 @@ function CountDownTimer(dt, id) {
 
     timer = setInterval(showRemaining, 1000);
 }
+
+function ttt(dt, id) {
+    let end = new Date(dt);
+
+    function showRemaining() {
+        const now = new Date();
+        const distance = end - now;
+
+        if (distance < 0) {
+            clearInterval(timer);
+            document.getElementById(id).innerHTML =
+                '즉시 구매로 경매가 종료된 상품입니다.';
+            return;
+        }
+    }
+    timer = setInterval(showRemaining, 1000);
+}
+
+function purchaseNow() {
+    time_out = new Date(en_date) - new Date();
+
+    if (time_out < 0) {
+        alert('경매가 마감되었습니다.');
+        return;
+    }
+
+    location.href = `/purchase/${auction_product_id}`;
+}
+
+// const socket = io();
+
+// const chat_view = document.getElementById('chat_view')
+// const chat_form = document.getElementById('chat_form')
+
+// chat_form.addEventListener('submit', function() {
+//     if ($('#msg').val() === '') {
+//         return
+//     } else {
+//         socket.emit('request_message', $('#msg').val());
+//         const msg_line = $('<div class="msg_line">');
+//         const msg_box = $('<div class="msg_box">');
+
+//         msg_box.append($('#msg').val())
+//         msg_box.css('display', 'inline-block')
+
+//         msg_line.css('text-align', 'right')
+//         msg_line.append(msg_box)
+
+//         $('chat_view').append(msg_line)
+
+//         $('#msg').val('')
+//         chat_view.scrollTop = chat_view.scrollHeight
+//     }
+// })
+
+//      socket.on('response_message', function(msg) {
+//         const msg_line = $('<div class="msg_line">');
+//         const msg_box = $('<div class="msg_box">');
+
+//         msg_box.append(msg);
+//         msg_box.css('display', 'inline-block')
+
+//         msg_line.append(msg_box)
+//         $('#chat_view').append(msg_line)
+
+//         chat_view.scrollTop = chat_view.scrollHeight
+//      });

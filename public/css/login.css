@@ -16,9 +16,9 @@ body {
 }
 
 h1 {
-  font-weight: bold;
-  margin: 0;
-  margin-bottom: 20px;
+    font-weight: bold;
+    margin: 0;
+    margin-bottom: 20px;
 }
 
 h2 {
@@ -257,16 +257,16 @@ footer a {
 }
 
 #login_form {
-  background-color: #FFFFFF;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  padding: 0 50px;
-  height: 100%;
-  text-align: center;
+    background-color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 0 50px;
+    height: 100%;
+    text-align: center;
 }
 
 #login_button {
-  margin-top: 20px;
+    margin-top: 20px;
 }

@@ -48,7 +48,7 @@ exports.salehistory = async (req, res) => {
         title: 'Sale History',
     });
 };
-exports.cart = async (req, res) => {
+exports.generalcart = async (req, res) => {
     res.status(200).render('cart/generalProductCart', {
         title: '장바구니',
     });
