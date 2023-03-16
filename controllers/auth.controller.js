@@ -57,13 +57,13 @@ class AuthController {
     signin = async (req, res) => {
         try {
             const { email, password } = req.body;
-            const user_agent = req.headers['x-user-agent'];
+            // const user_agent = req.headers['x-user-agent'];
             const detector = new DeviceDetector({
                 clientIndexes: true,
                 deviceIndexes: true,
                 deviceAliasCode: false,
             });
-            const user_device_type = detector.detect(user_agent).device['type'];
+            // const user_device_type = detector.detect(user_agent).device['type'];
             console.log(user_device_type);
             const user = await this.auth_service.findByEmail(email);
             const passwordTest = await bcrypt.compare(password, user.password);

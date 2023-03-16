@@ -35,31 +35,66 @@ function generalProductDetail() {
                                 <div>
                                     <img src="${image}" width="400">
                                 </div>
-                                <div>
-                                    <p>등록자: ${seller}</p>
-                                    <p>상품이름: ${product_name}</p>
-                                    <p>상품내용: ${product_content}</p>
-                                    <p>상품가격: ${product_price_convert} 원</p>
-                                    <p>카테고리: ${category}</p>
-                                    <p>수량<input type=number min='1' id='quantity' value='1'>개</input></p>
+                                <div class="product_area" >
+                                    <div class="product_name_css">
+                                        <small>상품이름</small>
+                                        <hr>
+                                        <div class="product_name">  
+                                            ${product_name}
+                                        </div>
+                                    </div>
+                                    <div class="product_info_css">
+                                        <small>상품내용</small>
+                                        <hr>
+                                        ${product_content}
+                                    </div>
+                                    <small>상품가격</small> ${product_price_convert} 원
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    수량 <input type=number min='1' id='quantity' value='1'>개</input>
+                                    <hr>
+                                    <div class="button_area">
+                                    <button id="button_1" onclick="cartBtn()">장바구니 담기</button>
+                                    </div>
                                 </div>
                             </div>
                             `;
             $('#general_product').append(temp_html);
 
+            let temp_html_categoty = `
+                                    <small class="category">카테고리: ${category}</small>
+                                    `;
+            $('.a_tag').prepend(temp_html_categoty);
+
+            let temp_html_seller = `
+                                <small>판매자│ ${seller}</small>
+                                `;
+            $('.a_tag').append(temp_html_seller);
+
             for (let i = 0; i < rows.Reviews.length; i++) {
                 let reviewer = rows.Reviews[i].User.email;
                 let review_content = rows.Reviews[i].content;
-                let review_date = rows.Reviews[i].createdAt;
+                let date = rows.Reviews[i].createdAt;
+                let review_date = date.replace('T', ' ').slice(0, -5);
 
-                let temp_html_2 = `
+                let temp_html = `
                                     <hr>
-                                    <p>리뷰자: ${reviewer}</p>
-                                    <p>리뷰내용: ${review_content}</p>
-                                    <p>리뷰작성일자: ${review_date}</p>
+                                    <small>작성자│</small> ${reviewer}      
+                                    <p></p>
+                                    <p>${review_content}</p>
+                                    <div class="review_date_css"><small>작성일│ ${review_date}</small></div>
                                   `;
-                $('#general_review').append(temp_html_2);
+                $('#general_review').append(temp_html);
             }
+
+            if (rows.Reviews.length === 0) {
+                let temp_html = `
+                                    <hr>
+                                    리뷰가 없습니다.
+                                  `;
+                $('#general_review').append(temp_html);
+            }
+
+            $('#review_count').val(`(${rows.Reviews.length})`);
         },
         error: function (error) {
             console.log(error);
@@ -84,6 +119,7 @@ function cartBtn() {
         data: { product_quantity: product_quantity },
         success: function (response) {
             alert(response['message']);
+            window.location.reload();
         },
         error: function (error) {
             console.log(error);

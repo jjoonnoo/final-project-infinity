@@ -1,8 +1,3 @@
-a {
-    text-decoration-line: none;
-    color: black;
-}
-
 .small-container {
     background-color: rgb(255, 255, 255);
     max-width: 1080px;
@@ -11,7 +6,7 @@ a {
     padding-right: 25px;
 }
 
-th {
+.small-container th {
     text-align: left;
     padding: 10px;
     color: white;
@@ -20,19 +15,19 @@ th {
     width: 500px;
 }
 
-th.product_name {
+.small-container th.product_name {
     padding-right: 250px;
 }
 
-th.product_quantity {
+.small-container th.product_quantity {
     padding-right: 70px;
 }
 
-th.product_price {
+.small-container th.product_price {
     padding-right: 60px;
 }
 
-td {
+.small-container td {
     padding: 10px 10px;
 }
 
@@ -70,11 +65,16 @@ input::-webkit-inner-spin-button {
     right: 150px;
 }
 
-.tt {
+.cart-info a {
+    text-decoration-line: none;
+    color: black;
+}
+
+.cart-info .tt {
     color: red;
 }
 
-.tt:hover {
+.cart-info .tt:hover {
     text-decoration: underline;
 }
 
