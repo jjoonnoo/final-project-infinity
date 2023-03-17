@@ -352,7 +352,7 @@ class ProductRepository {
 
     auctionProductFind = async (auction_product_id) => {
         const data = await Auction_product.findOne({
-            where: { auction_product_id },
+            where: { auction_product_id: auction_product_id },
             include: [
                 {
                     model: User,

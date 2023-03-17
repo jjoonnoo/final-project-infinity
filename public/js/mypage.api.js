@@ -16,7 +16,9 @@ function upload_image() {
             // },
             success: function (response) {
                 $('#image_container1').append(
-                    '<img src="' + response.url + '">'
+                    '<div><img src="' +
+                        response.url +
+                        '"><button onclick="image_delete(this)">X</button></div>'
                 );
             },
             error: function (err) {
@@ -47,6 +49,9 @@ function upload_image() {
             },
         });
     }
+}
+function image_delete(th) {
+    $(th).parent('div').remove();
 }
 //product regist
 function registAuctionProduct() {
@@ -619,8 +624,8 @@ function getAuctionProduct(auction_product_id) {
         // },
         data: {},
         success: function (response) {
-            const auction_product_data = response.data.data1;
-            const image = response.data.data2;
+            const auction_product_data = response.data;
+            const image = response.data.Images;
             let date = new Date(
                 new Date().getTime() - new Date().getTimezoneOffset() * 60000
             )
@@ -663,7 +668,9 @@ function getAuctionProduct(auction_product_id) {
                 );
                 for (let i = 0; i < image.length; i++) {
                     $('#image_container1').append(
-                        '<img src="' + image[i]['image_url'] + '">'
+                        '<div><img src="' +
+                            image[i]['image_url'] +
+                            '"><button onclick="image_delete(this)">X</button></div>'
                     );
                 }
             }
@@ -702,7 +709,9 @@ function getGeneralProduct(general_product_id) {
             );
             for (let i = 0; i < image.length; i++) {
                 $('#image_container2').append(
-                    '<img src="' + image[i]['image_url'] + '">'
+                    '<div><img src="' +
+                        image[i]['image_url'] +
+                        '"><button onclick="image_delete(this)">X</button></div>'
                 );
             }
         },
