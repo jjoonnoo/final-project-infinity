@@ -6,7 +6,7 @@ class UserController {
     getMyInfo = async (req, res) => {
         try {
             // const user_id = res.locals.user.user_id
-            const user_id = 98;
+            const user_id = 147;
             const data = await this.userService.getMyInfo(user_id);
             res.status(200).json({ data });
         } catch (error) {
@@ -16,7 +16,7 @@ class UserController {
     modifyUser = async (req, res) => {
         try {
             // const { user_id } = req.params
-            const user_id = 98;
+            const user_id = 147;
             const { email, name, address, phone, password } = req.body;
             const user_pwd = await this.userService.getMyInfo(user_id);
             if (!password) {
@@ -48,7 +48,7 @@ class UserController {
     confirmUserPwd = async (req, res) => {
         try {
             // const { user_id } = req.params
-            const user_id = 98;
+            const user_id = 147;
             const { password } = req.body;
             const user = await this.userService.getMyInfo(user_id);
             const passwordTest = await bcrypt.compare(password, user.password);
@@ -65,7 +65,7 @@ class UserController {
     deleteUser = async (req, res) => {
         try {
             // const { user_id } = req.params
-            const user_id = 137;
+            const user_id = 147;
             const data = await this.userService.deleteUser(user_id);
             res.status(200).json({ message: 'successfully delete' });
         } catch (error) {
