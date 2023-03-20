@@ -1,15 +1,15 @@
 <body>
     <script src="/socket.io/socket.io.js"></script>
 
-    <!-- <div id="container">
-    <div id="chat_view">
+    <!-- 채팅
+    <div id="container">
+        <div id="chat_view"></div>
+        <form id="chat_form" onsubmit="return false">
+            <input type="text" id="msg">
+            <input type="submit" id="send" value="전송">
+        </form>
+    </div> -->
 
-    </div>
-    <form id="chat_form" onsubmit="return false">
-      <input type="text" id="msg">
-      <input type="submit" id="send" value="전송">
-    </form>
-  </div> -->
     <div class="all_region">
         <div class="a_tag">
             <a href="#" class="openBtn">상품신고 🚨</a>
@@ -23,7 +23,9 @@
             <div id="countdown"></div>
             <div id="purchase_btn"></div>
 
-            <button id="btn2" class="openBtnBid">입찰</button>
+            <button class="openBtnBid" id="qwe" onclick="openBtnBid()">
+                입찰
+            </button>
 
             <div class="modalBid hiddenBid">
                 <div class="bgBid"></div>
@@ -40,7 +42,7 @@
                         입찰하기
                     </button>
                     <button class="closeBtnBid">취소</button>
-                    <p>※ 입찰 금액 단위</p>
+                    <p>※ 입찰 최소 금액 단위</p>
                     <p>○ 입찰가 100만원이상 ▶ 10만원</p>
                     <p>○ 입찰가 50만원이상 ~ 100만원미만 ▶ 5만원</p>
                     <p>○ 입찰가 10만원이상 ~ 50만원미만 ▶ 1만원</p>

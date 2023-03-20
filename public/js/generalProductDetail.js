@@ -50,7 +50,7 @@ function generalProductDetail() {
                                     </div>
                                     <small>상품가격</small> ${product_price_convert} 원
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    수량 <input type=number min='1' id='quantity' value='1'>개</input>
+                                    수량 <input type="number" min="1" id="quantity" value='1'>개</input>
                                     <hr>
                                     <div class="button_area">
                                     <button id="button_1" onclick="cartBtn()">장바구니 담기</button>
