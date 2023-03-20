@@ -4,5 +4,21 @@
 function headerButtonHandler() {
     if (localStorage.getItem('access_token')) {
         $('#loginandsignup').hide();
+        $('#logout').show();
+    } else {
+        $('#loginandsignup').show();
+        $('#logout').hide();
     }
+}
+// function tokenexist(){
+//     if(localStorage.getItem('access_token')){
+
+//     }else{
+
+//     }
+// }
+
+function logout() {
+    window.localStorage.clear();
+    window.location.href = '/';
 }

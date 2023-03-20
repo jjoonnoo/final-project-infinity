@@ -4,8 +4,7 @@ class OrderController {
     orderService = new OrderService();
     getPurchaseHistory = async (req, res) => {
         try {
-            // const user_id = res.locals.user.user_id
-            const user_id = 98;
+            const user_id = res.locals.user.user_id;
             const data = await this.orderService.getPurchaseHistory(user_id);
             res.status(200).json({ data });
         } catch (error) {
@@ -14,8 +13,7 @@ class OrderController {
     };
     getSaleHistory = async (req, res) => {
         try {
-            // const user_id = res.locals.user.user_id
-            const user_id = 99;
+            const user_id = res.locals.user.user_id;
             const data = await this.orderService.getSaleHistory(user_id);
             res.status(200).json({ data });
         } catch (error) {

@@ -48,9 +48,30 @@
             crossorigin="anonymous"
         ></script>
     </body>
-    <!-- <script>
+    <script>
         $(document).ready(function () {
             headerButtonHandler();
+            if (!localStorage.getItem('access_token')) {
+                document.getElementById('cart_count').innerHTML = 0;
+            } else {
+                $.ajax({
+                    type: 'GET',
+                    url: '/api/carts/find',
+                    headers: {
+                        authorization: `Bearer ${localStorage.getItem(
+                            'access_token'
+                        )}`,
+                    },
+                    data: {},
+                    success: function (response) {
+                        const rows = response['data'];
+
+                        document.getElementById(
+                            'cart_count'
+                        ).innerHTML = `${rows.length}`;
+                    },
+                });
+            }
         });
-    </script> -->
+    </script>
 </html>

@@ -152,7 +152,7 @@ function auctionProductDetail() {
             }
         },
         error: function (error) {
-            console.log(error);
+            alert(error.responseJSON.message);
         },
     });
 }
@@ -258,13 +258,16 @@ function bidBtn() {
         $.ajax({
             type: 'PATCH',
             url: `/api/products/bid_price/${auction_product_id}`,
+            headers: {
+                authorization: `Bearer ${localStorage.getItem('access_token')}`,
+            },
             data: { product_update_price: bid_price, product_end: add_time },
             success: function (response) {
                 alert(response['message']);
                 window.location.reload();
             },
             error: function (error) {
-                console.log(error);
+                alert(error.responseJSON.message);
             },
         });
     }
@@ -283,13 +286,16 @@ function reportBtn() {
     $.ajax({
         type: 'POST',
         url: `/api/products/auction/report/${auction_product_id}`,
+        headers: {
+            authorization: `Bearer ${localStorage.getItem('access_token')}`,
+        },
         data: { title: title, content: content },
         success: function (response) {
             alert(response['message']);
             window.location.reload();
         },
         error: function (error) {
-            console.log(error);
+            alert(error.responseJSON.message);
         },
     });
 }

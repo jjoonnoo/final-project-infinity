@@ -70,9 +70,9 @@
                             >
                         </li>
                         <li>
-                            <a class="dropdown-item" href="/salehistory"
-                                >Sale History</a
-                            >
+                            <a class="dropdown-item" href="/salehistory">
+                                Sale History
+                            </a>
                         </li>
                     </ul>
                     <button
@@ -87,16 +87,23 @@
                             id="cart_count"
                         ></span>
                     </button>
-                    <li class="nav-item">
-                        <a
-                            id="loginandsignup"
-                            class="btn btn-outline-dark"
-                            aria-current="page"
-                            href="/loginandsignup"
-                        >
-                            Login & Create Accout
-                        </a>
-                    </li>
+                    <a
+                        id="logout"
+                        class="btn btn-outline-dark"
+                        aria-current="page"
+                        onclick="logout()"
+                        style="display: none"
+                    >
+                        Logout
+                    </a>
+                    <a
+                        id="loginandsignup"
+                        class="btn btn-outline-dark"
+                        aria-current="page"
+                        href="/loginandsignup"
+                    >
+                        Login & Create Accout
+                    </a>
                 </div>
             </ul>
         </div>

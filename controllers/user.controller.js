@@ -5,8 +5,7 @@ class UserController {
     userService = new UserService();
     getMyInfo = async (req, res) => {
         try {
-            // const user_id = res.locals.user.user_id
-            const user_id = 147;
+            const user_id = res.locals.user.user_id;
             const data = await this.userService.getMyInfo(user_id);
             res.status(200).json({ data });
         } catch (error) {
@@ -15,8 +14,7 @@ class UserController {
     };
     modifyUser = async (req, res) => {
         try {
-            // const { user_id } = req.params
-            const user_id = 147;
+            const { user_id } = req.params;
             const { email, name, address, phone, password } = req.body;
             const user_pwd = await this.userService.getMyInfo(user_id);
             if (!password) {
@@ -40,15 +38,16 @@ class UserController {
                 );
             }
 
-            res.status(200).json({ message: 'successfully modify' });
+            res.status(200).json({
+                message: '회원정보가 수정되었습니다. 다시 로그인 해주세요.',
+            });
         } catch (error) {
             res.status(400).json({ message: '오류' });
         }
     };
     confirmUserPwd = async (req, res) => {
         try {
-            // const { user_id } = req.params
-            const user_id = 147;
+            const user_id = res.locals.user.user_id;
             const { password } = req.body;
             const user = await this.userService.getMyInfo(user_id);
             const passwordTest = await bcrypt.compare(password, user.password);
@@ -64,8 +63,7 @@ class UserController {
     };
     deleteUser = async (req, res) => {
         try {
-            // const { user_id } = req.params
-            const user_id = 147;
+            const { user_id } = req.params;
             const data = await this.userService.deleteUser(user_id);
             res.status(200).json({ message: 'successfully delete' });
         } catch (error) {
