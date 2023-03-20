@@ -57,6 +57,9 @@ class AuthController {
     signin = async (req, res) => {
         try {
             const { email, password } = req.body;
+
+            const user = await this.auth_service.findByEmail(email);
+            const passwordTest = await bcrypt.compare(password, user.password);
             // const user_agent = req.headers['x-user-agent'];
             // const detector = new DeviceDetector({
             //     clientIndexes: true,
@@ -64,8 +67,6 @@ class AuthController {
             //     deviceAliasCode: false,
             // });
             // const user_device_type = detector.detect(user_agent).device['type'];
-            const user = await this.auth_service.findByEmail(email);
-            const passwordTest = await bcrypt.compare(password, user.password);
             // const ip = "112.184.163.168" 내 아이피주소
             // const ip = "8.8.8.8" 미국
             // const ip = request_ip.getClientIp(req)
@@ -97,9 +98,9 @@ class AuthController {
 
             const access_token = jwt.sign(
                 {
-                    user_id: user.dataValues.user_id,
-                    email: user.dataValues.email,
-                    admin: user.dataValues.admin,
+                    user_id: user.user_id,
+                    email: user.email,
+                    admin: user.admin,
                     refreshToken: refresh_token,
                 },
                 process.env.ACCESSTOKEN_SECRET_KEY,

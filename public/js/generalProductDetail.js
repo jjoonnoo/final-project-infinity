@@ -97,7 +97,7 @@ function generalProductDetail() {
             $('#review_count').val(`(${rows.Reviews.length})`);
         },
         error: function (error) {
-            console.log(error);
+            alert(error.responseJSON.message);
         },
     });
 }
@@ -116,13 +116,16 @@ function cartBtn() {
     $.ajax({
         type: 'POST',
         url: `/api/products/cart/${general_product_id}`,
+        headers: {
+            authorization: `Bearer ${localStorage.getItem('access_token')}`,
+        },
         data: { product_quantity: product_quantity },
         success: function (response) {
             alert(response['message']);
             window.location.reload();
         },
         error: function (error) {
-            console.log(error);
+            alert(error.responseJSON.message);
         },
     });
 }
@@ -145,7 +148,7 @@ function reportBtn() {
             window.location.reload();
         },
         error: function (error) {
-            console.log(error);
+            alert(error.responseJSON.message);
         },
     });
 }

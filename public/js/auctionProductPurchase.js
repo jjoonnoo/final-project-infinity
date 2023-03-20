@@ -8,6 +8,9 @@ function auctionProductPurchase() {
     $.ajax({
         type: 'GET',
         url: `/api/products/now_purchase/${auction_product_id}`,
+        headers: {
+            authorization: `Bearer ${localStorage.getItem('access_token')}`,
+        },
         data: {},
         success: function (response) {
             const rows = response['data'];
@@ -92,7 +95,7 @@ function auctionProductPurchase() {
             $('#inform').append(temp_html);
         },
         error: function (error) {
-            console.log(error);
+            alert(error.responseJSON.message);
         },
     });
 }
@@ -106,12 +109,15 @@ function purchase() {
         $.ajax({
             type: 'POST',
             url: `/api/products/purchase/${auction_product_id}`,
+            headers: {
+                authorization: `Bearer ${localStorage.getItem('access_token')}`,
+            },
             data: { product_buy_now_price: product_buy_now_price },
             success: function (response) {
                 alert(response['message']);
             },
             error: function (error) {
-                console.log(error);
+                alert(error.responseJSON.message);
             },
         });
         return (location.href = '/'); // 메인 페이지로 이동
