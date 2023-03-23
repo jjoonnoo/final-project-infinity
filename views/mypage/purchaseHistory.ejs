@@ -8,9 +8,233 @@
             <div id="my_general_product_purchase_history"></div>
         </div>
     </div>
+    <div class="modal hidden">
+        <div class="bg"></div>
+        <div class="modalBox">
+            신고 제목:
+            <select name="sltSample" size="1" id="report_title">
+                <option value="불친절한 대응" selected>불친절한 대응</option>
+                <option value="불량 상품 판매">불량 상품 판매</option>
+                <option value="규정위반 상품">규정위반 상품</option>
+                <option value="기타">기타</option>
+            </select>
+            <p>신고 내용: <input type="text" id="report_content" /></p>
+            <button class="modal_button" type="button" id="reportBtn">
+                신고하기
+            </button>
+            <button class="closeBtn">취소</button>
+        </div>
+    </div>
+    <div class="modals hidden_general">
+        <div class="general_bg"></div>
+        <div class="modalBox">
+            신고 제목:
+            <select name="sltSample" size="1" id="general_report_title">
+                <option value="불친절한 대응" selected>불친절한 대응</option>
+                <option value="불량 상품 판매">불량 상품 판매</option>
+                <option value="규정위반 상품">규정위반 상품</option>
+                <option value="기타">기타</option>
+            </select>
+            <p>신고 내용: <input type="text" id="general_report_content" /></p>
+            <button class="modal_button" type="button" id="generalreportBtn">
+                신고하기
+            </button>
+            <button class="general_closeBtn">취소</button>
+        </div>
+    </div>
+
+    <div class="modal_review hidden_review">
+        <div class="review_bg"></div>
+        <div class="modalBox">
+            판매자 신용도:
+            <select name="sltSample" size="1" id="review_title">
+                <option value="5" selected>⭐⭐⭐⭐⭐</option>
+                <option value="4">⭐⭐⭐⭐</option>
+                <option value="3">⭐⭐⭐</option>
+                <option value="2">⭐⭐</option>
+                <option value="1">⭐</option>
+            </select>
+            <p>리뷰: <input type="text" id="review_content" /></p>
+            <button class="modal_button" type="button" id="reviewBtn">
+                리뷰남기기
+            </button>
+            <button class="review_closeBtn">취소</button>
+        </div>
+    </div>
+    <div class="modal_review_general hidden_review_general">
+        <div class="review_general_bg"></div>
+        <div class="modalBox">
+            상품 추천도:
+            <select name="sltSample" size="1" id="general_review_title">
+                <option value="5" selected>⭐⭐⭐⭐⭐</option>
+                <option value="4">⭐⭐⭐⭐</option>
+                <option value="3">⭐⭐⭐</option>
+                <option value="2">⭐⭐</option>
+                <option value="1">⭐</option>
+            </select>
+            <p>리뷰: <input type="text" id="general_review_content" /></p>
+            <button class="modal_button" type="button" id="generalreviewBtn">
+                리뷰남기기
+            </button>
+            <button class="review_general_closeBtn">취소</button>
+        </div>
+    </div>
 </body>
 <script>
     $(document).ready(function () {
         getPurchaseHistory();
     });
+
+    $(document).on('click', '.openBtn', function () {
+        const auction_product_id = $(this).data('auction-product-id');
+        reportOpen();
+        $('#reportBtn').off('click');
+        $('#reportBtn').on('click', function () {
+            reportBtn(auction_product_id);
+        });
+    });
+    $(document).on('click', '.openBtns', function () {
+        const general_product_id = $(this).data('general-product-id');
+        reportOpenGenral();
+        $('#generalreportBtn').off('click');
+        $('#generalreportBtn').on('click', function () {
+            generalreportBtn(general_product_id);
+        });
+    });
+
+    $(document).on('click', '.reviewOpenBtn', function () {
+        const auction_product_id = $(this).data('auction-product-id');
+        reviewOpen();
+        $('#reviewBtn').off('click');
+        $('#reviewBtn').on('click', function () {
+            reviewBtn(auction_product_id);
+        });
+    });
+    $(document).on('click', '.reviewOpenBtns', function () {
+        const general_product_id = $(this).data('general-product-id');
+        reviewOpenGenral();
+        $('#generalreviewBtn').off('click');
+        $('#generalreviewBtn').on('click', function () {
+            generalreviewBtn(general_product_id);
+        });
+    });
+
+    window.onload = () => {
+        document
+            .querySelector('.closeBtn')
+            .addEventListener('click', reportClose);
+        document.querySelector('.bg').addEventListener('click', reportClose);
+        document
+            .querySelector('.general_closeBtn')
+            .addEventListener('click', reportCloseGenral);
+        document
+            .querySelector('.general_bg')
+            .addEventListener('click', reportCloseGenral);
+
+        document
+            .querySelector('.review_closeBtn')
+            .addEventListener('click', reviewClose);
+        document
+            .querySelector('.review_bg')
+            .addEventListener('click', reviewClose);
+        document
+            .querySelector('.review_general_closeBtn')
+            .addEventListener('click', reviewCloseGenral);
+        document
+            .querySelector('.review_general_bg')
+            .addEventListener('click', reviewCloseGenral);
+    };
+
+    function reportBtn(auction_product_id) {
+        const title = $('#report_title').val();
+        const content = $('#report_content').val();
+
+        if (content === '') {
+            alert('내용을 입력해주세요.');
+            return;
+        }
+
+        $.ajax({
+            type: 'POST',
+            url: `/api/products/auction/report/${auction_product_id}`,
+            data: { title: title, content: content },
+            success: function (response) {
+                alert(response['message']);
+                window.location.reload();
+            },
+            error: function (error) {
+                console.log(error);
+            },
+        });
+    }
+
+    function generalreportBtn(general_product_id) {
+        const title = $('#general_report_title').val();
+        const content = $('#general_report_content').val();
+        console.log(general_product_id);
+        if (content === '') {
+            alert('내용을 입력해주세요.');
+            return;
+        }
+
+        $.ajax({
+            type: 'POST',
+            url: `/api/products/general/report/${general_product_id}`,
+            data: { title: title, content: content },
+            success: function (response) {
+                alert(response['message']);
+                window.location.reload();
+            },
+            error: function (error) {
+                console.log(error);
+            },
+        });
+    }
+
+    function reviewBtn(auction_product_id) {
+        const rating = $('#review_title').val();
+        const content = $('#review_content').val();
+
+        if (content === '') {
+            alert('내용을 입력해주세요.');
+            return;
+        }
+
+        $.ajax({
+            type: 'POST',
+            url: `/api/products/auction/review/${auction_product_id}`,
+            data: { rating: rating, content: content },
+            success: function (response) {
+                alert(response['message']);
+                window.location.reload();
+            },
+            error: function (error) {
+                console.log(error);
+            },
+        });
+    }
+
+    function generalreviewBtn(general_product_id) {
+        const rating = $('#general_review_title').val();
+        const content = $('#general_review_content').val();
+
+        if (content === '') {
+            alert('내용을 입력해주세요.');
+            return;
+        }
+
+        $.ajax({
+            type: 'POST',
+            url: `/api/products/general/review/${general_product_id}`,
+            data: { rating: rating, content: content },
+            success: function (response) {
+                alert(response['message']);
+                window.location.reload();
+            },
+            error: function (error) {
+                console.log(error);
+            },
+        });
+    }
 </script>
+<link rel="stylesheet" href="/css/auctionProductDetail.css" />

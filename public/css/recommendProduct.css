@@ -104,3 +104,15 @@
     color: #fff;
     border: 2px solid #fff;
 }
+
+.modal-backdrop {
+    opacity: 0 !important;
+}
+
+#logModal.show .modal-content {
+    position: fixed;
+    left: 10px;
+    bottom: 10px;
+    background-color: rgb(35, 172, 203, 0.5);
+    width: 500px;
+}

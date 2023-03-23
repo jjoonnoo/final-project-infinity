@@ -4,6 +4,7 @@ const app = express();
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
 const router = require('./routes');
+const { Auction_product } = require('./models');
 
 require('dotenv').config();
 app.set('views', './views');
@@ -27,6 +28,10 @@ io.on('connection', (socket) => {
 
     socket.on('disconnect', async () => {
         console.log('user disconnected');
+    });
+
+    Auction_product.findAll().then((products) => {
+        socket.emit('products', products);
     });
 });
 

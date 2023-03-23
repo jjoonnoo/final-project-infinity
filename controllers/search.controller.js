@@ -107,17 +107,6 @@ class SearchController {
             res.status(404).json({ errorMessage: error.message });
         }
     };
-
-    productEndSoon = async (req, res, next) => {
-        try {
-            const productEndSoon = await this.searchService.productEndSoon();
-            return res.status(200).json({
-                data: productEndSoon,
-            });
-        } catch (error) {
-            res.status(404).json({ errorMessage: error.message });
-        }
-    };
 }
 
 module.exports = SearchController;

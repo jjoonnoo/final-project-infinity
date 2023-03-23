@@ -373,6 +373,46 @@ class ProductController {
             res.status(500).json({ message: error.message });
         }
     };
+
+    generalProductReview = async (req, res) => {
+        try {
+            // const user_id = res.locals.user.user_id
+            const user_id = 99;
+            const { general_product_id } = req.params;
+            const { rating, content } = req.body;
+
+            const data = await this.productService.generalProductReview({
+                user_id,
+                general_product_id,
+                rating,
+                content,
+            });
+
+            res.status(201).json({ message: '리뷰가 작성되었습니다.' });
+        } catch (error) {
+            res.status(500).json({ message: error.message });
+        }
+    };
+
+    auctionProductReview = async (req, res) => {
+        try {
+            // const user_id = res.locals.user.user_id
+            const user_id = 98;
+            const { auction_product_id } = req.params;
+            const { rating, content } = req.body;
+
+            const reviewData = await this.productService.auctionProductReview({
+                user_id,
+                auction_product_id,
+                rating,
+                content,
+            });
+
+            res.status(201).json({ message: '리뷰가 작성되었습니다.' });
+        } catch (error) {
+            res.status(500).json({ message: error.message });
+        }
+    };
 }
 
 module.exports = ProductController;

@@ -33,7 +33,7 @@ module.exports = {
                 type: Sequelize.INTEGER,
                 defaultValue: 0,
             },
-            raiting: {
+            rating: {
                 allowNull: false,
                 type: Sequelize.FLOAT,
                 defaultValue: 5.0,

@@ -22,6 +22,11 @@ router.post(
     /*  authMiddleware, */ productController.generalProductReport
 );
 
+router.post(
+    '/general/review/:general_product_id',
+    /*  authMiddleware, */ productController.generalProductReview
+);
+
 /* 경매상품 상세페이지 API */
 router.get(
     '/auction/:auction_product_id',
@@ -31,6 +36,11 @@ router.get(
 router.post(
     '/auction/report/:auction_product_id',
     /* authMiddleware, */ productController.auctionProductReport
+);
+
+router.post(
+    '/auction/review/:auction_product_id',
+    /* authMiddleware, */ productController.auctionProductReview
 );
 
 router.patch(

@@ -326,6 +326,38 @@ class ProductService {
             product_buy_now_price,
         });
     };
+
+    generalProductReview = async ({
+        user_id,
+        general_product_id,
+        rating,
+        content,
+    }) => {
+        const data = await this.productRepository.generalProductReview({
+            user_id,
+            general_product_id,
+            rating,
+            content,
+        });
+
+        return data;
+    };
+
+    auctionProductReview = async ({
+        user_id,
+        auction_product_id,
+        rating,
+        content,
+    }) => {
+        const reviewData = await this.productRepository.auctionProductReview({
+            user_id,
+            auction_product_id,
+            rating,
+            content,
+        });
+
+        return reviewData;
+    };
 }
 
 module.exports = ProductService;
