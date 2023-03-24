@@ -1,4 +1,3 @@
-<script src="/socket.io/socket.io.js"></script>
 <body>
     <!-- 채팅
     <div id="container">
@@ -18,9 +17,12 @@
             <br />
             <small id="seller"></small><br />
             <small id="rating"></small><br />
-            <small id="bid_count">경매 횟수 | <%= count %></small>
+            <small id="bid_count">경매 횟수 | <%= count %></small><br />
+            <small id="numClient"></small>
         </div>
+
         <div class="chatbox" id="chatbox"></div>
+
         <div id="auction_product">
             <div class="product_region">
                 <div id="carouselExample" class="carousel slide">
@@ -144,13 +146,15 @@
     <script type="text/javascript" src="../js/auctionProductDetail.js"></script>
 </body>
 <script>
-    const socket = io();
+    // const socket = io();
 
     // 경매 ID를 전달하여 해당 경매의 채팅방을 생성한다
     socket.emit('createChatRoom', {
         auctionId: location.pathname.split('/')[2],
     });
-
+    socket.on('roomCount', ({ count }) => {
+        $('#numClient').text('참여인원 | ' + count + '명');
+    });
     function sendmessage() {
         socket.emit('sendMessage', {
             auctionId: location.pathname.split('/')[2],
