@@ -84,3 +84,10 @@ exports.chatBot = async (req, res) => {
         layout: false,
     });
 };
+
+exports.videochat = async (req, res) => {
+    res.status(200).render('videochat', {
+        title: '화상상담',
+        layout: false,
+    });
+};
