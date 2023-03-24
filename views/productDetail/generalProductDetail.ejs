@@ -1,9 +1,64 @@
 <body>
     <div class="a_tag">
+        <small class="category" id="category"></small>
         <a href="#" class="openBtn">상품신고 🚨</a>
         <hr />
+        <small>조회수 | <%= views %></small>
+        <br />
+        <small id="seller"></small>
     </div>
-    <div id="general_product"></div>
+    <div id="general_product">
+        <div class="product_region">
+            <div id="carouselExample" class="carousel slide">
+                <div class="carousel-inner" id="img_container"></div>
+                <button
+                    class="carousel-control-prev"
+                    type="button"
+                    data-bs-target="#carouselExample"
+                    data-bs-slide="prev"
+                >
+                    <span
+                        class="carousel-control-prev-icon"
+                        aria-hidden="true"
+                    ></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button
+                    class="carousel-control-next"
+                    type="button"
+                    data-bs-target="#carouselExample"
+                    data-bs-slide="next"
+                >
+                    <span
+                        class="carousel-control-next-icon"
+                        aria-hidden="true"
+                    ></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+            <div class="product_area">
+                <div class="product_name_css">
+                    <small>상품이름</small>
+                    <hr />
+                    <div class="product_name" id="product_name"></div>
+                </div>
+                <div class="product_info_css">
+                    <small>상품내용</small>
+                    <hr />
+                    <div id="product_content"></div>
+                </div>
+                <small id="product_price_convert"></small>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <input type="number" min="1" id="quantity" value="1" />개
+                <hr />
+                <div class="button_area">
+                    <button id="button_1" onclick="cartBtn()">
+                        장바구니 담기
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="modal hidden">
         <div class="bg"></div>

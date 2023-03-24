@@ -311,12 +311,11 @@ class ProductController {
             const user_id = res.locals.user.user_id;
             const bidder_id = user_id;
             const { auction_product_id } = req.params;
-            const { product_update_price, product_end } = req.body;
+            const { product_end } = req.body;
 
             await this.productService.auctionProductPriceUpdate({
                 bidder_id,
                 auction_product_id,
-                product_update_price,
                 product_end,
             });
 

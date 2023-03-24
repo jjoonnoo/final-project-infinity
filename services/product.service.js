@@ -1,7 +1,7 @@
-const ProductRepositoty = require('../repositories/product.repository');
+const ProductRepository = require('../repositories/product.repository');
 
 class ProductService {
-    productRepository = new ProductRepositoty();
+    productRepository = new ProductRepository();
     generalProductRegist = async (
         user_id,
         product_name,
@@ -295,13 +295,11 @@ class ProductService {
     auctionProductPriceUpdate = async ({
         bidder_id,
         auction_product_id,
-        product_update_price,
         product_end,
     }) => {
         await this.productRepository.auctionProductPriceUpdate({
             bidder_id,
             auction_product_id,
-            product_update_price,
             product_end,
         });
     };

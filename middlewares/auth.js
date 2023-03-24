@@ -4,9 +4,9 @@ const { User } = require('../models');
 require('dotenv').config();
 
 module.exports = (req, res, next) => {
-    const authHeader = req.get('Authorization');
-    const access_token = authHeader.split(' ')[1];
     try {
+        const authHeader = req.get('Authorization');
+        const access_token = authHeader.split(' ')[1];
         const payload = jwt.decode(access_token);
         const refreshToken = payload.refresh_token;
         const user_id = payload.user_id;

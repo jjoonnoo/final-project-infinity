@@ -167,7 +167,46 @@
     bottom: 20px;
     height: 150px;
 }
-
+.chatbox {
+    width: 500px;
+    height: 500px;
+    float: right;
+    margin: 0 auto;
+    border-radius: 6px;
+    background-color: #f6f5f0;
+    color: #000000;
+    overflow-y: scroll;
+}
+.chatbox form {
+    padding: 30px 22px;
+}
+.chatbox form input {
+    width: 100%;
+    /* margin-bottom: 12px; */
+    padding: 15px;
+    border: none;
+    /* border: 1px solid #ddd; */
+}
+.chatbox form button {
+    /* width: 100%; */
+    margin-bottom: 12px;
+    padding: 15px;
+    border: 1px solid #ddd;
+}
+.chatbox form span {
+    /* width: 100%; */
+    margin-bottom: 12px;
+    padding: 15px;
+    border: 1px solid #ddd;
+}
+.chatme {
+    display: flex;
+    justify-content: center;
+    float: right;
+}
+.chatme button {
+    border: none;
+}
 /* 채팅창 CSS
 #container {
     width: 350px;

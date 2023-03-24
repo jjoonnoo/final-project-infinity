@@ -1,41 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://unpkg.com/mvp.css">
-  <link rel="stylesheet" href="../css/videochat.css" />
-  <title>videochat</title>
-</head>
-<body>
-  <header>
-    BNS Customer Center
-  </header>
-  <main>
-    <container id="chat">
-      <div id="welcome">
-        <form>
-          <input placeholder="상담채널 번호 1234를 입력하세요", required, type="text">
-          <button>상담원 연결</button>
-          <button onclick="location.href='/'">BNS 홈으로</button>
-        </form>
-      </div>
-      <div id="call">
-        <div id="myStream">
-          <video id="myFace" autoplay playslnline width="400" height="400"></video>
-          <button id="mute">Mute</button>
-          <button id="camera">Turn Camera Off</button>
-          <button onclick="location.href='/'">BNS 홈으로</button>
-          <select id="cameras">
-            <option value="device">Face Camera</option>
-          </select>
-          <video id="peerFace" autoplay playslnline width="400" height="400"></video>
-        </div>
-      </div>
-    </container>
-  </main>
-</body>
-<script src="/socket.io/socket.io.js"></script>
-<script type="text/javascript" src="/js/videochat.js"></script>
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="https://unpkg.com/mvp.css" />
+        <link rel="stylesheet" href="../css/videochat.css" />
+        <title>videochat</title>
+    </head>
+    <body>
+        <header>BNS Customer Center</header>
+        <main>
+            <container id="chat">
+                <div id="welcome">
+                    <form>
+                        <input
+                            placeholder="상담채널 번호 1234를 입력하세요"
+                            ,
+                            required,
+                            type="text"
+                        />
+                        <button>상담원 연결</button>
+                        <button onclick="location.href='/'">BNS 홈으로</button>
+                    </form>
+                </div>
+                <div id="call">
+                    <div id="myStream">
+                        <video
+                            id="myFace"
+                            autoplay
+                            playslnline
+                            width="400"
+                            height="400"
+                        ></video>
+                        <button id="mute">Mute</button>
+                        <button id="camera">Turn Camera Off</button>
+                        <button onclick="location.href='/'">BNS 홈으로</button>
+                        <select id="cameras">
+                            <option value="device">Face Camera</option>
+                        </select>
+                        <video
+                            id="peerFace"
+                            autoplay
+                            playslnline
+                            width="400"
+                            height="400"
+                        ></video>
+                    </div>
+                </div>
+            </container>
+        </main>
+    </body>
+    <script src="/socket.io/socket.io.js"></script>
+    <script type="text/javascript" src="/js/videochat.js"></script>
 </html>

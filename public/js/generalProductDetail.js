@@ -21,54 +21,32 @@ function generalProductDetail() {
                 alert('존재하지 않는 상품입니다.');
                 return history.back();
             }
+            $('#seller').text('판매자 | ' + rows.User.email);
+            $('#product_name').text(rows.product_name);
+            $('#product_content').text(rows.product_content);
+            $('#product_price_convert').text(
+                '상품가격 ' + rows.product_price.toLocaleString() + '원'
+            );
+            $('#category').text('카테고리: ' + rows.category);
 
-            const seller = rows.User.email;
-            const image = rows.Images[0].image_url;
-            const product_name = rows.product_name;
-            const product_content = rows.product_content;
-            const product_price = rows.product_price;
-            const product_price_convert = product_price.toLocaleString();
-            const category = rows.category;
-
-            let temp_html = `
-                            <div class="product_region">
-                                <div>
-                                    <img src="${image}" width="400">
-                                </div>
-                                <div class="product_area" >
-                                    <div class="product_name_css">
-                                        <small>상품이름</small>
-                                        <hr>
-                                        <div class="product_name">  
-                                            ${product_name}
-                                        </div>
-                                    </div>
-                                    <div class="product_info_css">
-                                        <small>상품내용</small>
-                                        <hr>
-                                        ${product_content}
-                                    </div>
-                                    <small>상품가격</small> ${product_price_convert} 원
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    수량 <input type="number" min="1" id="quantity" value='1'>개</input>
-                                    <hr>
-                                    <div class="button_area">
-                                    <button id="button_1" onclick="cartBtn()">장바구니 담기</button>
-                                    </div>
-                                </div>
-                            </div>
-                            `;
-            $('#general_product').append(temp_html);
-
-            let temp_html_categoty = `
-                                    <small class="category">카테고리: ${category}</small>
-                                    `;
-            $('.a_tag').prepend(temp_html_categoty);
-
-            let temp_html_seller = `
-                                <small>판매자│ ${seller}</small>
-                                `;
-            $('.a_tag').append(temp_html_seller);
+            for (let i = 0; i < rows.Images.length; i++) {
+                if ((i = 0 && rows.Images.length > 1)) {
+                    $('#img_container')
+                        .append(`<div class="carousel-item active">
+                    <img src="${rows.Images[i].image_url}" width="300" hieght="300" class="d-block w-100">
+                  </div>`);
+                } else if (rows.Images.length === 1) {
+                    $('#img_container')
+                        .append(`<div class="carousel-item active">
+                    <img src="${rows.Images[i].image_url}" width="300" hieght="300" class="d-block w-100">
+                  </div>`);
+                } else {
+                    $('#img_container')
+                        .append(`            <div class="carousel-item">
+                    <img class="d-block w-100" src="${rows.Images[i].image_url}" width="300" hieght="300">
+                  </div>`);
+                }
+            }
 
             for (let i = 0; i < rows.Reviews.length; i++) {
                 let reviewer = rows.Reviews[i].User.email;
