@@ -181,3 +181,9 @@ exports.videochat = async (req, res) => {
         layout: false,
     });
 };
+
+exports.admin = async (req, res) => {
+    res.status(200).render('admin', {
+        title: '관리자',
+    });
+};

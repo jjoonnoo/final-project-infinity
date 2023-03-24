@@ -83,6 +83,9 @@ io.on('connection', (socket) => {
     socket.on('disconnect', () => {
         console.log('User disconnected');
     });
+    Auction_product.findAll().then((products) => {
+        socket.emit('products', products);
+    });
 });
 
 server.listen(process.env.PORT, '0.0.0.0', function () {

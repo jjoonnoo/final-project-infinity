@@ -467,8 +467,12 @@ function getPurchaseHistory() {
                         <th scope="row"></th>
                         <th scope="row"></th>
                         <th scope="row"></th>
-                        <td><button>리뷰하기</button></td>
-                        <td><button>신고하기</button></td>
+                        <td><a href="#" class="reviewOpenBtn" data-auction-product-id="${
+                            auction_data[i].Auction_product.auction_product_id
+                        }">리뷰</a></td>
+                        <td><a href="#" class="openBtn" style="margin-left: 1px" data-auction-product-id="${
+                            auction_data[i].Auction_product.auction_product_id
+                        }">신고</a></td>
                     </tr>
                 </tbody>
             </table>`;
@@ -502,8 +506,8 @@ function getPurchaseHistory() {
                           <td>${general_data[i].General_order_infos[j].General_product.category}</td>
                           <td>${general_data[i].General_order_infos[j].General_product.product_price} 원</td>
                           <td>${general_data[i].General_order_infos[j].product_quantity} 개</td>
-                          <td><button>리뷰</button></td>
-                          <td><button>신고</button></td>
+                          <td><a href="#" class="reviewOpenBtns" data-general-product-id="${general_data[i].General_order_infos[j].General_product.general_product_id}">리뷰</a></td>
+                          <td><a href="#" class="openBtns" data-general-product-id="${general_data[i].General_order_infos[j].General_product.general_product_id}">신고</a></td>
                         `;
                     total_price +=
                         general_data[i].General_order_infos[j]
@@ -810,3 +814,32 @@ function modifyGeneralProduct(general_product_id) {
         },
     });
 }
+
+const reportOpen = () => {
+    document.querySelector('.modal').classList.remove('hidden');
+};
+const reportClose = () => {
+    document.querySelector('.modal').classList.add('hidden');
+};
+const reportOpenGenral = () => {
+    document.querySelector('.modals').classList.remove('hidden_general');
+};
+const reportCloseGenral = () => {
+    document.querySelector('.modals').classList.add('hidden_general');
+};
+const reviewOpen = () => {
+    document.querySelector('.modal_review').classList.remove('hidden_review');
+};
+const reviewClose = () => {
+    document.querySelector('.modal_review').classList.add('hidden_review');
+};
+const reviewOpenGenral = () => {
+    document
+        .querySelector('.modal_review_general')
+        .classList.remove('hidden_review_general');
+};
+const reviewCloseGenral = () => {
+    document
+        .querySelector('.modal_review_general')
+        .classList.add('hidden_review_general');
+};

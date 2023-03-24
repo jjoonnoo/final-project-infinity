@@ -30,6 +30,7 @@
         <link rel="stylesheet" href="../../css/recommendProduct.css" />
         <script type="text/javascript" src="/js/api.js"></script>
         <script type="text/javascript" src="/js/mypage.api.js"></script>
+        <script src="/socket.io/socket.io.js"></script>
     </head>
     <body>
         <div style="position: relative">
@@ -47,6 +48,24 @@
             integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
             crossorigin="anonymous"
         ></script>
+        <div
+            class="mo"
+            id="logModal"
+            tabindex="-1"
+            aria-labelledby="logModalLabel"
+            aria-hidden="true"
+            style="background-color: transparent"
+        >
+            <div
+                class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
+            >
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <p id="modal-message"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </body>
     <script>
         $(document).ready(function () {

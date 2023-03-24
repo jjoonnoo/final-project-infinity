@@ -31,6 +31,7 @@ module.exports = (sequelize, DataTypes) => {
             general_product_id: DataTypes.INTEGER,
             auction_product_id: DataTypes.INTEGER,
             content: DataTypes.STRING,
+            rating: DataTypes.FLOAT,
         },
         {
             sequelize,

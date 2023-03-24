@@ -377,3 +377,50 @@ function selectAutocompleteResult(product_name) {
     document.getElementById('searchkeyword').value = product_name;
     document.getElementById('autocomplete-results').innerHTML = '';
 }
+
+const socket = io();
+
+const lastNotificationTime = document.cookie.replace(
+    /(?:(?:^|.*;\s*)lastNotificationTime\s*\=\s*([^;]*).*$)|^.*$/,
+    '$1'
+);
+
+// 현재 시간과 비교하여 10분 이상 지났으면 알림을 표시하고, 쿠키에 현재 시간을 저장하기
+if (
+    !lastNotificationTime ||
+    new Date() - new Date(lastNotificationTime) >= 10 * 60 * 1000
+) {
+    // 알림을 표시하는 코드
+    socket.on('connect', () => {
+        console.log('connected to server');
+
+        socket.on('products', (products) => {
+            const now = new Date();
+            const productEndSoon = products.filter((product) => {
+                const end = new Date(product.product_end);
+                const timeDiff = end - now;
+                const minutesDiff = timeDiff / 1000 / 60;
+                return minutesDiff >= 0 && minutesDiff <= 10;
+            });
+            const productNames = productEndSoon.map(
+                (product) => product.product_name
+            );
+            const modalMessage = document.getElementById('modal-message');
+            console.log(productNames);
+            if (productNames.length > 0) {
+                modalMessage.textContent = `${JSON.stringify(
+                    productNames
+                )} 상품이 경매 마감 10분 전입니다.`;
+                $('#logModal').modal('show');
+                setTimeout(function () {
+                    $('#logModal').modal('hide');
+                }, 3000);
+            }
+        });
+    });
+
+    // 현재 시간을 쿠키에 저장하기
+    document.cookie = `lastNotificationTime=${new Date().toISOString()}; max-age=${
+        10 * 60
+    }`;
+}
