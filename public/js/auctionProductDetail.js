@@ -72,7 +72,7 @@ function auctionProductDetail() {
             $('#product_start_convert').text(
                 '시작 가격 ' + rows.product_start_price.toLocaleString() + '원'
             );
-            product_end = rows.product_end.replace('T', ' ').slice(0, -5);
+            const product_end = new Date(rows.product_end).toLocaleString('en');
             $('#product_end').text(product_end);
             const product_buy_now_price = rows.product_buy_now_price;
             const date = new Date(product_end);

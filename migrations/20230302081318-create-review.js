@@ -23,6 +23,11 @@ module.exports = {
                 allowNull: false,
                 type: Sequelize.STRING,
             },
+            rating: {
+                allowNull: false,
+                type: Sequelize.FLOAT,
+                defaultValue: 5.0,
+            },
             createdAt: {
                 allowNull: false,
                 type: Sequelize.DATE,

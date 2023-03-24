@@ -26,6 +26,7 @@ class OrderRepository {
                         {
                             model: General_product,
                             attributes: [
+                                'general_product_id',
                                 'product_name',
                                 'product_content',
                                 'product_price',
@@ -48,6 +49,7 @@ class OrderRepository {
                 {
                     model: Auction_product,
                     attributes: [
+                        'auction_product_id',
                         'product_name',
                         'product_end',
                         'category',

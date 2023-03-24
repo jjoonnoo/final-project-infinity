@@ -457,6 +457,78 @@ class ProductRepository {
             );
         }
     };
+
+    generalProductReview = async ({
+        user_id,
+        general_product_id,
+        rating,
+        content,
+    }) => {
+        const data = await Review.create({
+            user_id,
+            general_product_id,
+            rating,
+            content,
+        });
+
+        const reviews = await Review.findAll({ where: { general_product_id } });
+
+        const totalReviews = reviews.length;
+        const totalRating = reviews.reduce(
+            (sum, review) => sum + review.rating,
+            0
+        );
+
+        const averageRating = totalRating / totalReviews;
+
+        await General_product.update(
+            { rating: averageRating },
+            { where: { general_product_id: general_product_id } }
+        );
+
+        return data;
+    };
+
+    auctionProductReview = async ({
+        user_id,
+        auction_product_id,
+        rating,
+        content,
+    }) => {
+        const reviewData = await Review.create({
+            user_id,
+            auction_product_id,
+            rating,
+            content,
+        });
+
+        // 해당 상품을 등록한 유저의 평균 별점 계산
+        const auctionProduct = await Auction_product.findOne({
+            where: { auction_product_id },
+        });
+
+        const user = await User.findOne({
+            where: { user_id: auctionProduct.user_id },
+        });
+
+        const userReviews = await Review.findAll({
+            where: { auction_product_id },
+        });
+
+        const userRatings = userReviews.map((review) => review.rating);
+        const userRatingSum = userRatings.reduce(
+            (prev, curr) => prev + curr,
+            0
+        );
+        const userRatingAvg = userRatingSum / userRatings.length;
+
+        await User.update(
+            { rating: userRatingAvg },
+            { where: { user_id: user.user_id } }
+        );
+
+        return reviewData;
+    };
 }
 
 module.exports = ProductRepository;

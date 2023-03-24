@@ -95,7 +95,6 @@ class SearchController {
 
     autocomplete = async (req, res, next) => {
         const { query } = req.query;
-        console.log(query);
         try {
             const autocomplete = await this.searchService.autocomplete(query);
             let autocompletes = autocomplete.AuctionProducts.concat(
