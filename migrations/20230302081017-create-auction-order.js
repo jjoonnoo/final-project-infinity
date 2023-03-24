@@ -10,9 +10,11 @@ module.exports = {
                 type: Sequelize.INTEGER,
             },
             user_id: {
+                allowNull: false,
                 type: Sequelize.INTEGER,
             },
             auction_product_id: {
+                allowNull: false,
                 type: Sequelize.INTEGER,
             },
             createdAt: {

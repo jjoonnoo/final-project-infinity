@@ -10,12 +10,15 @@ module.exports = {
                 type: Sequelize.INTEGER,
             },
             user_id: {
+                allowNull: false,
                 type: Sequelize.INTEGER,
             },
             general_product_id: {
+                allowNull: false,
                 type: Sequelize.INTEGER,
             },
             product_quantity: {
+                allowNull: false,
                 type: Sequelize.INTEGER,
                 defaultValue: 1,
             },

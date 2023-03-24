@@ -22,18 +22,18 @@ function login() {
 
     $.ajax({
         type: 'POST',
-        url: '/auth/signin',
+        url: '/api/auth/signin',
         data: {
             email: user_email,
             password: user_password,
         },
-
         success: function (response) {
-            alert('로그인 완료!');
-            window.location.assign('/'); // 메인페이지
+            alert(response.msg);
+            localStorage.setItem('access_token', response.access_token);
+            window.location.href = '/'; // 메인페이지
         },
-        error: function (response) {
-            alert('메일 혹은 아이디가 다릅니다');
+        error: function (error) {
+            alert(error.responseJSON.msg);
         },
     });
 }
@@ -46,7 +46,7 @@ function register() {
     let user_address = $('#address').val();
     let user_phone = $('#phone').val();
 
-    console.log(user_password, user_repassword);
+    // console.log(user_password, user_repassword);
 
     if (user_password !== user_repassword) {
         return alert('동일한 패스워드를 입력하세요');
@@ -54,7 +54,7 @@ function register() {
 
     $.ajax({
         type: 'POST',
-        url: '/auth/signup',
+        url: '/api/auth/signup',
         data: {
             name: user_name,
             password: user_password,
@@ -62,13 +62,14 @@ function register() {
             address: user_address,
             phone: user_phone,
         },
-        async: false,
+        success: function (response) {
+            alert('회원가입에 성공했습니다.');
+            signInButton.addEventListener('click', () => {
+                container.classList.remove('right-panel-active');
+            });
+        },
+        error: function (response) {
+            alert(error.responseJSON.message);
+        },
     });
-    done.function((response) => {
-        console.log(response);
-        alert('회원가입에 성공했습니다.');
-    }),
-        fail.function((response) => {
-            alert('에러가 났습니다');
-        });
 }

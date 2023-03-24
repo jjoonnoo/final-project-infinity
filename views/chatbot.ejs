@@ -1,27 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="/css/chatbot.css">
-</head>
-<header>
-  <button class="cs">BNS 상담원과 직접 영상상담을 원하시면 눌러주세요</button>
-</header>
-<body>
-  <div class="chat-content" id="chat-content">
-    <div class="line">
-      <div class="chat-box">
-        BNS 인공지능 비서입니다 궁금하신 내용을 말씀해주세요
-      </div> 
-    </div>
-  </div>
-  <div class="chat-input">
-    <input class="chat-box" id="input" placeholder="예)낙찰자가 무슨 뜻인가요?">
-    <button id="send">전송</button>
-  </div>
-  <!-- <script type="module">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="/css/chatbot.css" />
+    </head>
+    <header>
+        <button class="cs" type="button" onclick="location.href='/videochat'">
+            BNS 상담원과 직접 영상상담을 원하시면 눌러주세요
+        </button>
+    </header>
+    <body>
+        <div class="chat-content" id="chat-content">
+            <div class="line">
+                <div class="chat-box">
+                    BNS 인공지능 비서입니다 궁금하신 내용을 말씀해주세요
+                </div>
+            </div>
+        </div>
+        <div class="chat-input">
+            <input
+                class="chat-box"
+                id="input"
+                placeholder="예)낙찰자가 무슨 뜻인가요?"
+            />
+            <button id="send">전송</button>
+        </div>
+        <!-- <script type="module">
     import { Configuration, OpenAIApi } from 'https://cdn.skypack.dev/openai';
     // const { Configuration, OpenAIApi } = require("openai");
 
@@ -49,7 +55,6 @@
     
     })
   </script> -->
-
-</body>
-<script type="module" src="/js/chatbot.js"></script>
+    </body>
+    <script type="module" src="/js/chatbot.js"></script>
 </html>

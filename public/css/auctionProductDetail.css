@@ -1,0 +1,309 @@
+/* 신고하기 모달 css */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modals {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal_review {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal_review_general {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal .bg {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.modals .general_bg {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.modal_review .review_bg {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.modal_review_general .review_general_bg {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.modalBox {
+    position: absolute;
+    background-color: #fff;
+    width: 400px;
+    height: 200px;
+    padding: 15px;
+}
+
+.modalBox button {
+    display: block;
+    width: 80px;
+    margin: 0 auto;
+}
+
+.hidden {
+    display: none;
+}
+
+.hidden_general {
+    display: none;
+}
+
+.hidden_review {
+    display: none;
+}
+
+.hidden_review_general {
+    display: none;
+}
+
+/* 입찰하기 모달 css */
+
+.modalBid {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modalBid .bgBid {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.modalBoxBid {
+    position: absolute;
+    background-color: #fff;
+    width: 400px;
+    height: 400px;
+    padding: 15px;
+}
+
+.modalBoxBid button {
+    display: block;
+    width: 80px;
+    margin: 0 auto;
+}
+
+.hiddenBid {
+    display: none;
+}
+
+/* 본문 CSS */
+.all_region {
+    overflow-y: scroll;
+}
+
+.product_region {
+    width: 800px;
+    height: 600px;
+    margin-left: 280px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.product_area {
+    margin-left: 30px;
+    height: 500px;
+}
+
+.button_region {
+    width: 470px;
+    margin-top: 20px;
+    margin-left: 480px;
+    margin-bottom: 50px;
+    text-align: center;
+}
+
+#countdown {
+    margin-left: 12px;
+    margin-bottom: 20px;
+    font-size: 20px;
+    font-weight: bolder;
+}
+
+#btn1 {
+    width: 150px;
+    height: 50px;
+    border: none;
+    font-size: 20px;
+    font-weight: bolder;
+    background-color: antiquewhite;
+    margin-left: 50px;
+}
+
+.openBtnBid {
+    width: 150px;
+    height: 50px;
+    border: none;
+    font-size: 20px;
+    font-weight: bolder;
+    background-color: antiquewhite;
+}
+
+.a_tag {
+    margin-left: 100px;
+    width: 1200px;
+}
+
+.category {
+    font-weight: bolder;
+}
+
+.openBtn {
+    font-size: 15px;
+    font-weight: bolder;
+    margin-left: 980px;
+}
+
+.a_tag a {
+    text-decoration-line: none;
+    color: black;
+}
+
+#purchase_btn {
+    float: left;
+    margin-right: 7px;
+}
+
+.product_name_css {
+    position: relative;
+    bottom: 50px;
+    height: 100px;
+}
+
+.product_area .product_name {
+    font-size: 40px;
+    font-weight: bolder;
+    position: relative;
+    bottom: 20px;
+}
+
+.product_info_css {
+    position: relative;
+    bottom: 20px;
+    height: 150px;
+}
+.chatbox {
+    width: 500px;
+    height: 500px;
+    float: right;
+    margin: 0 auto;
+    border-radius: 6px;
+    background-color: #f6f5f0;
+    color: #000000;
+    overflow-y: scroll;
+}
+.chatbox form {
+    padding: 30px 22px;
+}
+.chatbox form input {
+    width: 100%;
+    /* margin-bottom: 12px; */
+    padding: 15px;
+    border: none;
+    /* border: 1px solid #ddd; */
+}
+.chatbox form button {
+    /* width: 100%; */
+    margin-bottom: 12px;
+    padding: 15px;
+    border: 1px solid #ddd;
+}
+.chatbox form span {
+    /* width: 100%; */
+    margin-bottom: 12px;
+    padding: 15px;
+    border: 1px solid #ddd;
+}
+.chatme {
+    display: flex;
+    justify-content: center;
+    float: right;
+}
+.chatme button {
+    border: none;
+}
+/* 채팅창 CSS
+#container {
+    width: 350px;
+    height: 500px;
+    border: 1px solid black;
+    background-color: grey;
+}
+
+#chat_view {
+    height: 90%;
+    overflow-y: scroll;
+}
+
+#msg {
+    width: 80%;
+    height: 32px;
+    border-radius: 8px;
+}
+
+#send {
+    width: 16%;
+    height: 34px;
+    border-radius: 50px;
+    background: black;
+    color: white;
+}
+
+.msg_line {
+    margin: 15px;
+}
+
+.msg_box {
+    border: 1px solid black;
+    background: white;
+    padding: 2px 5px;
+    border-radius: 10px;
+} */

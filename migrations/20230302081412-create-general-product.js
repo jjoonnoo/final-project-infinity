@@ -10,23 +10,34 @@ module.exports = {
                 type: Sequelize.INTEGER,
             },
             user_id: {
+                allowNull: false,
                 type: Sequelize.INTEGER,
             },
             product_name: {
+                allowNull: false,
                 type: Sequelize.STRING,
             },
             product_content: {
+                allowNull: false,
                 type: Sequelize.STRING,
             },
             product_price: {
+                allowNull: false,
                 type: Sequelize.INTEGER,
             },
             category: {
+                allowNull: false,
                 type: Sequelize.STRING,
             },
-            raiting: {
+            rating: {
+                allowNull: false,
                 type: Sequelize.FLOAT,
                 defaultValue: 5.0,
+            },
+            views: {
+                allowNull: false,
+                type: Sequelize.INTEGER,
+                defaultValue: 0,
             },
             createdAt: {
                 allowNull: false,
