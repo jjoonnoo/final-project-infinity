@@ -1,9 +1,35 @@
 $(document).ready(function () {
     auctionProductDetail();
+    chatme();
 });
-
+function chatme() {
+    $.ajax({
+        type: 'GET',
+        url: '/api/users/getmyinfo',
+        headers: {
+            authorization: `Bearer ${localStorage.getItem('access_token')}`,
+        },
+        data: {},
+        success: function (response) {
+            const email = response.data.email;
+            const temp = `          <div>
+  <input id='user_email' value="${email}" style="display:none;" readonly>
+  <input id="chat_content" type="text" placeholder="메시지를 적어주세요" onkeyup="if(window.event.keyCode==13){sendmessage()}"/>
+  <button onclick="sendmessage()">보내기</button>
+</div>`;
+            $('#chatme').append(temp);
+        },
+        error: function (error) {
+            alert('채팅은 로그인 이후에 가능합니다');
+        },
+    });
+}
 auction_product_id = location.pathname.split('/')[2];
-
+let product_update = Number(
+    $('#product_update_convert').text().split(' ')[1].split(',')[0] +
+        $('#product_update_convert').text().split(' ')[1].split(',')[1]
+);
+let product_start;
 let en_date;
 
 /* 경매상품 상세 조회 */
@@ -19,136 +45,52 @@ function auctionProductDetail() {
                 alert('존재하지 않는 상품입니다.');
                 return history.back();
             }
-
-            const seller = rows.User.email;
-            const rating = rows.User.rating;
-            const image = rows.Images[0].image_url;
-            const product_name = rows.product_name;
-            const product_content = rows.product_content;
-            bid_count = rows.bid_count;
-            product_buy_now_price = rows.product_buy_now_price;
-
-            if (bid_count === null) {
-                bid_count = 0;
+            $('#seller').text('판매자│ ' + rows.User.email);
+            $('#rating').text('별점│ ' + rows.User.rating);
+            for (let i = 0; i < rows.Images.length; i++) {
+                if ((i = 0 && rows.Images.length > 1)) {
+                    $('#img_container')
+                        .append(`<div class="carousel-item active">
+                    <img src="${rows.Images[i].image_url}" width="300" hieght="300" class="d-block w-100">
+                  </div>`);
+                } else if (rows.Images.length === 1) {
+                    $('#img_container')
+                        .append(`<div class="carousel-item active">
+                    <img src="${rows.Images[i].image_url}" width="300" hieght="300" class="d-block w-100">
+                  </div>`);
+                } else {
+                    $('#img_container')
+                        .append(`            <div class="carousel-item">
+                    <img class="d-block w-100" src="${rows.Images[i].image_url}" width="300" hieght="300">
+                  </div>`);
+                }
             }
-
-            if (product_buy_now_price !== null) {
-                product_buy_now_price_convert =
-                    product_buy_now_price.toLocaleString();
-            }
-
-            const category = rows.category;
-            product_update = rows.product_update_price;
-            const product_update_convert = product_update.toLocaleString();
+            $('#product_name').text(rows.product_name);
+            $('#product_content').text(rows.product_content);
+            $('#category').text('카테고리: ' + rows.category);
             product_start = rows.product_start_price;
-            const product_start_convert = product_start.toLocaleString();
-            product_end_format = rows.product_end;
-            product_end = product_end_format.replace('T', ' ').slice(0, -5);
+            $('#product_start_convert').text(
+                '시작 가격 ' + rows.product_start_price.toLocaleString() + '원'
+            );
+            product_end = rows.product_end.replace('T', ' ').slice(0, -5);
+            $('#product_end').text(product_end);
+            const product_buy_now_price = rows.product_buy_now_price;
             const date = new Date(product_end);
             en_date = date.toLocaleString('en');
 
-            if (product_buy_now_price === product_update) {
+            if (product_buy_now_price === rows.product_update_price) {
                 en_date = 0;
                 nowPurchaseEnd(en_date, 'countdown');
             } else {
                 CountDownTimer(en_date, 'countdown');
             }
-
-            if (product_update === null) {
-                product_update = 0;
-            }
-
-            if (product_buy_now_price === null) {
-                let temp_html = `
-                                <div class="product_region">
-                                    <div>
-                                        <img src="${image}" width="400">
-                                    </div>
-                                    <div class="product_area">
-                                        <div class="product_name_css">
-                                            <small>상품명</small>
-                                            <hr>
-                                            <div class="product_name">  
-                                                ${product_name}
-                                            </div>
-                                        </div>
-                                        <div class="product_info_css">
-                                        <small>상품내용</small>
-                                        <hr>
-                                        ${product_content}
-                                        </div>
-                                        <small>시작 가격</small> &nbsp;&nbsp;${product_start_convert} 원
-                                        <hr>
-                                        <small>현재 입찰가</small> ${product_update_convert} 원
-                                        <hr>                    
-                                        <small>마감시간</small>
-                                        <p>${product_end}</p>
-                                        <hr> 
-                                        <small>입찰 횟수</small> ${bid_count}
-                                    </div>  
-                                </div>
-                    `;
-                $('#auction_product').append(temp_html);
-
-                let temp_html_categoty = `
-                                    <small class="category">카테고리: ${category}</small>
-                                    `;
-                $('.a_tag').prepend(temp_html_categoty);
-
-                let temp_html_seller = `
-                                    <small>판매자│ ${seller}</small><br>
-                                    <small>별점│ ${rating}</small> 
-                                    `;
-                $('.a_tag').append(temp_html_seller);
-            } else {
-                let temp_html = `
-                                <div class="product_region">
-                                    <div>
-                                        <img src="${image}" width="400">
-                                    </div>
-                                    <div class="product_area">
-                                        <div class="product_name_css">
-                                            <small>상품명</small>
-                                            <hr>
-                                            <div class="product_name">  
-                                                ${product_name}
-                                            </div>
-                                        </div>
-                                        <div class="product_info_css">
-                                        <small>상품내용</small>
-                                        <hr>
-                                        ${product_content}
-                                        </div>
-                                        <small>즉시 구매가</small> ${product_buy_now_price_convert} 원
-                                        <hr>
-                                        <small>시작 가격</small> &nbsp;&nbsp;${product_start_convert} 원
-                                        <hr>
-                                        <small>현재 입찰가</small> ${product_update_convert} 원
-                                        <hr>                    
-                                        <small>마감시간</small>
-                                        <p>${product_end}</p>
-                                        <hr> 
-                                        <small>입찰 횟수</small> ${bid_count}
-                                    </div>  
-                                </div>
-                                `;
-                $('#auction_product').append(temp_html);
-
-                let temp_html_btn = `
-                                    <a href="#"><button id="btn1" onclick="purchaseNow()">즉시 구매</button></a>
-                                    `;
-                $('#purchase_btn').append(temp_html_btn);
-
-                let temp_html_categoty = `
-                                    <small class="category">카테고리: ${category}</small>
-                                    `;
-                $('.a_tag').prepend(temp_html_categoty);
-
-                let temp_html_seller = `
-                                    <small>판매자│ ${seller}</small><br>
-                                    <small>별점│ ${rating}</small> 
-                                    `;
-                $('.a_tag').append(temp_html_seller);
+            if (product_buy_now_price !== null) {
+                $('#purchase_btn').show();
+                $('#product_buy_now_price').show();
+                $('#product_buy_now_price').text(
+                    '즉시구매 가격 ' +
+                        rows.product_buy_now_price.toLocaleString()
+                );
             }
         },
         error: function (error) {
@@ -261,8 +203,9 @@ function bidBtn() {
             headers: {
                 authorization: `Bearer ${localStorage.getItem('access_token')}`,
             },
-            data: { product_update_price: bid_price, product_end: add_time },
+            data: { product_end: add_time },
             success: function (response) {
+                socket.emit('bid', { auction_product_id, bid_price });
                 alert(response['message']);
                 window.location.reload();
             },
@@ -427,44 +370,3 @@ input.addEventListener('keyup', function (e) {
         input.value = formatValue;
     }
 });
-
-/* 채팅 소켓 */
-// const socket = io();
-
-// const chat_view = document.getElementById('chat_view')
-// const chat_form = document.getElementById('chat_form')
-
-// chat_form.addEventListener('submit', function() {
-
-//     if ($('#msg').val() === '') {
-//         return
-//     } else {
-//         socket.emit('request_message', $('#msg').val());
-//         const msg_line = $('<div class="msg_line">');
-//         const msg_box = $('<div class="msg_box">');
-
-//         msg_box.append($('#msg').val())
-//         msg_box.css('display', 'inline-block')
-
-//         msg_line.css('text-align', 'right')
-//         msg_line.append(msg_box)
-
-//         $('chat_view').append(msg_line)
-
-//         $('#msg').val('')
-//         chat_view.scrollTop = chat_view.scrollHeight
-//     }
-// })
-
-//      socket.on('response_message', function(msg) {
-//         const msg_line = $('<div class="msg_line">');
-//         const msg_box = $('<div class="msg_box">');
-
-//         msg_box.append(msg);
-//         msg_box.css('display', 'inline-block')
-
-//         msg_line.append(msg_box)
-//         $('#chat_view').append(msg_line)
-
-//         chat_view.scrollTop = chat_view.scrollHeight
-//      });

@@ -19,12 +19,11 @@ router.get(
 );
 router.get('/purchasehistory', homeController.purchasehistory);
 router.get('/salehistory', homeController.salehistory);
-// router.get('/myorders', homeController.myOrders);
 router.get('/search/product', homeController.search);
 
 router.get('/cart', homeController.generalcart);
-router.get('/general/:id', homeController.generalDetail);
-router.get('/auction/:id', homeController.auctionDetail);
+router.get('/general/:general_product_id', homeController.generalDetail);
+router.get('/auction/:auction_product_id', homeController.auctionDetail);
 router.get('/purchase/:id', homeController.auctionPurchase);
 
 router.get('/chatbot', homeController.chatBot);
