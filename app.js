@@ -17,19 +17,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/', router);
 app.use(express.static('public'));
 
-let socket_list = [];
-
 io.on('connection', (socket) => {
-    socket_list.push(socket);
-
-    socket.on('request_message', (msg) => {
-        io.emit('response_message', msg);
-    });
-
-    socket.on('disconnect', async () => {
-        console.log('user disconnected');
-    });
-
     Auction_product.findAll().then((products) => {
         socket.emit('products', products);
     });

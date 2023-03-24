@@ -42,8 +42,7 @@ function auctionProductDetail() {
             const product_update_convert = product_update.toLocaleString();
             product_start = rows.product_start_price;
             const product_start_convert = product_start.toLocaleString();
-            product_end_format = rows.product_end;
-            product_end = product_end_format.replace('T', ' ').slice(0, -5);
+            const product_end = new Date(rows.product_end).toLocaleString('en');
             const date = new Date(product_end);
             en_date = date.toLocaleString('en');
 
