@@ -18,9 +18,12 @@
             <br />
             <small id="seller"></small><br />
             <small id="rating"></small><br />
-            <small id="bid_count">경매 횟수 | <%= count %></small>
+            <small id="bid_count">경매 횟수 | <%= count %></small><br />
+            <small id="numClient"></small>
         </div>
+
         <div class="chatbox" id="chatbox"></div>
+
         <div id="auction_product">
             <div class="product_region">
                 <div id="carouselExample" class="carousel slide">
@@ -150,7 +153,9 @@
     socket.emit('createChatRoom', {
         auctionId: location.pathname.split('/')[2],
     });
-
+    socket.on('roomCount', ({ count }) => {
+        $('#numClient').text('참여인원 | ' + count + '명');
+    });
     function sendmessage() {
         socket.emit('sendMessage', {
             auctionId: location.pathname.split('/')[2],
