@@ -815,31 +815,31 @@ function modifyGeneralProduct(general_product_id) {
     });
 }
 
-const reportOpen = () => {
+function reportOpen() {
     document.querySelector('.modal').classList.remove('hidden');
-};
-const reportClose = () => {
+}
+function reportClose() {
     document.querySelector('.modal').classList.add('hidden');
-};
-const reportOpenGenral = () => {
+}
+function reportOpenGenral() {
     document.querySelector('.modals').classList.remove('hidden_general');
-};
-const reportCloseGenral = () => {
+}
+function reportCloseGenral() {
     document.querySelector('.modals').classList.add('hidden_general');
-};
-const reviewOpen = () => {
+}
+function reviewOpen() {
     document.querySelector('.modal_review').classList.remove('hidden_review');
-};
-const reviewClose = () => {
+}
+function reviewClose() {
     document.querySelector('.modal_review').classList.add('hidden_review');
-};
-const reviewOpenGenral = () => {
+}
+function reviewOpenGenral() {
     document
         .querySelector('.modal_review_general')
         .classList.remove('hidden_review_general');
-};
-const reviewCloseGenral = () => {
+}
+function reviewCloseGenral() {
     document
         .querySelector('.modal_review_general')
         .classList.add('hidden_review_general');
-};
+}
