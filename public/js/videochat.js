@@ -1,10 +1,12 @@
 const socket = io.connect('ws://localhost:7000');
 
+
 const myFace = document.getElementById('myFace');
 const muteBtn = document.getElementById('mute');
 const cameraBtn = document.getElementById('camera');
 const camerasSelect = document.getElementById('cameras');
 const call = document.getElementById('call');
+
 
 call.hidden = true;
 
@@ -37,6 +39,7 @@ async function getCameras() {
     } catch (e) {
         console.log(e);
     }
+
 }
 
 /**
