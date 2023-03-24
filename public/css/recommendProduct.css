@@ -78,6 +78,13 @@
     margin-right: 50px;
 }
 
+#chatbot_button {
+    width: 200px;
+    height: 150px;
+    margin-left: 45px;
+    font-size: 20px;
+}
+
 .productone:hover {
     border: 1px solid #008080;
     box-shadow: 2px 2px 5px #008080;

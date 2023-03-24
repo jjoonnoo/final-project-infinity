@@ -45,6 +45,7 @@
                         id="navbarDropdown"
                         href="#"
                         role="button"
+                        style="display: none"
                         data-bs-toggle="dropdown"
                         aria-expanded="false"
                     >
@@ -52,7 +53,7 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li>
-                            <a class="dropdown-item" href="myinfo">My Info</a>
+                            <a class="dropdown-item" href="/myinfo">My Info</a>
                         </li>
                         <li>
                             <a class="dropdown-item" href="/myproduct"
@@ -70,13 +71,15 @@
                             >
                         </li>
                         <li>
-                            <a class="dropdown-item" href="/salehistory"
-                                >Sale History</a
-                            >
+                            <a class="dropdown-item" href="/salehistory">
+                                Sale History
+                            </a>
                         </li>
                     </ul>
                     <button
+                        id="cartbutton"
                         class="btn btn-outline-dark"
+                        style="display: none"
                         type="submit"
                         onclick="location.href='http://localhost:7000/cart'"
                     >
@@ -87,16 +90,23 @@
                             id="cart_count"
                         ></span>
                     </button>
-                    <li class="nav-item">
-                        <a
-                            id="loginandsignup"
-                            class="btn btn-outline-dark"
-                            aria-current="page"
-                            href="/loginandsignup"
-                        >
-                            Login & Create Accout
-                        </a>
-                    </li>
+                    <a
+                        id="logout"
+                        class="btn btn-outline-dark"
+                        aria-current="page"
+                        onclick="logout()"
+                        style="display: none"
+                    >
+                        Logout
+                    </a>
+                    <a
+                        id="loginandsignup"
+                        class="btn btn-outline-dark"
+                        aria-current="page"
+                        href="/loginandsignup"
+                    >
+                        Login & Create Accout
+                    </a>
                 </div>
             </ul>
         </div>

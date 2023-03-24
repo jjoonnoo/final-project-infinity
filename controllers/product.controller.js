@@ -5,8 +5,7 @@ class ProductController {
 
     generalProductRegist = async (req, res) => {
         try {
-            // const user_id = res.locals.user.user_id
-            const user_id = 99;
+            const user_id = res.locals.user.user_id;
             const {
                 product_name,
                 product_content,
@@ -41,7 +40,6 @@ class ProductController {
     generalProductModify = async (req, res) => {
         try {
             const { general_product_id } = req.params;
-            // const user_id = res.locals.user.user_id
             const {
                 product_name,
                 product_content,
@@ -73,8 +71,7 @@ class ProductController {
     };
     auctionProductRegist = async (req, res) => {
         try {
-            // const user_id = res.locals.user.user_id
-            const user_id = 99;
+            const user_id = res.locals.user.user_id;
             const {
                 product_name,
                 product_content,
@@ -152,8 +149,7 @@ class ProductController {
     };
     findMyProduct = async (req, res) => {
         try {
-            // const user_id = res.locals.user.user_id
-            const user_id = 99;
+            const user_id = res.locals.user.user_id;
             const data = await this.productService.findMyProduct(user_id);
             res.status(200).json({ data });
         } catch (error) {
@@ -176,8 +172,7 @@ class ProductController {
 
     generalProductAddCart = async (req, res) => {
         try {
-            // const user_id = res.locals.user.user_id
-            const user_id = 98;
+            const user_id = res.locals.user.user_id;
             const { general_product_id } = req.params;
             const { product_quantity } = req.body;
 
@@ -195,8 +190,7 @@ class ProductController {
 
     generalProductReport = async (req, res) => {
         try {
-            // const user_id = res.locals.user.user_id
-            const user_id = 99;
+            const user_id = res.locals.user.user_id;
             const { general_product_id } = req.params;
             const { title, content } = req.body;
 
@@ -215,8 +209,7 @@ class ProductController {
 
     generalProductFindCart = async (req, res) => {
         try {
-            // const user_id = res.locals.user.user_id
-            const user_id = 98;
+            const user_id = res.locals.user.user_id;
             const data = await this.productService.generalProductFindCart(
                 user_id
             );
@@ -229,8 +222,7 @@ class ProductController {
 
     generalProductPurchase = async (req, res) => {
         try {
-            // const user_id = res.locals.user.user_id
-            const user_id = 98;
+            const user_id = res.locals.user.user_id;
             const { general_product_id } = req.body;
             const { product_quantity } = req.body;
 
@@ -248,8 +240,7 @@ class ProductController {
 
     generalProductChangeQuantity = async (req, res) => {
         try {
-            // const user_id = res.locals.user.user_id
-            const user_id = 98;
+            const user_id = res.locals.user.user_id;
             const { general_product_id } = req.body;
             const { product_quantity } = req.body;
 
@@ -269,8 +260,7 @@ class ProductController {
 
     generalProductDeleteCart = async (req, res) => {
         try {
-            // const user_id = res.locals.user.user_id
-            const user_id = 98;
+            const user_id = res.locals.user.user_id;
             const { general_product_id } = req.body;
 
             const data = await this.productService.generalProductDeleteCart({
@@ -299,8 +289,7 @@ class ProductController {
 
     auctionProductReport = async (req, res) => {
         try {
-            // const user_id = res.locals.user.user_id
-            const user_id = 98;
+            const user_id = res.locals.user.user_id;
             const { auction_product_id } = req.params;
             const { title, content } = req.body;
 
@@ -319,16 +308,14 @@ class ProductController {
 
     auctionProductPriceUpdate = async (req, res) => {
         try {
-            // const user_id = res.locals.user.user_id
-            const user_id = 98;
+            const user_id = res.locals.user.user_id;
             const bidder_id = user_id;
             const { auction_product_id } = req.params;
-            const { product_update_price, product_end } = req.body;
+            const { product_end } = req.body;
 
             await this.productService.auctionProductPriceUpdate({
                 bidder_id,
                 auction_product_id,
-                product_update_price,
                 product_end,
             });
 
@@ -339,8 +326,7 @@ class ProductController {
     };
 
     auctionProductPurchaseNowFind = async (req, res) => {
-        // const user_id = res.locals.user.user_id
-        const user_id = 98;
+        const user_id = res.locals.user.user_id;
         try {
             const { auction_product_id } = req.params;
             const data =
@@ -357,8 +343,7 @@ class ProductController {
 
     auctionProductPurchaseNow = async (req, res) => {
         try {
-            // const user_id = res.locals.user.user_id
-            const user_id = 98;
+            const user_id = res.locals.user.user_id;
             const { auction_product_id } = req.params;
             const { product_buy_now_price } = req.body;
 

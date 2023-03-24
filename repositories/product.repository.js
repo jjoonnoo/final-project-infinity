@@ -352,7 +352,7 @@ class ProductRepository {
 
     auctionProductFind = async (auction_product_id) => {
         const data = await Auction_product.findOne({
-            where: { auction_product_id },
+            where: { auction_product_id: auction_product_id },
             include: [
                 {
                     model: User,
@@ -387,12 +387,11 @@ class ProductRepository {
     auctionProductPriceUpdate = async ({
         bidder_id,
         auction_product_id,
-        product_update_price,
         product_end,
     }) => {
         if (product_end === '') {
             await Auction_product.update(
-                { bidder_id, product_update_price },
+                { bidder_id },
                 { where: { auction_product_id } }
             );
 
@@ -413,23 +412,7 @@ class ProductRepository {
             }
         } else {
             await Auction_product.update(
-                { bidder_id, product_update_price, product_end },
-                { where: { auction_product_id } }
-            );
-        }
-        const { bid_count } = await Auction_product.findOne({
-            where: { auction_product_id },
-            attributes: ['bid_count'],
-        });
-        if (bid_count === null) {
-            await Auction_product.create(
-                { bid_count: 1 },
-                { where: { auction_product_id } }
-            );
-        } else {
-            const add_count = bid_count + 1;
-            await Auction_product.update(
-                { bid_count: add_count },
+                { bidder_id, product_end },
                 { where: { auction_product_id } }
             );
         }

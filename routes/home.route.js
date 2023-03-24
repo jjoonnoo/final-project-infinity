@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const homeController = require('../controllers/home.controller.js');
-// const authMiddleware = require('../middlewares/auth-middleware');
+const authMiddleware = require('../middlewares/auth');
 // const adminCheck = require('../middlewares/admin');
 
 router.get('/', homeController.homepage);
@@ -19,15 +19,15 @@ router.get(
 );
 router.get('/purchasehistory', homeController.purchasehistory);
 router.get('/salehistory', homeController.salehistory);
-// router.get('/myorders', homeController.myOrders);
 router.get('/search/product', homeController.search);
 
 router.get('/cart', homeController.generalcart);
-router.get('/general/:id', homeController.generalDetail);
-router.get('/auction/:id', homeController.auctionDetail);
+router.get('/general/:general_product_id', homeController.generalDetail);
+router.get('/auction/:auction_product_id', homeController.auctionDetail);
 router.get('/purchase/:id', homeController.auctionPurchase);
 
 router.get('/chatbot', homeController.chatBot);
+router.get('/videochat', homeController.videochat);
 
 router.get('/admin', homeController.admin);
 

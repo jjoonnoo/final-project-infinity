@@ -118,7 +118,7 @@ function getProducts(page) {
             }
         })
         .catch((error) => {
-            console.log(error);
+            alert(error.responseJSON.message);
         });
 }
 
@@ -188,7 +188,7 @@ function getAuctionProducts(page) {
             }
         })
         .catch((error) => {
-            console.log(error);
+            alert(error.responseJSON.message);
         });
 }
 
@@ -243,7 +243,7 @@ function getGeneralProducts(page) {
             }
         })
         .catch((error) => {
-            console.log(error);
+            alert(error.responseJSON.message);
         });
 }
 
@@ -341,7 +341,7 @@ function recommendProducts() {
             }
         })
         .catch((error) => {
-            console.log(error);
+            alert(error.responseJSON.message);
         });
 }
 
@@ -370,7 +370,7 @@ function autocompletes(event) {
             }
             document.getElementById('autocomplete-results').innerHTML = html;
         })
-        .catch((error) => console.error(error));
+        .catch((error) => alert(error.responseJSON.message));
 }
 
 function selectAutocompleteResult(product_name) {
