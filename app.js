@@ -37,6 +37,9 @@ io.on('connection', (socket) => {
     socket.on('createChatRoom', ({ auctionId }) => {
         console.log(`Creating chat room for auction ID ${auctionId}`);
         socket.join(auctionId);
+        const room = io.sockets.adapter.rooms.get(auctionId);
+        const count = room ? room.size : 0;
+        io.to(auctionId).emit('roomCount', { count });
     });
 
     // 클라이언트로부터 메시지를 받아서 해당 채팅방에 메시지를 전송한다
