@@ -16,17 +16,21 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/', router);
 app.use(express.static('public'));
 
-let socket_list = [];
+// videochat socket.io
 
-io.on('connection', (socket) => {
-    socket_list.push(socket);
-
-    socket.on('request_message', (msg) => {
-        io.emit('response_message', msg);
+io.on("connection", socket => {
+    socket.on("join_room", (roomName) => {
+        socket.join(roomName);
+        socket.to(roomName).emit("welcome");
     });
-
-    socket.on('disconnect', async () => {
-        console.log('user disconnected');
+    socket.on("offer", (offer, roomName) => {
+        socket.to(roomName).emit("offer", offer);
+    });
+    socket.on("answer", (answer, roomName) => {
+        socket.to(roomName).emit("answer", answer)
+    })
+    socket.on("ice", (ice, roomName) => {
+        socket.to(roomName).emit("ice", ice);
     });
 });
 
