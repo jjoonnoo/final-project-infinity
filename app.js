@@ -19,7 +19,20 @@ app.use(express.static('public'));
 
 io.on('connection', (socket) => {
     console.log('User connected');
-
+    // videochat socket.io
+    socket.on('join_room', (roomName) => {
+        socket.join(roomName);
+        socket.to(roomName).emit('welcome');
+    });
+    socket.on('offer', (offer, roomName) => {
+        socket.to(roomName).emit('offer', offer);
+    });
+    socket.on('answer', (answer, roomName) => {
+        socket.to(roomName).emit('answer', answer);
+    });
+    socket.on('ice', (ice, roomName) => {
+        socket.to(roomName).emit('ice', ice);
+    });
     // 클라이언트로부터 경매 ID를 받아서 해당 경매에 대한 채팅방을 만든다
     socket.on('createChatRoom', ({ auctionId }) => {
         console.log(`Creating chat room for auction ID ${auctionId}`);

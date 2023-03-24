@@ -27,5 +27,6 @@ router.get('/auction/:auction_product_id', homeController.auctionDetail);
 router.get('/purchase/:id', homeController.auctionPurchase);
 
 router.get('/chatbot', homeController.chatBot);
+router.get('/videochat', homeController.videochat);
 
 module.exports = router;
