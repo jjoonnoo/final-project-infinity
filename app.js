@@ -1,11 +1,12 @@
 const express = require('express');
+// const helmet = require('helmet');
 const expressLayouts = require('express-ejs-layouts');
 const app = express();
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
 const router = require('./routes');
-
 require('dotenv').config();
+// app.use(helmet.xssFilter());
 app.set('views', './views');
 app.set('view engine', 'ejs');
 app.use(expressLayouts);

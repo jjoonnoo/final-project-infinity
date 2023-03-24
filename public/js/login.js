@@ -27,9 +27,9 @@ function login() {
             email: user_email,
             password: user_password,
         },
-
         success: function (response) {
             alert(response.msg);
+            localStorage.setItem('access_token', response.access_token);
             window.location.href = '/'; // 메인페이지
         },
         error: function (error) {
@@ -69,11 +69,7 @@ function register() {
             });
         },
         error: function (response) {
-            alert('에러가 났습니다');
+            alert(error.responseJSON.message);
         },
     });
-}
-function logout() {
-    window.localStorage.clear();
-    window.location.href = '/';
 }

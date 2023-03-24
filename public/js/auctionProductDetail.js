@@ -49,7 +49,7 @@ function auctionProductDetail() {
 
             if (product_buy_now_price === product_update) {
                 en_date = 0;
-                ttt(en_date, 'countdown');
+                nowPurchaseEnd(en_date, 'countdown');
             } else {
                 CountDownTimer(en_date, 'countdown');
             }
@@ -152,7 +152,7 @@ function auctionProductDetail() {
             }
         },
         error: function (error) {
-            console.log(error);
+            alert(error.responseJSON.message);
         },
     });
 }
@@ -160,7 +160,7 @@ function auctionProductDetail() {
 /* 경매상품 입찰 */
 function bidBtn() {
     time_out = new Date(en_date) - new Date();
-    const bid_price = $('#bid_price').val();
+    const bid_price = $('#bid_price').val().split(',').join('');
     const compare_price = Number(bid_price);
     en_date;
     Remaining_time = Math.floor(time_out / 1000 / 60);
@@ -203,11 +203,6 @@ function bidBtn() {
                 return;
             }
         }
-
-        // if (compare_price % 5000 !== 0) {
-        //     alert('금액 단위는 5,000원 입니다.');
-        //     return;
-        // }
 
         if (compare_price === 0) {
             alert('가격을 입력해주세요.');
@@ -263,13 +258,16 @@ function bidBtn() {
         $.ajax({
             type: 'PATCH',
             url: `/api/products/bid_price/${auction_product_id}`,
+            headers: {
+                authorization: `Bearer ${localStorage.getItem('access_token')}`,
+            },
             data: { product_update_price: bid_price, product_end: add_time },
             success: function (response) {
                 alert(response['message']);
                 window.location.reload();
             },
             error: function (error) {
-                console.log(error);
+                alert(error.responseJSON.message);
             },
         });
     }
@@ -288,13 +286,16 @@ function reportBtn() {
     $.ajax({
         type: 'POST',
         url: `/api/products/auction/report/${auction_product_id}`,
+        headers: {
+            authorization: `Bearer ${localStorage.getItem('access_token')}`,
+        },
         data: { title: title, content: content },
         success: function (response) {
             alert(response['message']);
             window.location.reload();
         },
         error: function (error) {
-            console.log(error);
+            alert(error.responseJSON.message);
         },
     });
 }
@@ -325,16 +326,6 @@ document.querySelector('.openBtnBid').addEventListener('click', open_bid);
 document.querySelector('.closeBtnBid').addEventListener('click', close_bid);
 document.querySelector('.bgBid').addEventListener('click', close_bid);
 
-/* 버튼 숨기기 */
-// function hideBtn1() {
-//     const btn1 = document.getElementById('btn1');
-//     btn1.style.display = 'none';
-// }
-// function hideBtn2() {
-//     const btn2 = document.getElementById('btn2');
-//     btn2.style.display = 'none';
-// }
-
 /* 경매 마감 타이머 */
 function CountDownTimer(dt, id) {
     let end = new Date(dt);
@@ -352,8 +343,6 @@ function CountDownTimer(dt, id) {
         if (distance < 0) {
             clearInterval(timer);
             document.getElementById(id).innerHTML = '경매가 종료된 상품입니다.';
-            // hideBtn1();
-            // hideBtn2();
             return;
         }
 
@@ -372,7 +361,7 @@ function CountDownTimer(dt, id) {
     timer = setInterval(showRemaining, 1000);
 }
 
-function ttt(dt, id) {
+function nowPurchaseEnd(dt, id) {
     let end = new Date(dt);
 
     function showRemaining() {
@@ -400,12 +389,53 @@ function purchaseNow() {
     location.href = `/purchase/${auction_product_id}`;
 }
 
+/* 입찰 가격란에 최소 입찰 가격 생성 */
+function openBtnBid() {
+    let price;
+
+    if (product_update < 100000) {
+        price = product_update + 5000;
+    }
+
+    if (100000 <= product_update && product_update < 500000) {
+        price = product_update + 10000;
+    }
+
+    if (500000 <= product_update && product_update < 1000000) {
+        price = product_update + 50000;
+    }
+
+    if (1000000 <= product_update) {
+        price = product_update + 100000;
+    }
+
+    const price_convert = price.toLocaleString();
+
+    $('#bid_price').val(price_convert);
+}
+
+const input = document.querySelector('#bid_price');
+
+/* 입찰 가격란에 ',' 생성 */
+input.addEventListener('keyup', function (e) {
+    let value = e.target.value;
+    value = Number(value.replaceAll(',', ''));
+    if (isNaN(value)) {
+        input.value = 0;
+    } else {
+        const formatValue = value.toLocaleString();
+        input.value = formatValue;
+    }
+});
+
+/* 채팅 소켓 */
 // const socket = io();
 
 // const chat_view = document.getElementById('chat_view')
 // const chat_form = document.getElementById('chat_form')
 
 // chat_form.addEventListener('submit', function() {
+
 //     if ($('#msg').val() === '') {
 //         return
 //     } else {

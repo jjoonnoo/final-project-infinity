@@ -11,16 +11,18 @@ function upload_image() {
             processData: false,
             contentType: false,
             data: formData,
-            // headers: {
-            //   authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-            // },
+            headers: {
+                authorization: `Bearer ${localStorage.getItem('access_token')}`,
+            },
             success: function (response) {
                 $('#image_container1').append(
-                    '<img src="' + response.url + '">'
+                    '<div><img src="' +
+                        response.url +
+                        '"><button onclick="image_delete(this)">X</button></div>'
                 );
             },
             error: function (err) {
-                alert('오류');
+                alert(error.responseJSON.message);
             },
         });
     }
@@ -34,19 +36,24 @@ function upload_image() {
             processData: false,
             contentType: false,
             data: formData,
-            // headers: {
-            //   authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-            // },
+            headers: {
+                authorization: `Bearer ${localStorage.getItem('access_token')}`,
+            },
             success: function (response) {
                 $('#image_container2').append(
                     '<img src="' + response.url + '">'
                 );
             },
             error: function (err) {
-                alert('오류');
+                alert(error.responseJSON.message);
             },
         });
     }
+}
+function image_delete(th) {
+    $(th).parent('div').remove();
+    document.getElementById('product_image1').value = null;
+    document.getElementById('product_image2').value = null;
 }
 //product regist
 function registAuctionProduct() {
@@ -66,6 +73,9 @@ function registAuctionProduct() {
     $.ajax({
         type: 'POST',
         url: '/api/products/auction',
+        headers: {
+            authorization: `Bearer ${localStorage.getItem('access_token')}`,
+        },
         data: {
             product_name: product_name,
             category: product_category,
@@ -76,6 +86,7 @@ function registAuctionProduct() {
             product_end: product_end_date,
             img_url: img_urls,
         },
+
         success: function (response) {
             alert(response.message);
             window.location.reload();
@@ -100,6 +111,9 @@ function registGeneralProduct() {
     $.ajax({
         type: 'POST',
         url: '/api/products/general',
+        headers: {
+            authorization: `Bearer ${localStorage.getItem('access_token')}`,
+        },
         data: {
             product_name: product_name,
             category: product_category,
@@ -135,6 +149,9 @@ function confirmPwd() {
     $.ajax({
         type: 'POST',
         url: '/api/users/confirm_pwd',
+        headers: {
+            authorization: `Bearer ${localStorage.getItem('access_token')}`,
+        },
         data: { password: user_pwd },
         success: function (response) {
             alert(response.message);
@@ -151,9 +168,9 @@ function getMyInfo() {
     $.ajax({
         type: 'GET',
         url: '/api/users/getmyinfo',
-        // headers: {
-        //   authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-        // },
+        headers: {
+            authorization: `Bearer ${localStorage.getItem('access_token')}`,
+        },
         data: {},
         success: function (response) {
             const data = response.data;
@@ -231,9 +248,9 @@ function deleteInfo(user_id) {
         $.ajax({
             type: 'DELETE',
             url: `/api/users/user/${user_id}`,
-            // headers: {
-            //   authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-            // },
+            headers: {
+                authorization: `Bearer ${localStorage.getItem('access_token')}`,
+            },
             data: {},
             success: function (response) {
                 alert(response.message);
@@ -241,7 +258,7 @@ function deleteInfo(user_id) {
                 window.location.href = '/';
             },
             error: function (err) {
-                alert(err.responseJSON.errorMessage);
+                alert(err.responseJSON.message);
                 window.location.href = '/myInfo';
             },
         });
@@ -258,9 +275,9 @@ function modifyInfo(user_id) {
     $.ajax({
         type: 'PATCH',
         url: `/api/users/user/${user_id}`,
-        // headers: {
-        //   authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-        // },
+        headers: {
+            authorization: `Bearer ${localStorage.getItem('access_token')}`,
+        },
         data: {
             email: user_email,
             name: user_name,
@@ -271,7 +288,7 @@ function modifyInfo(user_id) {
         success: function (response) {
             alert(response.message);
             localStorage.clear();
-            window.location.reload();
+            window.location.href = '/';
         },
         error: function (err) {
             alert(err.responseJSON.message);
@@ -284,9 +301,9 @@ function myProduct() {
     $.ajax({
         type: 'GET',
         url: '/api/products/my_product',
-        // headers: {
-        //   authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-        // },
+        headers: {
+            authorization: `Bearer ${localStorage.getItem('access_token')}`,
+        },
         data: {},
         success: function (response) {
             const general_data = response.data.data1;
@@ -359,9 +376,9 @@ function deleteAuctionProduct(auction_product_id) {
         $.ajax({
             type: 'DELETE',
             url: `/api/products/auction/${auction_product_id}`,
-            // headers: {
-            //   authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-            // },
+            headers: {
+                authorization: `Bearer ${localStorage.getItem('access_token')}`,
+            },
             data: {},
             success: function (response) {
                 alert(response.message);
@@ -382,9 +399,9 @@ function deleteGeneralProduct(general_product_id) {
         $.ajax({
             type: 'DELETE',
             url: `/api/products/auction/${general_product_id}`,
-            // headers: {
-            //   authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-            // },
+            headers: {
+                authorization: `Bearer ${localStorage.getItem('access_token')}`,
+            },
             data: {},
             success: function (response) {
                 alert(response.message);
@@ -404,9 +421,9 @@ function getPurchaseHistory() {
     $.ajax({
         type: 'GET',
         url: '/api/orders/purchase',
-        // headers: {
-        //   authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-        // },
+        headers: {
+            authorization: `Bearer ${localStorage.getItem('access_token')}`,
+        },
         data: {},
         success: function (response) {
             let general_data = response.data.general_data;
@@ -521,9 +538,9 @@ function getSaleHistory() {
     $.ajax({
         type: 'GET',
         url: '/api/orders/sale',
-        // headers: {
-        //   authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-        // },
+        headers: {
+            authorization: `Bearer ${localStorage.getItem('access_token')}`,
+        },
         data: {},
         success: function (response) {
             const auction_data = response.data.auction_data;
@@ -614,13 +631,13 @@ function getAuctionProduct(auction_product_id) {
     $.ajax({
         type: 'GET',
         url: `/api/products/auction/${auction_product_id}`,
-        // headers: {
-        //   authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-        // },
+        headers: {
+            authorization: `Bearer ${localStorage.getItem('access_token')}`,
+        },
         data: {},
         success: function (response) {
-            const auction_product_data = response.data.data1;
-            const image = response.data.data2;
+            const auction_product_data = response.data;
+            const image = response.data.Images;
             let date = new Date(
                 new Date().getTime() - new Date().getTimezoneOffset() * 60000
             )
@@ -663,7 +680,9 @@ function getAuctionProduct(auction_product_id) {
                 );
                 for (let i = 0; i < image.length; i++) {
                     $('#image_container1').append(
-                        '<img src="' + image[i]['image_url'] + '">'
+                        '<div><img src="' +
+                            image[i]['image_url'] +
+                            '"><button onclick="image_delete(this)">X</button></div>'
                     );
                 }
             }
@@ -678,9 +697,9 @@ function getGeneralProduct(general_product_id) {
     $.ajax({
         type: 'GET',
         url: `/api/products/general/${general_product_id}`,
-        // headers: {
-        //   authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-        // },
+        headers: {
+            authorization: `Bearer ${localStorage.getItem('access_token')}`,
+        },
         data: {},
         success: function (response) {
             const general_product_data = response.data.data1;
@@ -702,7 +721,9 @@ function getGeneralProduct(general_product_id) {
             );
             for (let i = 0; i < image.length; i++) {
                 $('#image_container2').append(
-                    '<img src="' + image[i]['image_url'] + '">'
+                    '<div><img src="' +
+                        image[i]['image_url'] +
+                        '"><button onclick="image_delete(this)">X</button></div>'
                 );
             }
         },
@@ -732,9 +753,9 @@ function modifyAuctionProduct(auction_product_id) {
     $.ajax({
         type: 'PATCH',
         url: `/api/products/auction/${auction_product_id}`,
-        // headers: {
-        //   authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-        // },
+        headers: {
+            authorization: `Bearer ${localStorage.getItem('access_token')}`,
+        },
         data: {
             product_name: product_name,
             category: product_category,
@@ -769,9 +790,9 @@ function modifyGeneralProduct(general_product_id) {
     $.ajax({
         type: 'PATCH',
         url: `/products/general/${general_product_id}`,
-        // headers: {
-        //   authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-        // },
+        headers: {
+            authorization: `Bearer ${localStorage.getItem('access_token')}`,
+        },
         data: {
             product_name: product_name,
             category: product_category,
