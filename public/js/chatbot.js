@@ -20,7 +20,7 @@ document.querySelector('#send').addEventListener('click', function () {
         document.getElementById('chat-content').scrollHeight;
 
     const configuration = new Configuration({
-        apiKey: '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',
+        apiKey: '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',
     });
     const openai = new OpenAIApi(configuration);
 
