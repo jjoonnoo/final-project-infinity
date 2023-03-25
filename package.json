@@ -40,7 +40,11 @@
     "node-cron": "^3.0.2",
     "node-device-detector": "^2.0.12",
     "nodemon": "^2.0.20",
+
+    "openai": "^3.2.1",
+
     "or": "^0.2.0",
+
     "path": "^0.12.7",
     "prettier": "^2.8.4",
     "prettify": "^0.1.0",
