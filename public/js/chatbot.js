@@ -1,5 +1,6 @@
-import { Configuration, OpenAIApi } from 'https://cdn.skypack.dev/openai';
-// const { Configuration, OpenAIApi } = require("openai");
+const { Configuration, OpenAIApi } = require("openai");
+
+require('dotenv').config();
 
 document.querySelector('#send').addEventListener('click', function () {
     var template = `<div class="line">
@@ -20,7 +21,7 @@ document.querySelector('#send').addEventListener('click', function () {
         document.getElementById('chat-content').scrollHeight;
 
     const configuration = new Configuration({
-        apiKey: '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'
+        apiKey: process.env.OPENAI_KEY,
     });
     const openai = new OpenAIApi(configuration);
 
