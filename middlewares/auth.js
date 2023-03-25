@@ -4,41 +4,42 @@ const { User } = require('../models');
 require('dotenv').config();
 
 module.exports = (req, res, next) => {
-    const authHeader = req.get('Authorization');
-    const access_token = authHeader.split(' ')[1];
+    try {
+        const authHeader = req.get('Authorization');
+        const access_token = authHeader.split(' ')[1];
+        const payload = jwt.decode(access_token);
+        const refreshToken = payload.refresh_token;
+        const user_id = payload.user_id;
 
-    const payload = jwt.decode(access_token);
-    const refreshToken = payload.refreshToken;
-    const user_id = payload.user_id;
+        // err가 jwt expired 이고 decode한 refreshToken이 있으면
+        // 재발급해서 보내주기.
 
-    // err가 jwt expired 이고 decode한 refreshToken이 있으면
-    // 재발급해서 보내주기.
-
-    jwt.verify(
-        access_token,
-        process.env.ACCESSTOKEN_SECRET_KEY,
-        async (err, decoded) => {
-            if (err && refreshToken) {
-                const access_token = jwt.sign(
-                    {
-                        payload,
-                    },
-                    process.env.ACCESSTOKEN_SECRET_KEY,
-                    { expiresIn: '1d' }
-                );
-                res.status(201).json({
-                    access_token,
-                    msg: 'accessToken recreated',
-                });
-            } else {
-                const current_user = await User.findByPk(user_id);
-                res.locals.user = current_user.dataValues;
-                console.log(res.locals.user);
-                // console.log(current_user.dataValues)
-                next();
+        jwt.verify(
+            access_token,
+            process.env.ACCESSTOKEN_SECRET_KEY,
+            async (err, decoded) => {
+                if (err && refreshToken) {
+                    const access_token = jwt.sign(
+                        {
+                            payload,
+                        },
+                        process.env.ACCESSTOKEN_SECRET_KEY,
+                        { expiresIn: '1d' }
+                    );
+                    res.status(201).json({
+                        access_token,
+                        msg: 'accessToken recreated',
+                    });
+                } else {
+                    const current_user = await User.findByPk(user_id);
+                    res.locals.user = current_user.dataValues;
+                    next();
+                }
             }
-        }
-    );
+        );
+    } catch (error) {
+        res.status(401).json({ message: '로그인 후 이용가능합니다!' });
+    }
 };
 
 // );

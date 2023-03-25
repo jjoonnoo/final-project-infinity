@@ -1,0 +1,201 @@
+<body>
+    <!-- 채팅
+    <div id="container">
+        <div id="chat_view"></div>
+        <form id="chat_form" onsubmit="return false">
+            <input type="text" id="msg">
+            <input type="submit" id="send" value="전송">
+        </form>
+    </div> -->
+
+    <div class="all_region">
+        <div class="a_tag">
+            <small class="category" id="category"></small>
+            <a href="#" class="openBtn">상품신고 🚨</a>
+            <hr />
+            <small>조회수 | <%= views %></small>
+            <br />
+            <small id="seller"></small><br />
+            <small id="rating"></small><br />
+            <small id="bid_count">경매 횟수 | <%= count %></small><br />
+            <small id="numClient"></small>
+        </div>
+
+        <div class="chatbox" id="chatbox"></div>
+
+        <div id="auction_product">
+            <div class="product_region">
+                <div id="carouselExample" class="carousel slide">
+                    <div class="carousel-inner" id="img_container"></div>
+                    <button
+                        class="carousel-control-prev"
+                        type="button"
+                        data-bs-target="#carouselExample"
+                        data-bs-slide="prev"
+                    >
+                        <span
+                            class="carousel-control-prev-icon"
+                            aria-hidden="true"
+                        ></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button
+                        class="carousel-control-next"
+                        type="button"
+                        data-bs-target="#carouselExample"
+                        data-bs-slide="next"
+                    >
+                        <span
+                            class="carousel-control-next-icon"
+                            aria-hidden="true"
+                        ></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+                <div class="product_area">
+                    <div class="product_name_css">
+                        <small>상품명</small>
+                        <hr />
+                        <div id="product_name" class="product_name"></div>
+                    </div>
+                    <div class="product_info_css">
+                        <small>상품내용</small>
+                        <hr />
+                        <div id="product_content"></div>
+                    </div>
+                    <small id="product_buy_now_price" style="display: none">
+                    </small>
+                    <hr />
+                    <small id="product_start_convert"></small>
+                    <hr />
+                    <small id="product_update_convert"
+                        >입찰가 <%= price %> 원</small
+                    >
+                    <hr />
+                    <small>마감시간</small>
+                    <p id="product_end"></p>
+                    <hr />
+                </div>
+            </div>
+        </div>
+        <div class="chatme" id="chatme"></div>
+        <div class="button_region">
+            <hr />
+
+            <div id="countdown"></div>
+            <div id="purchase_btn" style="display: none">
+                <a href="#"
+                    ><button id="btn1" onclick="purchaseNow()">
+                        즉시 구매
+                    </button></a
+                >
+            </div>
+
+            <button class="openBtnBid" id="qwe" onclick="openBtnBid()">
+                입찰
+            </button>
+            <div class="modalBid hiddenBid">
+                <div class="bgBid"></div>
+                <div class="modalBoxBid">
+                    <p>
+                        ※ 입찰 후 취소 시 수수료가 부과되므로 신중히 입찰하세요.
+                    </p>
+                    <p>입찰 가격: <input type="text" id="bid_price" />원</p>
+                    <button
+                        class="modal_button"
+                        type="button"
+                        onclick="bidBtn()"
+                    >
+                        입찰하기
+                    </button>
+                    <button class="closeBtnBid">취소</button>
+                    <p>※ 입찰 최소 금액 단위</p>
+                    <p>○ 입찰가 100만원이상 ▶ 10만원</p>
+                    <p>○ 입찰가 50만원이상 ~ 100만원미만 ▶ 5만원</p>
+                    <p>○ 입찰가 10만원이상 ~ 50만원미만 ▶ 1만원</p>
+                    <p>○ 입찰가 10만원미만 ▶ 5천원</p>
+                </div>
+            </div>
+
+            <div class="modal hidden">
+                <div class="bg"></div>
+                <div class="modalBox">
+                    신고 제목:
+                    <select name="sltSample" size="1" id="report_title">
+                        <option value="불친절한 대응" selected>
+                            불친절한 대응
+                        </option>
+                        <option value="불량 상품 판매">불량 상품 판매</option>
+                        <option value="규정위반 상품">규정위반 상품</option>
+                        <option value="기타">기타</option>
+                    </select>
+                    <p>신고 내용: <input type="text" id="report_content" /></p>
+                    <button
+                        class="modal_button"
+                        type="button"
+                        onclick="reportBtn()"
+                    >
+                        신고하기
+                    </button>
+                    <button class="closeBtn">취소</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <link rel="stylesheet" href="../css/auctionProductDetail.css" />
+    <script type="text/javascript" src="../js/auctionProductDetail.js"></script>
+</body>
+<script>
+    // const socket = io();
+
+    // 경매 ID를 전달하여 해당 경매의 채팅방을 생성한다
+    socket.emit('createChatRoom', {
+        auctionId: location.pathname.split('/')[2],
+    });
+    socket.on('roomCount', ({ count }) => {
+        $('#numClient').text('참여인원 | ' + count + '명');
+    });
+    function sendmessage() {
+        socket.emit('sendMessage', {
+            auctionId: location.pathname.split('/')[2],
+            message: $('#chat_content').val(),
+            user_email: $('#user_email').val(),
+        });
+        document.getElementById('chat_content').value = '';
+    }
+    socket.on('chatMessage', ({ message, user_email }) => {
+        appendchat(message, user_email);
+    });
+    socket.on('bid', ({ count, update_price }) => {
+        $('#bid_count').text('경매 횟수 | ' + count);
+        $('#product_update_price').attr(update_price);
+        $('#product_update_convert').text(
+            '입찰가' + update_price.toLocaleString() + '원'
+        );
+    });
+
+    function appendchat(message, user_email) {
+        if ($('#user_email').val() === user_email) {
+            let temp = `        <form>
+        <div>
+            <input style="text-align:right" value="${user_email}" readonly>
+            <br>
+            <input style="text-align:right" value="${message}" readonly>
+        </div>
+    </form>`;
+            $('#chatbox').append(temp);
+        } else {
+            let temp = `        <form>
+        <div>
+            <input style="text-align:left" value="${user_email}" readonly>
+            <br>
+            <input style="text-align:left" value="${message}" readonly>
+        </div>
+    </form>`;
+            $('#chatbox').append(temp);
+        }
+
+        document.getElementById('chatbox').scrollTop =
+            document.getElementById('chatbox').scrollHeight;
+    }
+</script>

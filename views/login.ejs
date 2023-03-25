@@ -1,59 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <link rel="stylesheet" href="/css/login.css">
-  <script type="text/javascript" defer src="/js/login.js"></script>
-  <script src="https://kit.fontawesome.com/955d830b21.js" crossorigin="anonymous"></script>
-
-  <!-- jquery -->
-  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-</head>
-<body>
-  <div class="container" id="container">
-    <div class="form-container sign-up-container">
-      <form>
-        <div class="input-container">
-          <input type="text" id="name" placeholder="Name" />
-          <input type="email" id="email" placeholder="Email" />
-          <input type="password" id="password" placeholder="Password" />
-          <input type="password" id="repassword" placeholder="Re Password " />
-          <input type="text" id="address" placeholder="Click for address" />
-          <input type="text"id="phone" placeholder="Phone" />
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Login&SignUp</title>
+        <link rel="stylesheet" href="../css/login.css" />
+        <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    </head>
+    <body>
+        <div class="container" id="container">
+            <div class="form-container sign-up-container">
+                <form>
+                    <div class="input-container">
+                        <input type="text" id="name" placeholder="Name" />
+                        <input type="email" id="email" placeholder="Email" />
+                        <input
+                            type="password"
+                            id="password"
+                            placeholder="Password"
+                        />
+                        <input
+                            type="password"
+                            id="repassword"
+                            placeholder="Re Password "
+                        />
+                        <input
+                            type="text"
+                            id="address"
+                            placeholder="Click for address"
+                        />
+                        <input type="text" id="phone" placeholder="Phone" />
+                    </div>
+                    <button id="signup" onclick="register()">Submit</button>
+                </form>
+            </div>
+            <div class="form-container sign-in-container">
+                <div id="login_form">
+                    <h1>Sign in</h1>
+                    <!-- <div class="social-container"> -->
+                    <!-- <i class="fab fa-google-plus-g"></i> -->
+                    <!-- <a href="#" class="social"><i class="fa-sharp fa-regular fa-key"></i></i></a> -->
+                    <!-- </div> -->
+                    <!-- <span>or use your account</span> -->
+                    <input type="email" id="login_email" placeholder="Email" />
+                    <input
+                        type="password"
+                        id="login_password"
+                        placeholder="Password"
+                    />
+                    <button id="login_button" onclick="login()">Sign In</button>
+                </div>
+            </div>
+            <div class="overlay-container">
+                <div class="overlay">
+                    <div class="overlay-panel overlay-left">
+                        <h1>Member of BNS already?</h1>
+                        <p>Sign up and start journey with us</p>
+                        <button class="ghost" id="signIn">Sign In</button>
+                    </div>
+                    <div class="overlay-panel overlay-right">
+                        <h1>Welcome BNS</h1>
+                        <p>Let's be member of BNS</p>
+                        <button class="ghost" id="signUp">Sign Up</button>
+                    </div>
+                </div>
+            </div>
         </div>
-        <button id="signup" onclick="register()">Submit</button>
-      </form>
-    </div>
-    <div class="form-container sign-in-container">
-      <div id="login_form">
-        <h1>Sign in</h1>
-        <!-- <div class="social-container"> -->
-          <!-- <i class="fab fa-google-plus-g"></i> -->
-          <!-- <a href="#" class="social"><i class="fa-sharp fa-regular fa-key"></i></i></a> -->
-        <!-- </div> -->
-        <!-- <span>or use your account</span> -->
-        <input type="email" id="login_email" placeholder="Email" />
-        <input type="password" id ="login_password" placeholder="Password" />
-        <button id="login_button" onclick="login()">Sign In</button>
-      </div>
-    </div>
-    <div class="overlay-container">
-      <div class="overlay">
-        <div class="overlay-panel overlay-left">
-          <h1>Member of BNS already?</h1>
-          <p>Sign up and start journey with us</p>
-          <button class="ghost" id="signIn">Sign In</button>
-        </div>
-        <div class="overlay-panel overlay-right">
-          <h1>Welcome BNS</h1>
-          <p>Let's be member of BNS</p>
-          <button class="ghost" id="signUp">Sign Up</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</body>
+    </body>
+    <script type="text/javascript" src="/js/login.js"></script>
 </html>

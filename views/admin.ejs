@@ -1,0 +1,89 @@
+<body>
+    <div id="report-list"></div>
+</body>
+<script>
+    getReportsList();
+    function getReportsList() {
+        axios
+            .get(`/api/admin/report`)
+            .then((response) => {
+                let { data } = response.data;
+
+                const ReportList = document.getElementById('report-list');
+
+                ReportList.innerHTML = '';
+
+                for (let i = 0; i < data.length; i++) {
+                    const temp = document.createElement('div');
+                    temp.setAttribute('class', 'report-list');
+                    temp.innerHTML = `
+          
+          <div class="report title">
+            <h4>
+            <div>${data[i].title}</div></h4>
+          </div>
+          <div class="report content">
+            <div>${data[i].content}</div>
+          </div>
+          <td>
+            <button onclick="deleteAuctionProduct(${data[i].auction_product_id})">상품삭제(경매)</button>
+          </td>
+          <td>
+            <button onclick="deleteGeneralProduct(${data[i].general_product_id})">상품삭제(일반)</button>
+          </td>
+          `;
+                    ReportList.append(temp);
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
+
+    function deleteAuctionProduct(auction_product_id) {
+        const is_real_delete = confirm('정말로 삭제하시겠습니까?');
+        if (is_real_delete) {
+            $.ajax({
+                type: 'DELETE',
+                url: `/api/admin/auction/${auction_product_id}`,
+                // headers: {
+                //   authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+                // },
+                data: {},
+                success: function (response) {
+                    alert(response.message);
+                    window.location.reload();
+                },
+                error: function (err) {
+                    alert(err.responseJSON.errorMessage);
+                    window.location.href = '/myProduct';
+                },
+            });
+        } else {
+            alert('취소되었습니다.');
+        }
+    }
+    function deleteGeneralProduct(general_product_id) {
+        const is_real_delete = confirm('정말로 삭제하시겠습니까?');
+        if (is_real_delete) {
+            $.ajax({
+                type: 'DELETE',
+                url: `/api/admin/auction/${general_product_id}`,
+                // headers: {
+                //   authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+                // },
+                data: {},
+                success: function (response) {
+                    alert(response.message);
+                    window.location.reload();
+                },
+                error: function (err) {
+                    alert(err.responseJSON.errorMessage);
+                    window.location.href = '/myProduct';
+                },
+            });
+        } else {
+            alert('취소되었습니다.');
+        }
+    }
+</script>

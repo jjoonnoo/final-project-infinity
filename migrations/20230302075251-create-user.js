@@ -10,13 +10,16 @@ module.exports = {
                 type: Sequelize.INTEGER,
             },
             name: {
+                allowNull: false,
                 type: Sequelize.STRING,
             },
             email: {
+                allowNull: false,
                 type: Sequelize.STRING,
                 unique: true,
             },
             password: {
+                allowNull: false,
                 type: Sequelize.STRING,
             },
             phone: {
@@ -26,9 +29,12 @@ module.exports = {
                 type: Sequelize.STRING,
             },
             admin: {
+                allowNull: false,
                 type: Sequelize.INTEGER,
+                defaultValue: 0,
             },
-            raiting: {
+            rating: {
+                allowNull: false,
                 type: Sequelize.FLOAT,
                 defaultValue: 5.0,
             },
