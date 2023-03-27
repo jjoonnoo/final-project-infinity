@@ -64,9 +64,7 @@ function register() {
         },
         success: function (response) {
             alert('회원가입에 성공했습니다.');
-            signInButton.addEventListener('click', () => {
-                container.classList.remove('right-panel-active');
-            });
+            window.location.reload(true);
         },
         error: function (response) {
             alert(error.responseJSON.message);
