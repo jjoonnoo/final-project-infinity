@@ -361,8 +361,7 @@ class ProductController {
 
     generalProductReview = async (req, res) => {
         try {
-            // const user_id = res.locals.user.user_id
-            const user_id = 99;
+            const user_id = res.locals.user.user_id;
             const { general_product_id } = req.params;
             const { rating, content } = req.body;
 
@@ -381,8 +380,7 @@ class ProductController {
 
     auctionProductReview = async (req, res) => {
         try {
-            // const user_id = res.locals.user.user_id
-            const user_id = 98;
+            const user_id = res.locals.user.user_id;
             const { auction_product_id } = req.params;
             const { rating, content } = req.body;
 

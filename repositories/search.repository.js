@@ -350,9 +350,25 @@ class SearchRepository {
 
     recommendProducts = async () => {
         const today = new Date();
-        const startOfDay = new Date(today.getFullYear(), today.getMonth(), today.getDate());
-        const endOfDay = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1, 0, 0, 0);
-        const endOfHour = new Date(today.getFullYear(), today.getMonth(), today.getDate(), today.getHours() + 1);
+        const startOfDay = new Date(
+            today.getFullYear(),
+            today.getMonth(),
+            today.getDate()
+        );
+        const endOfDay = new Date(
+            today.getFullYear(),
+            today.getMonth(),
+            today.getDate() + 1,
+            0,
+            0,
+            0
+        );
+        const endOfHour = new Date(
+            today.getFullYear(),
+            today.getMonth(),
+            today.getDate(),
+            today.getHours() + 1
+        );
         console.log(today, startOfDay, endOfDay, endOfHour);
         const recommendProducts = await Auction_product.findAll({
             where: {
