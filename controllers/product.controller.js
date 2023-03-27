@@ -156,7 +156,16 @@ class ProductController {
             res.status(404).json({ message: '오류' });
         }
     };
-
+    findReview = async (req, res) => {
+        try {
+            const user_id = res.locals.user.user_id;
+            const data = await this.productService.findReview(user_id);
+            res.status(200).json({ data });
+        } catch (error) {
+            console.error(error);
+            res.status(404).json({ message: '찾을 수 없습니다.' });
+        }
+    };
     generalProductFind = async (req, res) => {
         try {
             const { general_product_id } = req.params;
@@ -361,8 +370,7 @@ class ProductController {
 
     generalProductReview = async (req, res) => {
         try {
-            // const user_id = res.locals.user.user_id
-            const user_id = 99;
+            const user_id = res.locals.user.user_id;
             const { general_product_id } = req.params;
             const { rating, content } = req.body;
 
@@ -381,8 +389,7 @@ class ProductController {
 
     auctionProductReview = async (req, res) => {
         try {
-            // const user_id = res.locals.user.user_id
-            const user_id = 98;
+            const user_id = res.locals.user.user_id;
             const { auction_product_id } = req.params;
             const { rating, content } = req.body;
 

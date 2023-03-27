@@ -5,7 +5,7 @@ const app = express();
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
 const router = require('./routes');
-const { Auction_product } = require('./models');
+const { Auction_product, Login_session } = require('./models');
 require('dotenv').config();
 app.set('views', './views');
 app.set('view engine', 'ejs');
@@ -90,7 +90,10 @@ io.on('connection', (socket) => {
         socket.emit('products', products);
     });
 });
-
+// Login_session.findAll().then((sessions) => {
+//     console.log('All login_sessions:');
+//     console.log(sessions);
+//   });
 server.listen(process.env.PORT, '0.0.0.0', function () {
     console.log(`http://localhost:${process.env.PORT}/`);
 });

@@ -105,7 +105,10 @@ class ProductService {
         const data = await this.productRepository.findMyProduct(user_id);
         return data;
     };
-
+    findReview = async (user_id) => {
+        const data = await this.productRepository.findReview(user_id);
+        return data;
+    };
     generalProductFind = async (general_product_id) => {
         const data = await this.productRepository.generalProductFind(
             general_product_id

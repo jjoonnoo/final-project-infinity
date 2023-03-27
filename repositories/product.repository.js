@@ -197,6 +197,59 @@ class ProductRepository {
         const result = { data1, data2 };
         return result;
     };
+    findReview = async (user_id) => {
+        const general_reviews = await General_product.findAll({
+            where: { user_id },
+            include: [
+                {
+                    model: Review,
+                    include: [
+                        {
+                            model: User,
+                            attributes: ['email'],
+                        },
+                    ],
+                },
+                {
+                    model: Image,
+                },
+            ],
+            order: [[Review, 'createdAt', 'DESC']],
+        });
+
+        const auction_reviews = await Auction_product.findAll({
+            where: { user_id },
+            include: [
+                {
+                    model: Review,
+                    include: [
+                        {
+                            model: User,
+                            attributes: ['email'],
+                        },
+                    ],
+                },
+                {
+                    model: Image,
+                },
+            ],
+            order: [[Review, 'createdAt', 'DESC']],
+        });
+        const my_reviews = await Review.findAll({
+            where: { user_id },
+            include: [
+                {
+                    model: Auction_product,
+                    include: [{ model: Image }],
+                },
+                {
+                    model: General_product,
+                    include: [{ model: Image }],
+                },
+            ],
+        });
+        return { general_reviews, auction_reviews, my_reviews };
+    };
     generalProductFind = async (general_product_id) => {
         const data = await General_product.findOne({
             where: { general_product_id },
