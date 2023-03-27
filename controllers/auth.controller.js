@@ -47,7 +47,6 @@ class AuthController {
                 message: '회원가입에 성공하였습니다',
             });
         } catch (err) {
-            console.log(err);
             res.status(400).json({ message: err.message });
         }
     };

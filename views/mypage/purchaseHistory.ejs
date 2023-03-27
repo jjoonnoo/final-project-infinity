@@ -81,9 +81,9 @@
     </div>
 </body>
 <script>
-    $(document).ready(function () {
-        getPurchaseHistory();
-    });
+    // $(document).ready(function () {
+    //     getPurchaseHistory();
+    // });
 
     $(document).on('click', '.openBtn', function () {
         const auction_product_id = $(this).data('auction-product-id');
@@ -203,6 +203,9 @@
         $.ajax({
             type: 'POST',
             url: `/api/products/auction/review/${auction_product_id}`,
+            headers: {
+                authorization: `Bearer ${localStorage.getItem('access_token')}`,
+            },
             data: { rating: rating, content: content },
             success: function (response) {
                 alert(response['message']);
@@ -226,6 +229,9 @@
         $.ajax({
             type: 'POST',
             url: `/api/products/general/review/${general_product_id}`,
+            headers: {
+                authorization: `Bearer ${localStorage.getItem('access_token')}`,
+            },
             data: { rating: rating, content: content },
             success: function (response) {
                 alert(response['message']);

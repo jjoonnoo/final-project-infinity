@@ -3,7 +3,6 @@
 const fs = require('fs');
 const path = require('path');
 const Sequelize = require('sequelize');
-const process = require('process');
 const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || 'development';
 const config = require(__dirname + '/../config/config.js')[env];
@@ -37,6 +36,17 @@ fs.readdirSync(__dirname)
         );
         db[model.name] = model;
     });
+
+// Connect Login_session model to session database
+const sessionConfig = require(__dirname + '/../config/config.js')['session'];
+const sessionSequelize = new Sequelize(
+    sessionConfig.database,
+    sessionConfig.username,
+    sessionConfig.password,
+    sessionConfig
+);
+const Login_session = require('./login_session')(sessionSequelize, Sequelize);
+db['Login_session'] = Login_session;
 
 Object.keys(db).forEach((modelName) => {
     if (db[modelName].associate) {

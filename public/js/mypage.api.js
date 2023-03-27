@@ -843,3 +843,76 @@ function reviewCloseGenral() {
         .querySelector('.modal_review_general')
         .classList.add('hidden_review_general');
 }
+//review
+function getReview() {
+    $.ajax({
+        type: 'GET',
+        url: '/api/products/review',
+        headers: {
+            authorization: `Bearer ${localStorage.getItem('access_token')}`,
+        },
+        data: {},
+        success: function (response) {
+            const general_review_data = response.data.general_reviews;
+            const auction_review_data = response.data.auction_reviews;
+            const my_review_data = response.data.my_reviews;
+
+            for (let i = 0; i < auction_review_data.length; i++) {
+                let temp = `
+                <tr>
+                    <th scope="row">${auction_review_data[i].auction_product_id}</th>
+                    <td><img src="${auction_review_data[i].Images[0].image_url}" width="30" height="30"></td>
+                    <td>${auction_review_data[i].product_name}</td>
+                    <td>${auction_review_data[i].Review.User.email}</td>
+                    <td>${auction_review_data[i].Review.rating}</td>
+                    <td>${auction_review_data[i].Review.content}</td>
+                </tr>
+            `;
+                $('#my_auction_product_reviews').append(temp);
+            }
+            for (let i = 0; i < general_review_data.length; i++) {
+                for (let j = 0; i < general_review_data.length; i++) {
+                    let temp = `
+                    <tr>
+                      <th scope="row">${general_review_data[i].general_product_id}</th>
+                      <td><img src="${general_review_data[i].Images[0].image_url}" width="30" height="30"></td>
+                      <td>${general_review_data[i].product_name}</td>
+                      <td>${general_review_data[i].Reviews[j].User.email}</td>
+                      <td>${general_review_data[i].Reviews[j].rating}</td>
+                      <td>${general_review_data[i].Reviews[j].content}</td>
+                    </tr>
+                `;
+                    $('#my_general_product_reviews').append(temp);
+                }
+            }
+            for (let i = 0; i < my_review_data.length; i++) {
+                if (my_review_data[i].Auction_product !== null) {
+                    let temp = `
+                <tr>
+                  <th scope="row">${my_review_data[i].auction_product_id}</th>
+                  <td><img src="${my_review_data[i].Auction_product.Images[0].image_url}" width="30" height="30"></td>
+                  <td>${my_review_data[i].Auction_product.product_name}</td>
+                  <td>${my_review_data[i].rating}</td>
+                  <td>${my_review_data[i].content}</td>
+                </tr>
+            `;
+                    $('#my_reviews_auction').append(temp);
+                } else {
+                    let temp = `
+                <tr>
+                  <th scope="row">${my_review_data[i].general_product_id}</th>
+                  <td><img src="${my_review_data[i].General_product.Images[0].image_url}" width="30" height="30"></td>
+                  <td>${my_review_data[i].General_product.product_name}</td>
+                  <td>${my_review_data[i].rating}</td>
+                  <td>${my_review_data[i].content}</td>
+                </tr>
+            `;
+                    $('#my_reviews_general').append(temp);
+                }
+            }
+        },
+        error: function (err) {
+            alert(err.responseJSON.message);
+        },
+    });
+}

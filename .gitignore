@@ -1,6 +1,6 @@
 node_modules
 .env
 README.md
+migrations
 package-lock.json
-.gitignore
 migrations

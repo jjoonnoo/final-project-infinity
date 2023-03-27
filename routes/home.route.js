@@ -30,5 +30,6 @@ router.get('/chatbot', homeController.chatBot);
 router.get('/videochat', homeController.videochat);
 
 router.get('/admin', homeController.admin);
+router.get('/myreview', homeController.review);
 
 module.exports = router;

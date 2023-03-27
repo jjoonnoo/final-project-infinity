@@ -50,6 +50,12 @@ exports.salehistory = async (req, res) => {
         title: 'Sale History',
     });
 };
+
+exports.review = async (req, res) => {
+    res.status(200).render('mypage/myReview', {
+        title: '내 리뷰',
+    });
+};
 exports.generalcart = async (req, res) => {
     res.status(200).render('cart/generalProductCart', {
         title: '장바구니',

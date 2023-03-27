@@ -12,7 +12,7 @@ redis_client.on('connect', () => {
 redis_client.on('error', (error) => {
     console.error('Redis Client Error', error);
 });
-redis_client.connect().then();
+redis_client.connect();
 const redis_cli = redis_client.v4;
 const updateViews = async () => {
     redis_client.keys('views:auction_product:*', async (err, keys) => {
@@ -70,7 +70,6 @@ const updateViews = async () => {
         const auction_products = keys;
         redis_client.mGet(auction_products, async (err, values) => {
             const auction_price = values;
-            console.log(auction_price);
             for (let i = 0; i < auction_products.length; i++) {
                 await Auction_product.update(
                     { product_update_price: auction_price[i] },
