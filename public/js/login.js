@@ -32,9 +32,14 @@ function login() {
             localStorage.setItem('access_token', response.access_token);
             window.location.href = '/'; // 메인페이지
         },
-        error: function (error) {
-            alert(error.responseJSON.msg);
-        },
+        error: function (request, status, error) {
+            var msg = request.responseText;
+            alert(msg);
+        }
+        // error: function (error) {
+        //     console.log(error.responseJSON.msg);
+        //     alert(error.responseJSON.msg);
+        // },
     });
 }
 
@@ -66,8 +71,8 @@ function register() {
             alert('회원가입에 성공했습니다.');
             window.location.reload(true);
         },
-        error: function (response) {
-            alert(error.responseJSON.message);
-        },
+        error: function (request, status, error) {
+            alert(request.responseText);
+        }
     });
 }
