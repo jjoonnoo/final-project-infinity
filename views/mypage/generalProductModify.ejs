@@ -81,6 +81,10 @@
 </body>
 <script>
     $(document).ready(function () {
+        if(!checkAccessToken()){
+            alert("로그인 후 이용 가능합니다.")
+            window.location.href='/'
+        }
         $('#product_type').val(2).prop('selected',true)
         getGeneralProduct(<%= general_product_id %>)
     })

@@ -22,6 +22,7 @@
     "aws-sdk": "^2.1309.0",
     "bcrypt": "^5.1.0",
     "connect-redis": "^7.0.1",
+    "cookie-parser": "^1.4.6",
     "dotenv": "^16.0.3",
     "ejs": "^3.1.8",
     "express": "^4.18.2",
@@ -40,16 +41,12 @@
     "node-cron": "^3.0.2",
     "node-device-detector": "^2.0.12",
     "nodemon": "^2.0.20",
-
     "openai": "^3.2.1",
-
     "or": "^0.2.0",
-
     "path": "^0.12.7",
     "prettier": "^2.8.4",
     "prettify": "^0.1.0",
     "redis": "^4.6.5",
-    "redis-cli": "^1.4.0",
     "request-ip": "^3.3.0",
     "sequelize": "^6.29.0",
     "sequelize-cli": "^6.6.0",

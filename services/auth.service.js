@@ -39,6 +39,27 @@ class AuthService {
             star: created_user.star,
         };
     };
+    createLoginInfo = async (user_id, refresh_token, device_type) => {
+        await this.auth_repository.createLoginInfo(
+            user_id,
+            refresh_token,
+            device_type
+        );
+    };
+    findLoginInfo = async (user_id, device_type) => {
+        const loginInfo = await this.auth_repository.findLoginInfo(
+            user_id,
+            device_type
+        );
+        return loginInfo;
+    };
+    updateLoginInfo = async (user_id, refresh_token, device_type) => {
+        await this.auth_repository.updateLoginInfo(
+            user_id,
+            refresh_token,
+            device_type
+        );
+    };
 }
 
 module.exports = AuthService;

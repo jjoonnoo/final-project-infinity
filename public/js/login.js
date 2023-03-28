@@ -23,13 +23,14 @@ function login() {
     $.ajax({
         type: 'POST',
         url: '/api/auth/signin',
+        headers: { 'x-user-agent': navigator.userAgent },
         data: {
             email: user_email,
             password: user_password,
         },
         success: function (response) {
             alert(response.msg);
-            localStorage.setItem('access_token', response.access_token);
+            // localStorage.setItem('access_token', response.access_token);
             window.location.href = '/'; // 메인페이지
         },
         error: function (request, status, error) {
