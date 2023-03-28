@@ -31,9 +31,7 @@ class AuthController {
             // }
             // 이메일 중복검사
             if (found_by_email) {
-                return res.status(409).json(
-                    '이미 사용중인 이메일입니다.'
-                );
+                return res.status(409).json('이미 사용중인 이메일입니다.');
             }
 
             // bcrypt를 이용한 비밀번호 암호화(Saltrounds = 12)
@@ -80,9 +78,9 @@ class AuthController {
             // }
 
             if (user.length === 0 || !passwordTest) {
-                return res.status(401).json(
-                    '사용자가 없거나 비밀번호가 틀렸습니다!'
-                );
+                return res
+                    .status(401)
+                    .json('사용자가 없거나 비밀번호가 틀렸습니다!');
             }
 
             // Refresh token 발급

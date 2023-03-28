@@ -1,4 +1,4 @@
-const socket = io.connect(`ws://${process.env.HOST}:${process.env.PORT}`);
+const socket = io.connect();
 
 const myFace = document.getElementById('myFace');
 const muteBtn = document.getElementById('mute');

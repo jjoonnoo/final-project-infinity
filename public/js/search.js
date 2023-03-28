@@ -50,12 +50,13 @@ function getProducts(page) {
                 if (image === null) {
                     image = '/img/BNS - MarkMaker Logo.png';
                 }
-                let price =
-                    dataAuction[i].product_buy_now_price ||
-                    dataAuction[i].product_price ||
-                    null;
-                if (price === null) {
-                    price = ' * 경매로만 구입 가능합니다. --';
+                let price = '';
+                if (dataAuction[i].product_buy_now_price !== null) {
+                    price =
+                        dataAuction[i].product_buy_now_price.toLocaleString() +
+                        '원';
+                } else {
+                    price = ' * 경매로만 구입 가능합니다.';
                 }
                 const temp = document.createElement('div');
                 temp.setAttribute('class', 'product-ox');
@@ -74,7 +75,7 @@ function getProducts(page) {
               
               <div class="product product-participant">
                 
-                <div>${price}\\</div>
+                <div>${price}</div>
               </div>
               </div>
               `;
@@ -87,12 +88,7 @@ function getProducts(page) {
                     image = '/img/BNS - MarkMaker Logo.png';
                 }
                 let price =
-                    dataGeneral[i].product_buy_now_price ||
-                    dataGeneral[i].product_price ||
-                    null;
-                if (price === null) {
-                    price = ' * 경매로만 구입 가능합니다. --';
-                }
+                    dataGeneral[i].product_price.toLocaleString() + '원';
                 const temp = document.createElement('div');
                 temp.setAttribute('class', 'product-ox');
                 temp.innerHTML = `<div class="productone" style="cursor: pointer;" onclick="location.href='/general/${dataGeneral[i].general_product_id}'">
@@ -110,7 +106,7 @@ function getProducts(page) {
               
               <div class="product product-participant">
                 
-                <div>${price}\\</div>
+                <div>${price}</div>
               </div>
               </div>
               `;
@@ -148,12 +144,18 @@ function getAuctionProducts(page) {
                 if (image === null) {
                     image = src = '/img/BNS - MarkMaker Logo.png';
                 }
-                let price = data[i].product_buy_now_price;
-                if (price === null) {
+                let price = '';
+                if (data[i].product_buy_now_price !== null) {
+                    price =
+                        data[i].product_buy_now_price.toLocaleString() + '원';
+                } else {
                     price = '--';
                 }
-                let update_price = data[i].product_update_price;
-                if (update_price === null) {
+                let update_price = '';
+                if (data[i].product_update_price !== null) {
+                    update_price =
+                        data[i].product_update_price.toLocaleString() + '원';
+                } else {
                     update_price = '--';
                 }
                 const temp = document.createElement('div');
@@ -180,7 +182,7 @@ function getAuctionProducts(page) {
           </div>
           <div class="product product-participant">
             즉시 구매가
-            <div>${price}\\</div>
+            <div>${price}</div>
           </div>
           </div>
           `;
@@ -220,7 +222,9 @@ function getGeneralProducts(page) {
                 }
                 const temp = document.createElement('div');
                 temp.setAttribute('class', 'product-ox');
-                temp.innerHTML = `<div class="productone" style="cursor: pointer;" onclick="location.href='/general/${data[i].general_product_id}'">
+                temp.innerHTML = `<div class="productone" style="cursor: pointer;" onclick="location.href='/general/${
+                    data[i].general_product_id
+                }'">
           <img class="product product-image" src="${image}" style="width: 250px;
             height: 250px;
             object-fit: cover;">
@@ -235,7 +239,7 @@ function getGeneralProducts(page) {
           
           <div class="product product-participant">
             
-            <div>${data[i].product_price}\\</div>
+            <div>${data[i].product_price.toLocaleString() + '원'}</div>
           </div>
           </div>
           `;
@@ -264,12 +268,18 @@ function recommendProducts() {
                 if (image === null) {
                     image = src = '/img/BNS - MarkMaker Logo.png';
                 }
-                let price = data[i].product_buy_now_price;
-                if (price === null) {
+                let price = '';
+                if (data[i].product_buy_now_price !== null) {
+                    price =
+                        data[i].product_buy_now_price.toLocaleString() + '원';
+                } else {
                     price = '--';
                 }
-                let update_price = data[i].product_update_price;
-                if (update_price === null) {
+                let update_price = '';
+                if (data[i].product_update_price !== null) {
+                    update_price =
+                        data[i].product_update_price.toLocaleString() + '원';
+                } else {
                     update_price = '--';
                 }
                 const temp = document.createElement('div');
@@ -279,16 +289,20 @@ function recommendProducts() {
                 } else {
                     temp.setAttribute('style', 'display: none;');
                 }
-                temp.innerHTML = `<div style="cursor: pointer;" onclick="location.href='/auction/${data[i].auction_product_id}'">
+                temp.innerHTML = `<div style="cursor: pointer;" onclick="location.href='/auction/${
+                    data[i].auction_product_id
+                }'">
               <div class="product-box__image">
               <img class="product-image" src="${image}">
             </div>
             <div class="product-box__details">
               <h4 class="product-name">${data[i].product_name}</h4>
               <div class="product-content">${data[i].product_content}</div>
-              <div class="product-participant">경매 시작가: <span>${data[i].product_start_price}원</span></div>
-              <div class="product-participant">최근 경매가: <span>${update_price}원</span></div>
-              <div class="product-participant">즉시 구매가: <span>${price}원</span></div>
+              <div class="product-participant">경매 시작가: <span>${
+                  data[i].product_start_price.toLocaleString() + '원'
+              }</span></div>
+              <div class="product-participant">최근 경매가: <span>${update_price}</span></div>
+              <div class="product-participant">즉시 구매가: <span>${price}</span></div>
             </div>
           </div>`;
                 productList.append(temp);
