@@ -31,12 +31,14 @@
                     if (image === null) {
                         image = src = '/img/BNS - MarkMaker Logo.png';
                     }
-                    let price =
-                        dataAuction[i].product_buy_now_price ||
-                        dataAuction[i].product_price ||
-                        null;
-                    if (price === null) {
-                        price = ' * 경매로만 구입 가능합니다. --';
+                    let price = '';
+                    if (dataAuction[i].product_buy_now_price !== null) {
+                        price =
+                            dataAuction[
+                                i
+                            ].product_buy_now_price.toLocaleString() + '원';
+                    } else {
+                        price = ' * 경매로만 구입 가능합니다.';
                     }
                     const temp = document.createElement('div');
                     temp.setAttribute('class', 'product-ox');
@@ -55,7 +57,7 @@
           
           <div class="product product-participant">
             
-            <div>${price}\\</div>
+            <div>${price}</div>
           </div>
           </div>
           `;
@@ -68,12 +70,7 @@
                         image = src = '/img/BNS - MarkMaker Logo.png';
                     }
                     let price =
-                        dataGeneral[i].product_buy_now_price ||
-                        dataGeneral[i].product_price ||
-                        null;
-                    if (price === null) {
-                        price = ' * 경매로만 구입 가능합니다. --';
-                    }
+                        dataGeneral[i].product_price.toLocaleString() + '원';
                     const temp = document.createElement('div');
                     temp.setAttribute('class', 'product-ox');
                     temp.innerHTML = `<div class="productone" style="cursor: pointer;" onclick="location.href='/general/${dataGeneral[i].general_product_id}'">
@@ -91,7 +88,7 @@
           
           <div class="product product-participant">
             
-            <div>${price}\\</div>
+            <div>${price}</div>
           </div>
           </div>
           `;

@@ -1,4 +1,5 @@
 const express = require('express');
+const cookieParser = require('cookie-parser');
 const expressLayouts = require('express-ejs-layouts');
 const redis_client = require('./redis');
 const app = express();
@@ -7,6 +8,7 @@ const io = require('socket.io')(server);
 const router = require('./routes');
 const { Auction_product } = require('./models');
 require('dotenv').config();
+app.use(cookieParser());
 app.set('views', './views');
 app.set('view engine', 'ejs');
 app.use(expressLayouts);
@@ -64,17 +66,10 @@ io.on('connection', (socket) => {
                             `bid_count:auction_product:${product_id}`
                         );
                     }
-                    if (values[1]) {
-                        await redis_client.set(
-                            `update_price:auction_product:${product_id}`,
-                            update_price
-                        );
-                    } else {
-                        await redis_client.set(
-                            `update_price:auction_product:${product_id}`,
-                            update_price
-                        );
-                    }
+                    await redis_client.set(
+                        `update_price:auction_product:${product_id}`,
+                        update_price
+                    );
                     count++;
                     io.to(product_id).emit('bid', { count, update_price });
                 }

@@ -24,17 +24,8 @@ const production = {
     dialect: 'mysql',
 };
 
-const session = {
-    username: process.env.MYSQL_AWS_USERNAME,
-    password: process.env.MYSQL_AWS_PASSWORD,
-    database: process.env.MYSQL_AWS_SESSION_DATABASE,
-    host: process.env.MYSQL_AWS_HOST,
-    dialect: 'mysql',
-};
-
 module.exports = {
     development,
     test,
     production,
-    session,
 };

@@ -44,5 +44,6 @@ router.post('/signin', validate_signin, auth_Controller.signin);
 router.get('/signin/check', authMiddleware, async (req, res) => {
     res.json({ user: res.locals.user });
 });
+router.post('/signout', auth_Controller.signout);
 
 module.exports = router;

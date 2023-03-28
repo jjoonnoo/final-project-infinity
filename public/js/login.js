@@ -23,19 +23,20 @@ function login() {
     $.ajax({
         type: 'POST',
         url: '/api/auth/signin',
+        headers: { 'x-user-agent': navigator.userAgent },
         data: {
             email: user_email,
             password: user_password,
         },
         success: function (response) {
             alert(response.msg);
-            localStorage.setItem('access_token', response.access_token);
+            // localStorage.setItem('access_token', response.access_token);
             window.location.href = '/'; // 메인페이지
         },
         error: function (request, status, error) {
             var msg = request.responseText;
             alert(msg);
-        }
+        },
         // error: function (error) {
         //     console.log(error.responseJSON.msg);
         //     alert(error.responseJSON.msg);
@@ -49,8 +50,8 @@ function register() {
     let user_password = $('#password').val();
     let user_repassword = $('#repassword').val();
     let api_address = $('#address').val();
-    let detail_address =$('#detail_address').val();
-    let user_address = api_address + " " + detail_address
+    let detail_address = $('#detail_address').val();
+    let user_address = api_address + ' ' + detail_address;
     let user_phone = $('#phone').val();
 
     // console.log(user_password, user_repassword);
@@ -75,6 +76,6 @@ function register() {
         },
         error: function (request, status, error) {
             alert(request.responseText);
-        }
+        },
     });
 }

@@ -12,7 +12,7 @@ redis_client.on('connect', () => {
 redis_client.on('error', (error) => {
     console.error('Redis Client Error', error);
 });
-redis_client.connect();
+// redis_client.connect();
 const redis_cli = redis_client.v4;
 const updateViews = async () => {
     redis_client.keys('views:auction_product:*', async (err, keys) => {
@@ -85,7 +85,7 @@ const updateViews = async () => {
     });
 };
 
-cron.schedule('*/30 * * * *', () => {
-    updateViews();
-});
+// cron.schedule('*/30 * * * *', () => {
+//     updateViews();
+// });
 module.exports = redis_client;
