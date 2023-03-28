@@ -6,9 +6,6 @@ function chatme() {
     $.ajax({
         type: 'GET',
         url: '/api/users/getmyinfo',
-        headers: {
-            authorization: `Bearer ${localStorage.getItem('access_token')}`,
-        },
         data: {},
         success: function (response) {
             const email = response.data.email;
@@ -200,9 +197,6 @@ function bidBtn() {
         $.ajax({
             type: 'PATCH',
             url: `/api/products/bid_price/${auction_product_id}`,
-            headers: {
-                authorization: `Bearer ${localStorage.getItem('access_token')}`,
-            },
             data: { product_end: add_time },
             success: function (response) {
                 socket.emit('bid', { auction_product_id, bid_price });
@@ -229,9 +223,6 @@ function reportBtn() {
     $.ajax({
         type: 'POST',
         url: `/api/products/auction/report/${auction_product_id}`,
-        headers: {
-            authorization: `Bearer ${localStorage.getItem('access_token')}`,
-        },
         data: { title: title, content: content },
         success: function (response) {
             alert(response['message']);

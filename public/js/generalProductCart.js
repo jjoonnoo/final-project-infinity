@@ -2,9 +2,6 @@ function generalProductCart() {
     $.ajax({
         type: 'GET',
         url: '/api/carts/find',
-        headers: {
-            authorization: `Bearer ${localStorage.getItem('access_token')}`,
-        },
         data: {},
         success: function (response) {
             const rows = response['data'];
@@ -236,9 +233,6 @@ function cartPurchaseBtn() {
     $.ajax({
         type: 'POST',
         url: '/api/carts/purchase',
-        headers: {
-            authorization: `Bearer ${localStorage.getItem('access_token')}`,
-        },
         data: {
             general_product_id: checked_product_id,
             product_quantity: checked_quantity,
@@ -264,9 +258,6 @@ function cartDeleteBtn(general_product_id) {
     $.ajax({
         type: 'DELETE',
         url: '/api/carts/delete',
-        headers: {
-            authorization: `Bearer ${localStorage.getItem('access_token')}`,
-        },
         data: { general_product_id: target_product_id },
         success: function (response) {
             alert(response['message']);
@@ -290,9 +281,6 @@ function changeQuantity(target) {
     $.ajax({
         type: 'PATCH',
         url: '/api/carts/quantity',
-        headers: {
-            authorization: `Bearer ${localStorage.getItem('access_token')}`,
-        },
         data: {
             general_product_id: target_product_id,
             product_quantity: input_quantity,

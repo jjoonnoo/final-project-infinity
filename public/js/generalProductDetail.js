@@ -94,9 +94,6 @@ function cartBtn() {
     $.ajax({
         type: 'POST',
         url: `/api/products/cart/${general_product_id}`,
-        headers: {
-            authorization: `Bearer ${localStorage.getItem('access_token')}`,
-        },
         data: { product_quantity: product_quantity },
         success: function (response) {
             alert(response['message']);

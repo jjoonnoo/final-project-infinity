@@ -1,5 +1,9 @@
 <script>
     $(document).ready(function () {
+        if (!checkAccessToken()) {
+            alert('로그인 후 이용 가능합니다.');
+            window.location.href = '/';
+        }
         getReview();
     });
 </script>
