@@ -406,7 +406,6 @@ if (
                 (product) => product.product_name
             );
             const modalMessage = document.getElementById('modal-message');
-            console.log(productNames);
             if (productNames.length > 0) {
                 modalMessage.textContent = `${JSON.stringify(
                     productNames

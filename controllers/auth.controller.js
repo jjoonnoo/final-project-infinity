@@ -24,11 +24,16 @@ class AuthController {
 
             const found_by_email = await this.auth_service.findByEmail(email);
 
+            // if (found_by_email.length > 0) {
+
+            //     console.log(found_by_email);
+            //     return res.status(409).json({ message: `${email} is already exists` });
+            // }
             // 이메일 중복검사
             if (found_by_email) {
-                res.status(409).json({
-                    message: '이미 사용중인 이메일입니다.',
-                });
+                return res.status(409).json(
+                    '이미 사용중인 이메일입니다.'
+                );
             }
 
             // bcrypt를 이용한 비밀번호 암호화(Saltrounds = 12)
@@ -47,7 +52,6 @@ class AuthController {
                 message: '회원가입에 성공하였습니다',
             });
         } catch (err) {
-            console.log(err);
             res.status(400).json({ message: err.message });
         }
     };
@@ -76,9 +80,9 @@ class AuthController {
             // }
 
             if (user.length === 0 || !passwordTest) {
-                return res.status(401).json({
-                    message: '사용자가 없거나 비밀번호가 틀렸습니다!',
-                });
+                return res.status(401).json(
+                    '사용자가 없거나 비밀번호가 틀렸습니다!'
+                );
             }
 
             // Refresh token 발급
@@ -109,7 +113,7 @@ class AuthController {
 
             res.status(200).json({ access_token, msg: '로그인 완료!' });
         } catch (error) {
-            res.status(400).json({ msg: '로그인 실패' });
+            res.status(400).json({ msg: '이메일 또는 비밀번호를 확인하세요' });
         }
     };
 

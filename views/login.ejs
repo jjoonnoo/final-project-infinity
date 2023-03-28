@@ -11,7 +11,7 @@
     <body>
         <div class="container" id="container">
             <div class="form-container sign-up-container">
-                <form>
+                <div id="signup_form">
                     <div class="input-container">
                         <input type="text" id="name" placeholder="Name" />
                         <input type="email" id="email" placeholder="Email" />
@@ -30,10 +30,11 @@
                             id="address"
                             placeholder="Click for address"
                         />
+                        <input type="text" id="detail_address" placeholder="detail address" />
                         <input type="text" id="phone" placeholder="Phone" />
                     </div>
                     <button id="signup" onclick="register()">Submit</button>
-                </form>
+                </div>
             </div>
             <div class="form-container sign-in-container">
                 <div id="login_form">
@@ -69,4 +70,17 @@
         </div>
     </body>
     <script type="text/javascript" src="/js/login.js"></script>
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script>window.onload = function(){
+        document.getElementById("address").addEventListener("click", function(){ //주소입력칸을 클릭하면
+            //카카오 지도 발생
+            new daum.Postcode({
+                oncomplete: function(data) { //선택시 입력값 세팅
+                    document.getElementById("address").value = data.address; // 주소 넣기
+                    document.querySelector("#detail_address").focus(); //상세입력 포커싱
+                }
+            }).open();
+        });
+    }
+    </script>
 </html>

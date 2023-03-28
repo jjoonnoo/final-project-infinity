@@ -21,21 +21,12 @@ class OrderRepository {
             include: [
                 {
                     model: General_order_info,
-                    attributes: ['product_quantity'],
                     include: [
                         {
                             model: General_product,
-                            attributes: [
-                                'general_product_id',
-                                'product_name',
-                                'product_content',
-                                'product_price',
-                                'category',
-                            ],
                             include: [
                                 {
                                     model: Image,
-                                    attributes: ['image_url'],
                                 },
                             ],
                         },
@@ -48,17 +39,9 @@ class OrderRepository {
             include: [
                 {
                     model: Auction_product,
-                    attributes: [
-                        'auction_product_id',
-                        'product_name',
-                        'product_end',
-                        'category',
-                        'product_update_price',
-                    ],
                     include: [
                         {
                             model: Image,
-                            attributes: ['image_url'],
                         },
                     ],
                 },

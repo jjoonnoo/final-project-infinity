@@ -103,5 +103,6 @@ router.get('/my_product', authMiddleware, productController.findMyProduct);
 router.post('/image_upload', upload.single('image'), (req, res) => {
     res.json({ url: req.file.location });
 });
+router.get('/review', authMiddleware, productController.findReview);
 
 module.exports = router;

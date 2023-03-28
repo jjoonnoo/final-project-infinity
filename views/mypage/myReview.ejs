@@ -1,0 +1,75 @@
+<script>
+    $(document).ready(function () {
+        getReview();
+    });
+</script>
+<body>
+    <div id="saleHistory">
+        <div id="my_sale_history">
+            경매 상품 리뷰
+            <div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">상품 번호</th>
+                            <th scope="col">이미지</th>
+                            <th scope="col">상품명</th>
+                            <th scope="col">작성자</th>
+                            <th scope="col">별점</th>
+                            <th scope="col">리뷰내용</th>
+                        </tr>
+                    </thead>
+                    <tbody id="my_auction_product_reviews"></tbody>
+                </table>
+            </div>
+            <hr />
+            일반 상품 리뷰
+            <div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">상품 번호</th>
+                            <th scope="col">이미지</th>
+                            <th scope="col">상품명</th>
+                            <th scope="col">작성자</th>
+                            <th scope="col">별점</th>
+                            <th scope="col">리뷰내용</th>
+                        </tr>
+                    </thead>
+                    <tbody id="my_general_product_reviews"></tbody>
+                </table>
+            </div>
+            <hr />
+            내가 남긴 리뷰(경매)
+            <div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">상품 번호</th>
+                            <th scope="col">이미지</th>
+                            <th scope="col">상품명</th>
+                            <th scope="col">별점</th>
+                            <th scope="col">리뷰내용</th>
+                        </tr>
+                    </thead>
+                    <tbody id="my_reviews_auction"></tbody>
+                </table>
+            </div>
+            내가 남긴 리뷰(일반)
+            <div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">상품 번호</th>
+                            <th scope="col">이미지</th>
+                            <th scope="col">상품명</th>
+                            <th scope="col">별점</th>
+                            <th scope="col">리뷰내용</th>
+                        </tr>
+                    </thead>
+                    <tbody id="my_reviews_general"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
