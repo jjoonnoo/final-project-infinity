@@ -24,6 +24,11 @@ class AuthController {
 
             const found_by_email = await this.auth_service.findByEmail(email);
 
+            // if (found_by_email.length > 0) {
+
+            //     console.log(found_by_email);
+            //     return res.status(409).json({ message: `${email} is already exists` });
+            // }
             // 이메일 중복검사
             if (found_by_email) {
                 return res.status(409).json({
@@ -72,20 +77,18 @@ class AuthController {
                 !(ip === '127.0.0.1') &&
                 !whitelist.countries.includes(ip_info.country)
             ) {
-                return res
-                    .status(403)
-                    .json({
-                        msg: 'vpn이 켜져있으시다면 끄고 다시 시도해 주세요',
-                    });
+                return res.status(403).json({
+                    msg: 'vpn이 켜져있으시다면 끄고 다시 시도해 주세요',
+                });
             }
             const loginInfo = await this.auth_service.findLoginInfo(
                 user.user_id,
                 user_device_type
             );
             if (user.length === 0 || !passwordTest) {
-                return res.status(401).json({
-                    message: '사용자가 없거나 비밀번호가 틀렸습니다!',
-                });
+                return res
+                    .status(401)
+                    .json('사용자가 없거나 비밀번호가 틀렸습니다!');
             }
             if (req.cookies.access_token) {
                 return res.json({ message: '이미 로그인 되어있습니다.' });
@@ -133,7 +136,7 @@ class AuthController {
                 .status(200)
                 .json({ msg: '로그인 성공' });
         } catch (error) {
-            res.status(400).json({ msg: '로그인 실패' });
+            res.status(400).json({ msg: '이메일 또는 비밀번호를 확인하세요' });
         }
     };
 

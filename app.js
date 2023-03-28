@@ -87,5 +87,5 @@ io.on('connection', (socket) => {
 });
 
 server.listen(process.env.PORT, '0.0.0.0', function () {
-    console.log(`http://localhost:${process.env.PORT}/`);
+    console.log(`http://${process.env.HOST}:${process.env.PORT}/`);
 });
