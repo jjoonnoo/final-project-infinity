@@ -8,6 +8,7 @@ const {
     Image,
     General_order_info,
     General_order,
+    Login_session,
 } = require('../models');
 
 class AuthRepository {
@@ -37,6 +38,21 @@ class AuthRepository {
             raiting,
         });
         return user_data;
+    };
+    createLoginInfo = async (user_id, refresh_token, device_type) => {
+        await Login_session.create({ user_id, refresh_token, device_type });
+    };
+    findLoginInfo = async (user_id, device_type) => {
+        const loginInfo = await Login_session.findOne({
+            where: { user_id: user_id, device_type: device_type },
+        });
+        return loginInfo;
+    };
+    updateLoginInfo = async (user_id, refresh_token, device_type) => {
+        await Login_session.update(
+            { refresh_token: refresh_token },
+            { where: { user_id: user_id, device_type: device_type } }
+        );
     };
 }
 

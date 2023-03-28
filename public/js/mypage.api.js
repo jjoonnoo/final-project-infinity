@@ -11,9 +11,6 @@ function upload_image() {
             processData: false,
             contentType: false,
             data: formData,
-            headers: {
-                authorization: `Bearer ${localStorage.getItem('access_token')}`,
-            },
             success: function (response) {
                 $('#image_container1').append(
                     '<div><img src="' +
@@ -36,9 +33,6 @@ function upload_image() {
             processData: false,
             contentType: false,
             data: formData,
-            headers: {
-                authorization: `Bearer ${localStorage.getItem('access_token')}`,
-            },
             success: function (response) {
                 $('#image_container2').append(
                     '<img src="' + response.url + '">'
@@ -73,9 +67,6 @@ function registAuctionProduct() {
     $.ajax({
         type: 'POST',
         url: '/api/products/auction',
-        headers: {
-            authorization: `Bearer ${localStorage.getItem('access_token')}`,
-        },
         data: {
             product_name: product_name,
             category: product_category,
@@ -111,9 +102,6 @@ function registGeneralProduct() {
     $.ajax({
         type: 'POST',
         url: '/api/products/general',
-        headers: {
-            authorization: `Bearer ${localStorage.getItem('access_token')}`,
-        },
         data: {
             product_name: product_name,
             category: product_category,
@@ -149,9 +137,6 @@ function confirmPwd() {
     $.ajax({
         type: 'POST',
         url: '/api/users/confirm_pwd',
-        headers: {
-            authorization: `Bearer ${localStorage.getItem('access_token')}`,
-        },
         data: { password: user_pwd },
         success: function (response) {
             alert(response.message);
@@ -168,9 +153,6 @@ function getMyInfo() {
     $.ajax({
         type: 'GET',
         url: '/api/users/getmyinfo',
-        headers: {
-            authorization: `Bearer ${localStorage.getItem('access_token')}`,
-        },
         data: {},
         success: function (response) {
             const data = response.data;
@@ -248,9 +230,6 @@ function deleteInfo(user_id) {
         $.ajax({
             type: 'DELETE',
             url: `/api/users/user/${user_id}`,
-            headers: {
-                authorization: `Bearer ${localStorage.getItem('access_token')}`,
-            },
             data: {},
             success: function (response) {
                 alert(response.message);
@@ -275,9 +254,6 @@ function modifyInfo(user_id) {
     $.ajax({
         type: 'PATCH',
         url: `/api/users/user/${user_id}`,
-        headers: {
-            authorization: `Bearer ${localStorage.getItem('access_token')}`,
-        },
         data: {
             email: user_email,
             name: user_name,
@@ -301,9 +277,6 @@ function myProduct() {
     $.ajax({
         type: 'GET',
         url: '/api/products/my_product',
-        headers: {
-            authorization: `Bearer ${localStorage.getItem('access_token')}`,
-        },
         data: {},
         success: function (response) {
             const general_data = response.data.data1;
@@ -376,9 +349,6 @@ function deleteAuctionProduct(auction_product_id) {
         $.ajax({
             type: 'DELETE',
             url: `/api/products/auction/${auction_product_id}`,
-            headers: {
-                authorization: `Bearer ${localStorage.getItem('access_token')}`,
-            },
             data: {},
             success: function (response) {
                 alert(response.message);
@@ -399,9 +369,6 @@ function deleteGeneralProduct(general_product_id) {
         $.ajax({
             type: 'DELETE',
             url: `/api/products/auction/${general_product_id}`,
-            headers: {
-                authorization: `Bearer ${localStorage.getItem('access_token')}`,
-            },
             data: {},
             success: function (response) {
                 alert(response.message);
@@ -421,9 +388,6 @@ function getPurchaseHistory() {
     $.ajax({
         type: 'GET',
         url: '/api/orders/purchase',
-        headers: {
-            authorization: `Bearer ${localStorage.getItem('access_token')}`,
-        },
         data: {},
         success: function (response) {
             let general_data = response.data.general_data;
@@ -542,9 +506,6 @@ function getSaleHistory() {
     $.ajax({
         type: 'GET',
         url: '/api/orders/sale',
-        headers: {
-            authorization: `Bearer ${localStorage.getItem('access_token')}`,
-        },
         data: {},
         success: function (response) {
             const auction_data = response.data.auction_data;
@@ -635,9 +596,6 @@ function getAuctionProduct(auction_product_id) {
     $.ajax({
         type: 'GET',
         url: `/api/products/auction/${auction_product_id}`,
-        headers: {
-            authorization: `Bearer ${localStorage.getItem('access_token')}`,
-        },
         data: {},
         success: function (response) {
             const auction_product_data = response.data;
@@ -701,9 +659,6 @@ function getGeneralProduct(general_product_id) {
     $.ajax({
         type: 'GET',
         url: `/api/products/general/${general_product_id}`,
-        headers: {
-            authorization: `Bearer ${localStorage.getItem('access_token')}`,
-        },
         data: {},
         success: function (response) {
             const general_product_data = response.data.data1;
@@ -757,9 +712,6 @@ function modifyAuctionProduct(auction_product_id) {
     $.ajax({
         type: 'PATCH',
         url: `/api/products/auction/${auction_product_id}`,
-        headers: {
-            authorization: `Bearer ${localStorage.getItem('access_token')}`,
-        },
         data: {
             product_name: product_name,
             category: product_category,
@@ -794,9 +746,6 @@ function modifyGeneralProduct(general_product_id) {
     $.ajax({
         type: 'PATCH',
         url: `/products/general/${general_product_id}`,
-        headers: {
-            authorization: `Bearer ${localStorage.getItem('access_token')}`,
-        },
         data: {
             product_name: product_name,
             category: product_category,
@@ -848,9 +797,6 @@ function getReview() {
     $.ajax({
         type: 'GET',
         url: '/api/products/review',
-        headers: {
-            authorization: `Bearer ${localStorage.getItem('access_token')}`,
-        },
         data: {},
         success: function (response) {
             const general_review_data = response.data.general_reviews;

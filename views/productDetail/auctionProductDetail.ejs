@@ -198,4 +198,27 @@
         document.getElementById('chatbox').scrollTop =
             document.getElementById('chatbox').scrollHeight;
     }
+    function purchase() {
+        if (!confirm('구매 하시겠습니까?')) {
+            alert('구매를 취소했습니다.');
+            location.href = `/auction/${auction_product_id}`;
+            return;
+        } else {
+            $.ajax({
+                type: 'GET',
+                url: '/api/users/getmyinfo',
+                data: {},
+                success: function (response) {
+                    const auction_product_id = location.pathname.split('/')[2];
+                    socket.emit('bid', { auction_product_id, bid_price });
+                    alert('구매완료');
+                    window.location.reload();
+                },
+                error: function (error) {
+                    alert(error.responseJSON.message);
+                    window.location.href = '/';
+                },
+            });
+        }
+    }
 </script>

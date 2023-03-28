@@ -46,9 +46,6 @@
             $.ajax({
                 type: 'DELETE',
                 url: `/api/admin/auction/${auction_product_id}`,
-                // headers: {
-                //   authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-                // },
                 data: {},
                 success: function (response) {
                     alert(response.message);
@@ -69,9 +66,7 @@
             $.ajax({
                 type: 'DELETE',
                 url: `/api/admin/auction/${general_product_id}`,
-                // headers: {
-                //   authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-                // },
+
                 data: {},
                 success: function (response) {
                     alert(response.message);
