@@ -193,7 +193,7 @@ function makeConnection() {
                     'stun:stun4.l.google.com:19302',
                 ],
             },
-        ]
+        ],
     });
     myPeerConnection.addEventListener('icecandidate', handleIce);
     myPeerConnection.addEventListener('addstream', handleAddStream);
