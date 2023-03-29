@@ -312,12 +312,12 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-  }
-  
-  .product_region {
+}
+
+.product_region {
     width: 65%;
-  }
-  
-  .chatbox {
+}
+
+.chatbox {
     width: 30%;
-  }
+}
