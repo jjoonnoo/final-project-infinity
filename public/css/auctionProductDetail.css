@@ -307,3 +307,17 @@
     padding: 2px 5px;
     border-radius: 10px;
 } */
+
+#auction_product {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  
+  .product_region {
+    width: 65%;
+  }
+  
+  .chatbox {
+    width: 30%;
+  }
