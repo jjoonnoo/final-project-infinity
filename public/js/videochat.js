@@ -1,4 +1,10 @@
+<<<<<<< Updated upstream
 const socket = io.connect();
+=======
+require('dotenv').config();
+
+const socket = io.connect(`ws://${process.env.HOST}:${process.env.PORT}`);
+>>>>>>> Stashed changes
 
 const myFace = document.getElementById('myFace');
 const muteBtn = document.getElementById('mute');
