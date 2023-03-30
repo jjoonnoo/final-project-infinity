@@ -21,7 +21,7 @@ class ProductController {
                 category,
                 img_url
             );
-            res.status(201).json({ message: 'succesfully regist' });
+            res.status(201).json({ message: '상품 등록에 성공하였습니다.' });
         } catch (error) {
             res.status(400).json({ message: error.message });
         }
@@ -34,7 +34,7 @@ class ProductController {
             );
             res.status(200).json({ data });
         } catch (error) {
-            res.status(404).json({ message: '오류' });
+            res.status(404).json({ message: '불러오기에 실패하였습니다.' });
         }
     };
     generalProductModify = async (req, res) => {
@@ -55,7 +55,7 @@ class ProductController {
                 category,
                 img_url
             );
-            res.status(200).json({ message: 'successfully modify' });
+            res.status(200).json({ message: '상품 수정에 성공하였습니다.' });
         } catch (error) {
             res.status(400).json({ message: error.message });
         }
@@ -64,7 +64,7 @@ class ProductController {
         try {
             const { general_product_id } = req.params;
             await this.productService.generalProductDelete(general_product_id);
-            res.status(200).json({ message: 'successfully delete' });
+            res.status(200).json({ message: '상품 삭제에 성공하였습니다.' });
         } catch (error) {
             res.status(400).json({ message: error.message });
         }
@@ -93,7 +93,7 @@ class ProductController {
                 category,
                 img_url
             );
-            res.status(201).json({ message: 'succesfully regist' });
+            res.status(201).json({ message: '상품 등록에 성공하였습니다.' });
         } catch (error) {
             res.status(400).json({ message: error.message });
         }
@@ -106,7 +106,7 @@ class ProductController {
             );
             res.status(200).json({ data });
         } catch (error) {
-            res.status(404).json({ message: '오류' });
+            res.status(404).json({ message: '불러오기에 실패하였습니다.' });
         }
     };
     auctionProductModify = async (req, res) => {
@@ -133,7 +133,7 @@ class ProductController {
                 category,
                 img_url
             );
-            res.status(200).json({ message: 'successfully modify' });
+            res.status(200).json({ message: '상품 수정에 성공하였습니다.' });
         } catch (error) {
             res.status(400).json({ message: error.message });
         }
@@ -142,7 +142,7 @@ class ProductController {
         try {
             const { auction_product_id } = req.params;
             await this.productService.auctionProductDelete(auction_product_id);
-            res.status(200).json({ message: 'successfully delete' });
+            res.status(200).json({ message: '상품 삭제에 성공하였습니다.' });
         } catch (error) {
             res.status(400).json({ message: error.message });
         }
@@ -153,7 +153,7 @@ class ProductController {
             const data = await this.productService.findMyProduct(user_id);
             res.status(200).json({ data });
         } catch (error) {
-            res.status(404).json({ message: '오류' });
+            res.status(404).json({ message: '불러오기에 실패하였습니다.' });
         }
     };
     findReview = async (req, res) => {
@@ -364,7 +364,7 @@ class ProductController {
 
             res.status(201).json({ message: '낙찰이 완료되었습니다.' });
         } catch (error) {
-            res.status(500).json({ message: error.message });
+            res.status(500).json({ message: '낙찰에 실패하였습니다.' });
         }
     };
 
