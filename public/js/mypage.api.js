@@ -18,7 +18,7 @@ function upload_image() {
                         '"><button onclick="image_delete(this)">X</button></div>'
                 );
             },
-            error: function (err) {
+            error: function (error) {
                 alert(error.responseJSON.message);
             },
         });
@@ -38,7 +38,7 @@ function upload_image() {
                     '<img src="' + response.url + '">'
                 );
             },
-            error: function (err) {
+            error: function (error) {
                 alert(error.responseJSON.message);
             },
         });
@@ -82,8 +82,8 @@ function registAuctionProduct() {
             alert(response.message);
             window.location.reload();
         },
-        error: function (err) {
-            alert(err.responseJSON.message);
+        error: function (error) {
+            alert(error.responseJSON.message);
             window.location.reload();
         },
     });
@@ -233,7 +233,6 @@ function deleteInfo(user_id) {
             data: {},
             success: function (response) {
                 alert(response.message);
-                localStorage.clear();
                 window.location.href = '/';
             },
             error: function (err) {
@@ -263,7 +262,6 @@ function modifyInfo(user_id) {
         },
         success: function (response) {
             alert(response.message);
-            localStorage.clear();
             window.location.href = '/';
         },
         error: function (err) {

@@ -1,21 +1,10 @@
-const {
-    General_product,
-    Auction_product,
-    Review,
-    Cart,
-    Report,
-    User,
-    Image,
-    General_order_info,
-    General_order,
-    Auction_order,
-} = require('../models');
+const { General_product, Auction_product, Report } = require('../models');
 
 class AdminRepository {
     getReports = async () => {
-        const getReports = await Report.findAll({});
+        const get_reports = await Report.findAll({});
 
-        return getReports;
+        return get_reports;
     };
 
     delGeneralProduct = async (general_product_id) => {

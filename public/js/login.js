@@ -30,17 +30,12 @@ function login() {
         },
         success: function (response) {
             alert(response.msg);
-            // localStorage.setItem('access_token', response.access_token);
             window.location.href = '/'; // 메인페이지
         },
-        error: function (request, status, error) {
-            var msg = request.responseText;
-            alert(msg);
+        error: function (error) {
+            console.log(error.responseJSON.msg);
+            alert(error.responseJSON.msg);
         },
-        // error: function (error) {
-        //     console.log(error.responseJSON.msg);
-        //     alert(error.responseJSON.msg);
-        // },
     });
 }
 

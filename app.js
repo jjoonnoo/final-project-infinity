@@ -52,31 +52,27 @@ io.on('connection', (socket) => {
     socket.on('bid', (bid_info) => {
         const product_id = bid_info.auction_product_id;
         const update_price = bid_info.bid_price;
-        try {
-            redis_client.mGet(
-                `bid_count:auction_product:${product_id}`,
-                `update_price:auction_product:${product_id}`,
-                async (err, values) => {
-                    if (err) {
-                        console.error(err);
-                    }
-                    let count = JSON.parse(values[0]);
-                    if (count) {
-                        await redis_client.incr(
-                            `bid_count:auction_product:${product_id}`
-                        );
-                    }
-                    await redis_client.set(
-                        `update_price:auction_product:${product_id}`,
-                        update_price
-                    );
-                    count++;
-                    io.to(product_id).emit('bid', { count, update_price });
+        redis_client.mGet(
+            `bid_count:auction_product:${product_id}`,
+            `update_price:auction_product:${product_id}`,
+            async (err, values) => {
+                if (err) {
+                    console.error(err);
                 }
-            );
-        } catch (err) {
-            res.status(500).json({ message: '서버에 오류가 발생' });
-        }
+                let count = JSON.parse(values[0]);
+                if (count) {
+                    await redis_client.incr(
+                        `bid_count:auction_product:${product_id}`
+                    );
+                }
+                await redis_client.set(
+                    `update_price:auction_product:${product_id}`,
+                    update_price
+                );
+                count++;
+                io.to(product_id).emit('bid', { count, update_price });
+            }
+        );
     });
     socket.on('disconnect', () => {
         console.log('User disconnected');
@@ -87,5 +83,5 @@ io.on('connection', (socket) => {
 });
 
 server.listen(process.env.PORT, '0.0.0.0', function () {
-    console.log(`http://${process.env.HOST}:${process.env.PORT}/`);
+    console.log(`http://localhost:${process.env.PORT}/`);
 });

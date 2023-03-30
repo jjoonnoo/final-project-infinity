@@ -47,11 +47,11 @@ class AuthService {
         );
     };
     findLoginInfo = async (user_id, device_type) => {
-        const loginInfo = await this.auth_repository.findLoginInfo(
+        const login_info = await this.auth_repository.findLoginInfo(
             user_id,
             device_type
         );
-        return loginInfo;
+        return login_info;
     };
     updateLoginInfo = async (user_id, refresh_token, device_type) => {
         await this.auth_repository.updateLoginInfo(

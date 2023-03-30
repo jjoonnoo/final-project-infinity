@@ -70,17 +70,12 @@
     <script>
         $(document).ready(function () {
             headerButtonHandler();
-            if (!localStorage.getItem('access_token')) {
+            if (!checkAccessToken()) {
                 document.getElementById('cart_count').innerHTML = 0;
             } else {
                 $.ajax({
                     type: 'GET',
                     url: '/api/carts/find',
-                    headers: {
-                        authorization: `Bearer ${localStorage.getItem(
-                            'access_token'
-                        )}`,
-                    },
                     data: {},
                     success: function (response) {
                         const rows = response['data'];
