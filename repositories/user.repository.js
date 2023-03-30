@@ -2,7 +2,17 @@ const { User } = require('../models');
 
 class UserRepository {
     getMyInfo = async (user_id) => {
-        const data = await User.findOne({ where: { user_id: user_id } });
+        const data = await User.findOne({
+            where: { user_id: user_id },
+            attribute: [
+                'name',
+                'email',
+                'phone',
+                'address',
+                'admin',
+                'raiting',
+            ],
+        });
         return data;
     };
     modifyUser = async (user_id, email, name, address, phone, password) => {

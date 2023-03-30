@@ -15,10 +15,14 @@ module.exports = (req, res, next) => {
                         .clearCookie('refresh_token')
                         .json({ message: '다시 로그인 해주세요.' });
                 } else {
+                    const user_id = decoded.user_id;
+                    const device_type = decoded.device_type;
+                    const email = decoded.email;
+                    const admin = decoded.admin;
                     const session_info = await Login_session.findOne({
                         where: {
-                            user_id: decoded.user_id,
-                            device_type: decoded.device_type,
+                            user_id: user_id,
+                            device_type: device_type,
                         },
                     });
                     if (session_info.refresh_token === refresh_token) {
@@ -29,10 +33,10 @@ module.exports = (req, res, next) => {
                                 if (err) {
                                     const access_token = jwt.sign(
                                         {
-                                            user_id: decoded.user_id,
-                                            email: decoded.email,
-                                            admin: decoded.admin,
-                                            device_type: decoded.device_type,
+                                            user_id: user_id,
+                                            email: email,
+                                            admin: admin,
+                                            device_type: device_type,
                                         },
                                         process.env.ACCESSTOKEN_SECRET_KEY,
                                         { expiresIn: '1d' }
@@ -42,7 +46,7 @@ module.exports = (req, res, next) => {
                                         .cookie('access_token', access_token);
                                     const current_user = await User.findOne({
                                         where: {
-                                            user_id: decoded.user_id,
+                                            user_id: user_id,
                                         },
                                     });
                                     res.locals.user = current_user.dataValues;
@@ -50,7 +54,7 @@ module.exports = (req, res, next) => {
                                 } else {
                                     const current_user = await User.findOne({
                                         where: {
-                                            user_id: decoded.user_id,
+                                            user_id: user_id,
                                         },
                                     });
                                     res.locals.user = current_user.dataValues;

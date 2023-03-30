@@ -28,6 +28,7 @@
                     <button
                         class="carousel-control-prev"
                         type="button"
+                        style="background-color: black"
                         data-bs-target="#carouselExample"
                         data-bs-slide="prev"
                     >
@@ -40,6 +41,7 @@
                     <button
                         class="carousel-control-next"
                         type="button"
+                        style="background-color: black"
                         data-bs-target="#carouselExample"
                         data-bs-slide="next"
                     >
@@ -90,7 +92,7 @@
             <div id="countdown"></div>
             <div id="purchase_btn" style="display: none">
                 <a href="#"
-                    ><button id="btn1" onclick="purchaseNow()">
+                    ><button class="btn1" id="btn1" onclick="purchaseNow()">
                         즉시 구매
                     </button></a
                 >
@@ -151,8 +153,6 @@
     <script type="text/javascript" src="../js/auctionProductDetail.js"></script>
 </body>
 <script>
-    // const socket = io();
-
     // 경매 ID를 전달하여 해당 경매의 채팅방을 생성한다
     socket.emit('createChatRoom', {
         auctionId: location.pathname.split('/')[2],
@@ -202,28 +202,5 @@
 
         document.getElementById('chatbox').scrollTop =
             document.getElementById('chatbox').scrollHeight;
-    }
-    function purchase() {
-        if (!confirm('구매 하시겠습니까?')) {
-            alert('구매를 취소했습니다.');
-            location.href = `/auction/${auction_product_id}`;
-            return;
-        } else {
-            $.ajax({
-                type: 'GET',
-                url: '/api/users/getmyinfo',
-                data: {},
-                success: function (response) {
-                    const auction_product_id = location.pathname.split('/')[2];
-                    socket.emit('bid', { auction_product_id, bid_price });
-                    alert('구매완료');
-                    window.location.reload();
-                },
-                error: function (error) {
-                    alert(error.responseJSON.message);
-                    window.location.href = '/';
-                },
-            });
-        }
     }
 </script>

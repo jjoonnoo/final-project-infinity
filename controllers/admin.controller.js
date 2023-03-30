@@ -2,12 +2,12 @@ const AdminService = require('../services/admin.service');
 
 class AdminController {
     adminService = new AdminService();
-    getReports = async (req, res, next) => {
+    getReports = async (req, res) => {
         try {
-            const getReports = await this.adminService.getReports();
+            const get_reports = await this.adminService.getReports();
 
             return res.status(200).json({
-                data: getReports,
+                data: get_reports,
             });
         } catch (error) {
             res.status(404).json({ errorMessage: error.message });

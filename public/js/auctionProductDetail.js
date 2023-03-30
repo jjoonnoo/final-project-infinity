@@ -3,23 +3,27 @@ $(document).ready(function () {
     chatme();
 });
 function chatme() {
-    $.ajax({
-        type: 'GET',
-        url: '/api/users/getmyinfo',
-        data: {},
-        success: function (response) {
-            const email = response.data.email;
-            const temp = `          <div>
-  <input id='user_email' value="${email}" style="display:none;" readonly>
-  <input id="chat_content" type="text" placeholder="메시지를 적어주세요" onkeyup="if(window.event.keyCode==13){sendmessage()}"/>
-  <button onclick="sendmessage()">보내기</button>
-</div>`;
-            $('#chatme').append(temp);
-        },
-        error: function (error) {
-            alert('채팅은 로그인 이후에 가능합니다');
-        },
-    });
+    if (checkAccessToken()) {
+        $.ajax({
+            type: 'GET',
+            url: '/api/users/getmyinfo',
+            data: {},
+            success: function (response) {
+                const email = response.data.email;
+                const temp = `          <div>
+      <input id='user_email' value="${email}" style="display:none;" readonly>
+      <input id="chat_content" type="text" placeholder="메시지를 적어주세요" onkeyup="if(window.event.keyCode==13){sendmessage()}"/>
+      <button onclick="sendmessage()">보내기</button>
+    </div>`;
+                $('#chatme').append(temp);
+            },
+            error: function (error) {
+                alert(error.message);
+            },
+        });
+    } else {
+        alert('채팅은 로그인 후 이용 가능합니다.');
+    }
 }
 auction_product_id = location.pathname.split('/')[2];
 let product_update = Number(
@@ -71,12 +75,15 @@ function auctionProductDetail() {
             );
             const product_end = new Date(rows.product_end).toLocaleString('en');
             $('#product_end').text(product_end);
+
             const product_buy_now_price = rows.product_buy_now_price;
             const date = new Date(product_end);
             en_date = date.toLocaleString('en');
 
             if (product_buy_now_price === rows.product_update_price) {
                 en_date = 0;
+                $('#purchase_btn').hide();
+                $('#qwe').hide();
                 nowPurchaseEnd(en_date, 'countdown');
             } else {
                 CountDownTimer(en_date, 'countdown');
@@ -88,6 +95,10 @@ function auctionProductDetail() {
                     '즉시구매 가격 ' +
                         rows.product_buy_now_price.toLocaleString()
                 );
+                if (product_buy_now_price === rows.product_update_price) {
+                    $('#purchase_btn').hide();
+                    $('#qwe').hide();
+                }
             }
         },
         error: function (error) {
@@ -110,7 +121,10 @@ function bidBtn() {
         const add_minutes = end_time.setMinutes(end_time.getMinutes() + 1);
         add_time = new Date(add_minutes).toISOString();
     }
-
+    if (!checkAccessToken()) {
+        alert('로그인 후 이용 가능합니다.');
+        return window.location.reload();
+    }
     if (time_out < 0) {
         alert('경매가 마감되었습니다.');
         return window.location.reload();
@@ -236,7 +250,11 @@ function reportBtn() {
 
 /* 상품신고 모달창 */
 const open = () => {
-    document.querySelector('.modal').classList.remove('hidden');
+    if (!checkAccessToken()) {
+        alert('로그인 후 이용 가능합니다.');
+    } else {
+        document.querySelector('.modal').classList.remove('hidden');
+    }
 };
 
 const close = () => {
@@ -249,9 +267,12 @@ document.querySelector('.bg').addEventListener('click', close);
 
 /* 입찰가격 모달창 */
 const open_bid = () => {
-    document.querySelector('.modalBid').classList.remove('hiddenBid');
+    if (!checkAccessToken()) {
+        alert('로그인 후 이용 가능합니다.');
+    } else {
+        document.querySelector('.modalBid').classList.remove('hiddenBid');
+    }
 };
-
 const close_bid = () => {
     document.querySelector('.modalBid').classList.add('hiddenBid');
 };
@@ -275,6 +296,8 @@ function CountDownTimer(dt, id) {
         const distance = end - now;
 
         if (distance < 0) {
+            $('#purchase_btn').hide();
+            $('#qwe').hide();
             clearInterval(timer);
             document.getElementById(id).innerHTML = '경매가 종료된 상품입니다.';
             return;
@@ -283,7 +306,7 @@ function CountDownTimer(dt, id) {
         let days = Math.floor(distance / _day);
         let hours = Math.floor((distance % _day) / _hour);
         let minutes = Math.floor((distance % _hour) / _minute);
-        seconds = Math.floor((distance % _minute) / _second);
+        let seconds = Math.floor((distance % _minute) / _second);
 
         document.getElementById(id).innerHTML = '경매 마감까지 ';
         document.getElementById(id).innerHTML += days + '일 ';
@@ -303,6 +326,8 @@ function nowPurchaseEnd(dt, id) {
         const distance = end - now;
 
         if (distance < 0) {
+            $('#purchase_btn').hide();
+            $('#qwe').hide();
             clearInterval(timer);
             document.getElementById(id).innerHTML =
                 '즉시 구매로 경매가 종료된 상품입니다.';

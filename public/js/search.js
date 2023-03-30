@@ -160,7 +160,9 @@ function getAuctionProducts(page) {
                 }
                 const temp = document.createElement('div');
                 temp.setAttribute('class', 'product-ox');
-                temp.innerHTML = `<div class="productone" style="cursor: pointer;" onclick="location.href='/auction/${data[i].auction_product_id}'">
+                temp.innerHTML = `<div class="productone" style="cursor: pointer;" onclick="location.href='/auction/${
+                    data[i].auction_product_id
+                }'">
           <img class="product product-image" src="${image}" style="width: 250px;
             height: 250px;
             object-fit: cover;">
@@ -174,11 +176,11 @@ function getAuctionProducts(page) {
           </div>
           <div class="product product-participant">
             경매 시작가
-            <div>${data[i].product_start_price}\\</div>
+            <div>${data[i].product_start_price.toLocaleString() + '원'}</div>
           </div>
           <div class="product product-participant">
             최근 경매가
-            <div>${update_price}\\</div>
+            <div>${update_price}</div>
           </div>
           <div class="product product-participant">
             즉시 구매가
