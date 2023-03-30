@@ -492,8 +492,13 @@ class ProductRepository {
         auction_product_id,
         product_buy_now_price,
     }) => {
+        const now = new Date();
         await Auction_product.update(
-            { bidder_id: user_id, product_update_price: product_buy_now_price },
+            {
+                bidder_id: user_id,
+                product_update_price: product_buy_now_price,
+                product_end: now.toISOString(),
+            },
             { where: { auction_product_id } }
         );
 
