@@ -1,9 +1,8 @@
 $(document).ready(async function () {
     auctionProductPurchase();
 });
-
 auction_product_id = location.pathname.split('/')[2];
-
+let product_buy_now_price;
 function auctionProductPurchase() {
     $.ajax({
         type: 'GET',
@@ -38,7 +37,7 @@ function auctionProductPurchase() {
                                 <div class="info_frame">
                                     <div class="info_name">${product_name}</div>
                                     <p>상품내용: ${product_content}</p>
-                                    <p>즉시 구매 가격: ${product_buy_now_price_convert} 원</p>
+                                    <p id="product_buy_now_price_convert">즉시 구매 가격: ${product_buy_now_price_convert} 원</p>
                                 </div>
                             </div>
                             <div class="delivery">
@@ -95,4 +94,29 @@ function auctionProductPurchase() {
             alert(error.responseJSON.message);
         },
     });
+}
+function purchase() {
+    if (!confirm('구매 하시겠습니까?')) {
+        alert('구매를 취소했습니다.');
+        location.href = `/auction/${auction_product_id}`;
+        return;
+    } else {
+        const auction_product_id = location.pathname.split('/')[2];
+        $.ajax({
+            type: 'POST',
+            url: `/api/products/purchase/${auction_product_id}`,
+            data: { product_buy_now_price: product_buy_now_price },
+            success: function (response) {
+                const bid_price = product_buy_now_price;
+                socket.emit('bid', { auction_product_id, bid_price });
+                alert(response.message);
+                location.href = `/auction/${auction_product_id}`;
+            },
+            error: function (error) {
+                console.log(error);
+                alert(error.responseJSON.message);
+                window.location.href = '/';
+            },
+        });
+    }
 }

@@ -67,16 +67,16 @@ exports.generalDetail = async (req, res) => {
     try {
         redis_client.get(
             `views:general_product:${general_product_id}`,
-            async (err, cachedViews) => {
+            async (err, cached_views) => {
                 if (err) {
                     console.error(err);
                 }
                 let views;
-                if (cachedViews) {
+                if (cached_views) {
                     redis_client.incr(
                         `views:general_product:${general_product_id}`
                     );
-                    views = JSON.parse(cachedViews);
+                    views = JSON.parse(cached_views);
                 } else {
                     const general_product = await General_product.findOne({
                         where: { general_product_id: general_product_id },

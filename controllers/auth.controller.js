@@ -41,8 +41,8 @@ class AuthController {
                 data: create_user,
                 message: '회원가입에 성공하였습니다',
             });
-        } catch (err) {
-            res.status(400).json({ message: err.message });
+        } catch (error) {
+            res.status(400).json({ message: error.message });
         }
     };
 
@@ -53,7 +53,6 @@ class AuthController {
             const { email, password } = req.body;
             const user = await this.auth_service.findByEmail(email);
             const passwordTest = await bcrypt.compare(password, user.password);
-
             const user_agent = req.headers['x-user-agent'];
             const detector = new DeviceDetector({
                 clientIndexes: true,
@@ -68,10 +67,10 @@ class AuthController {
                 !whitelist.countries.includes(ip_info.country)
             ) {
                 return res.status(403).json({
-                    msg: 'vpn이 켜져있으시다면 끄고 다시 시도해 주세요',
+                    message: 'vpn이 켜져있으시다면 끄고 다시 시도해 주세요',
                 });
             }
-            const loginInfo = await this.auth_service.findLoginInfo(
+            const login_info = await this.auth_service.findLoginInfo(
                 user.user_id,
                 user_device_type
             );
@@ -105,8 +104,8 @@ class AuthController {
                 process.env.ACCESSTOKEN_SECRET_KEY,
                 { expiresIn: '1h' }
             );
-            if (loginInfo) {
-                if (loginInfo.refresh_token) {
+            if (login_info) {
+                if (login_info.refresh_token) {
                     await this.auth_service.updateLoginInfo(
                         user.user_id,
                         refresh_token,

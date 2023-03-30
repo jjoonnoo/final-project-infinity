@@ -13,7 +13,7 @@ header {
     align-content: center;
     flex-direction: column;
     margin: auto;
-    background-color:rgb(221, 232, 249);
+    background-color: rgb(221, 232, 249);
     margin-bottom: 20px;
 }
 
@@ -44,7 +44,6 @@ header {
 }
 
 .chat-input {
-
     position: relative;
     text-align: center;
     display: flex;
@@ -57,7 +56,7 @@ header {
     margin: auto;
 }
 
-#input{
+#input {
     width: 400px;
     height: 30px;
 }

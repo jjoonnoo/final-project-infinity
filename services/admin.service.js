@@ -3,9 +3,9 @@ const AdminRepositoty = require('../repositories/admin.repository');
 class AdminService {
     adminRepository = new AdminRepositoty();
     getReports = async () => {
-        const getReports = await this.adminRepository.getReports();
+        const get_reports = await this.adminRepository.getReports();
 
-        return getReports;
+        return get_reports;
     };
 
     delGeneralProduct = async (general_product_id) => {
