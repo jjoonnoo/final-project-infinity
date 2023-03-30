@@ -201,6 +201,7 @@ class SearchRepository {
     };
 
     findList = async (limit, offset) => {
+        const now = new Date();
         const AuctionProduct = await Auction_product.findAll({
             include: [
                 {
@@ -208,6 +209,11 @@ class SearchRepository {
                     attributes: ['image_url'],
                 },
             ],
+            where: {
+                product_end: {
+                    [Op.gt]: now,
+                },
+            },
             raw: true,
             order: [['updatedAt', 'ASC']],
             offset: offset,
@@ -273,6 +279,7 @@ class SearchRepository {
     };
 
     findAuctionProduct = async (limit, offset) => {
+        const now = new Date();
         const AuctionProducts = await Auction_product.findAll({
             include: [
                 {
@@ -280,6 +287,11 @@ class SearchRepository {
                     attributes: ['image_url'],
                 },
             ],
+            where: {
+                product_end: {
+                    [Op.gt]: now,
+                },
+            },
             raw: true,
             order: [['updatedAt', 'ASC']],
             offset: offset,
@@ -399,10 +411,16 @@ class SearchRepository {
             ],
         });
         if (!recommendProducts.length) {
+            const now = new Date();
             const allProducts = await Auction_product.findAll({
                 where: {
-                    createdAt: {
-                        [Op.not]: null,
+                    [Op.and]: {
+                        createdAt: {
+                            [Op.not]: null,
+                        },
+                        product_end: {
+                            [Op.gt]: now,
+                        },
                     },
                 },
                 raw: true,

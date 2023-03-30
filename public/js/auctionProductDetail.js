@@ -277,6 +277,8 @@ function CountDownTimer(dt, id) {
         if (distance < 0) {
             clearInterval(timer);
             document.getElementById(id).innerHTML = '경매가 종료된 상품입니다.';
+            document.querySelector('.openBtnBid').style.display = 'none';
+            document.querySelector('.btn1').style.display = 'none';
             return;
         }
 
@@ -306,6 +308,8 @@ function nowPurchaseEnd(dt, id) {
             clearInterval(timer);
             document.getElementById(id).innerHTML =
                 '즉시 구매로 경매가 종료된 상품입니다.';
+            document.querySelector('.openBtnBid').style.display = 'none';
+            document.querySelector('.btn1').style.display = 'none';
             return;
         }
     }
