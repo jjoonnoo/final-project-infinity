@@ -94,38 +94,43 @@ class SearchRepository {
         const AuctionSearchList = await Auction_product.findAll({
             searchkeyword,
             where: {
-                [Op.or]: [
-                    {
-                        product_name: {
-                            [Op.like]: '%' + searchkeyword + '%',
+                [Op.and]: {
+                    [Op.or]: [
+                        {
+                            product_name: {
+                                [Op.like]: '%' + searchkeyword + '%',
+                            },
                         },
-                    },
-                    {
-                        product_content: {
-                            [Op.like]: '%' + searchkeyword + '%',
+                        {
+                            product_content: {
+                                [Op.like]: '%' + searchkeyword + '%',
+                            },
                         },
-                    },
-                    {
-                        category: {
-                            [Op.like]: '%' + searchkeyword + '%',
+                        {
+                            category: {
+                                [Op.like]: '%' + searchkeyword + '%',
+                            },
                         },
-                    },
-                    {
-                        product_buy_now_price: {
-                            [Op.like]: '%' + searchkeyword + '%',
+                        {
+                            product_buy_now_price: {
+                                [Op.like]: '%' + searchkeyword + '%',
+                            },
                         },
-                    },
-                    {
-                        product_start_price: {
-                            [Op.like]: '%' + searchkeyword + '%',
+                        {
+                            product_start_price: {
+                                [Op.like]: '%' + searchkeyword + '%',
+                            },
                         },
-                    },
-                    {
-                        product_update_price: {
-                            [Op.like]: '%' + searchkeyword + '%',
+                        {
+                            product_update_price: {
+                                [Op.like]: '%' + searchkeyword + '%',
+                            },
                         },
+                    ],
+                    product_end: {
+                        [Op.gt]: now,
                     },
-                ],
+                },
             },
             order: [['updatedAt', 'ASC']],
             raw: true,
@@ -147,38 +152,43 @@ class SearchRepository {
         const AuctionCount = await Auction_product.count({
             searchkeyword,
             where: {
-                [Op.or]: [
-                    {
-                        product_name: {
-                            [Op.like]: '%' + searchkeyword + '%',
+                [Op.and]: {
+                    [Op.or]: [
+                        {
+                            product_name: {
+                                [Op.like]: '%' + searchkeyword + '%',
+                            },
                         },
-                    },
-                    {
-                        product_content: {
-                            [Op.like]: '%' + searchkeyword + '%',
+                        {
+                            product_content: {
+                                [Op.like]: '%' + searchkeyword + '%',
+                            },
                         },
-                    },
-                    {
-                        category: {
-                            [Op.like]: '%' + searchkeyword + '%',
+                        {
+                            category: {
+                                [Op.like]: '%' + searchkeyword + '%',
+                            },
                         },
-                    },
-                    {
-                        product_buy_now_price: {
-                            [Op.like]: '%' + searchkeyword + '%',
+                        {
+                            product_buy_now_price: {
+                                [Op.like]: '%' + searchkeyword + '%',
+                            },
                         },
-                    },
-                    {
-                        product_start_price: {
-                            [Op.like]: '%' + searchkeyword + '%',
+                        {
+                            product_start_price: {
+                                [Op.like]: '%' + searchkeyword + '%',
+                            },
                         },
-                    },
-                    {
-                        product_update_price: {
-                            [Op.like]: '%' + searchkeyword + '%',
+                        {
+                            product_update_price: {
+                                [Op.like]: '%' + searchkeyword + '%',
+                            },
                         },
+                    ],
+                    product_end: {
+                        [Op.gt]: now,
                     },
-                ],
+                },
             },
             distinct: true,
             col: 'auction_product_id',
@@ -226,6 +236,11 @@ class SearchRepository {
         });
 
         const AuctionCount = await Auction_product.count({
+            where: {
+                product_end: {
+                    [Op.gt]: now,
+                },
+            },
             distinct: true,
             col: 'auction_product_id',
             includeIgnoreAttributes: false,
@@ -304,6 +319,11 @@ class SearchRepository {
         });
 
         const count = await Auction_product.count({
+            where: {
+                product_end: {
+                    [Op.gt]: now,
+                },
+            },
             distinct: true,
             col: 'auction_product_id',
             includeIgnoreAttributes: false,
@@ -317,7 +337,8 @@ class SearchRepository {
                 ],
             ],
         });
-
+        console.log(AuctionProducts)
+        console.log(count)
         const AuctionProduct = { AuctionProducts, count };
         return AuctionProduct;
     };
