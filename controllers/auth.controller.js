@@ -17,18 +17,8 @@ class AuthController {
             const { email, name, password, phone, address, admin, rating } =
                 req.body;
 
-            // Value 없을시 에러처리
-            // if(!email || !name || !password || !phone || !address || !admin || !raiting ) {
-            //   return res.status(400).json({message: '모든 값을 입력하세요'})
-            // }
-
             const found_by_email = await this.auth_service.findByEmail(email);
 
-            // if (found_by_email.length > 0) {
-
-            //     console.log(found_by_email);
-            //     return res.status(409).json({ message: `${email} is already exists` });
-            // }
             // 이메일 중복검사
             if (found_by_email) {
                 return res.status(409).json({
