@@ -3,7 +3,7 @@ const { Configuration, OpenAIApi } = require('openai');
 require('dotenv').config();
 
 document.querySelector('#send').addEventListener('click', function () {
-    var template = `<div class="line">
+    var template = `<div class="line_mine">
         <span class="chat-box mine">${
             document.querySelector('#input').value
         }</span>
