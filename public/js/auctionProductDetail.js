@@ -77,9 +77,6 @@ function auctionProductDetail() {
             $('#product_end').text(product_end);
 
             const product_buy_now_price = rows.product_buy_now_price;
-            $('#product_buy_now_price').text(
-                '즉시구매 가격 ' + rows.product_buy_now_price.toLocaleString()
-            );
             const date = new Date(product_end);
             en_date = date.toLocaleString('en');
 
@@ -94,6 +91,10 @@ function auctionProductDetail() {
             if (product_buy_now_price !== null) {
                 $('#purchase_btn').show();
                 $('#product_buy_now_price').show();
+                $('#product_buy_now_price').text(
+                    '즉시구매 가격 ' +
+                        rows.product_buy_now_price.toLocaleString()
+                );
                 if (product_buy_now_price === rows.product_update_price) {
                     $('#purchase_btn').hide();
                     $('#qwe').hide();
@@ -120,7 +121,10 @@ function bidBtn() {
         const add_minutes = end_time.setMinutes(end_time.getMinutes() + 1);
         add_time = new Date(add_minutes).toISOString();
     }
-
+    if (!checkAccessToken()) {
+        alert('로그인 후 이용 가능합니다.');
+        return window.location.reload();
+    }
     if (time_out < 0) {
         alert('경매가 마감되었습니다.');
         return window.location.reload();
@@ -246,7 +250,11 @@ function reportBtn() {
 
 /* 상품신고 모달창 */
 const open = () => {
-    document.querySelector('.modal').classList.remove('hidden');
+    if (!checkAccessToken()) {
+        alert('로그인 후 이용 가능합니다.');
+    } else {
+        document.querySelector('.modal').classList.remove('hidden');
+    }
 };
 
 const close = () => {
@@ -259,9 +267,12 @@ document.querySelector('.bg').addEventListener('click', close);
 
 /* 입찰가격 모달창 */
 const open_bid = () => {
-    document.querySelector('.modalBid').classList.remove('hiddenBid');
+    if (!checkAccessToken()) {
+        alert('로그인 후 이용 가능합니다.');
+    } else {
+        document.querySelector('.modalBid').classList.remove('hiddenBid');
+    }
 };
-
 const close_bid = () => {
     document.querySelector('.modalBid').classList.add('hiddenBid');
 };

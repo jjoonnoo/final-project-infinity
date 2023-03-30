@@ -16,7 +16,7 @@ function checkAccessToken() {
     const cookie_obj = {};
     cookies.forEach((cookie) => {
         const [key, value] = cookie.split('=');
-        cookieObj[key.trim()] = value;
+        cookie_obj[key.trim()] = value;
     });
     return Boolean(cookie_obj['access_token']);
 }
