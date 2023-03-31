@@ -337,8 +337,7 @@ class SearchRepository {
                 ],
             ],
         });
-        console.log(AuctionProducts);
-        console.log(count);
+
         const AuctionProduct = { AuctionProducts, count };
         return AuctionProduct;
     };
@@ -402,7 +401,7 @@ class SearchRepository {
             today.getDate(),
             today.getHours() + 1
         );
-        console.log(today, startOfDay, endOfDay, endOfHour);
+
         const recommendProducts = await Auction_product.findAll({
             where: {
                 [Op.or]: [

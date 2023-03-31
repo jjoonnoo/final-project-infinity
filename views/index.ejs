@@ -2,6 +2,8 @@
     getAllProducts(1);
     function getAllProducts(page) {
         $('#product_list').empty();
+        $('#division').show();
+        $('#division0').show();
         axios
             .get(`/api/search/products`, { params: { page } })
             .then((response) => {
@@ -112,12 +114,13 @@
             전체상품
         </button>
     </div>
-
+    <div id="division" class="division">경매 상품</div>
     <div
         class="product-ox"
         style="display: inline-flex"
         id="product-list"
     ></div>
+    <div id="division0" class="division0">일반 상품</div>
     <div
         class="product-ox"
         style="display: inline-flex"
