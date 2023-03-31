@@ -8,6 +8,7 @@ moment.tz.setDefault('Asia/Seoul');
 
 class SearchRepository {
     searchList = async (limit, offset, searchkeyword) => {
+        const now = new Date();
         const GeneralSearchList = await General_product.findAll({
             searchkeyword,
             where: {
