@@ -6,12 +6,25 @@
         }
     });
 </script>
+<link rel="stylesheet" href="../../css/mypage.css" />
 <body>
-    <div id="confirm_pwd_div">
-        <input id="user_password" type="password" />
-        <button onclick="confirmPwd()" class="btn btn-outline-secondary">
-            비밀번호 확인
-        </button>
-    </div>
-    <div id="myinfomation"></div>
+    <section>
+        <div class="mypageCard">
+            <div id="confirm_pwd">
+                <input
+                    id="user_password"
+                    type="password"
+                    placeholder="비밀번호를 입력하세요."
+                    onkeyup="if(window.event.keyCode==13){confirmPwd()}"
+                />
+                <button
+                    onclick="confirmPwd()"
+                    class="btn btn-outline-secondary"
+                >
+                    입력하기
+                </button>
+            </div>
+            <div id="myinfomation"></div>
+        </div>
+    </section>
 </body>
