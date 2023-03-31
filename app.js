@@ -6,7 +6,9 @@ const app = express();
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
 const router = require('./routes');
+const path = require('path');
 const { Auction_product } = require('./models');
+const favicon = require('serve-favicon');
 require('dotenv').config();
 app.use(cookieParser());
 app.set('views', './views');
@@ -18,6 +20,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use('/', router);
 app.use(express.static('public'));
+app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')))
 
 io.on('connection', (socket) => {
     console.log('User connected');
