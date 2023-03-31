@@ -6,17 +6,27 @@
         }
     });
 </script>
+<link rel="stylesheet" href="../../css/myPage.css" />
 <body>
-    <div>
-        <select
-            class="form-select"
-            id="product_type"
-            onchange="changeProductType()"
-        >
-            <option selected>상품의 종류를 선택하세요</option>
-            <option value="1">경매</option>
-            <option value="2">일반</option>
-        </select>
+    <div class="myCard">
+        <div style="text-align: center" id="registFirstMeet">
+            <div>등록하고 싶은 상품의 종류를 선택하세요</div>
+            <button
+                class="btn btn-outline-secondary"
+                id="showAuctionRegistButton"
+                onclick="showAuctionRegist()"
+            >
+                경매
+            </button>
+            <button
+                class="btn btn-outline-secondary"
+                id="showGeneralRegistButton"
+                onclick="showAuctionRegist()"
+            >
+                일반
+            </button>
+        </div>
+
         <div id="auction_product_regist" style="display: none">
             <div>
                 <label for="product_name1">상품명</label>
@@ -126,6 +136,14 @@
             >
                 등록하기
             </button>
+            <button
+                class="btn btn-outline-secondary"
+                id="productRegistCancelButton"
+                onclick="productRegistCancel()"
+                style="display: none"
+            >
+                취소하기
+            </button>
         </div>
 
         <div id="general_product_regist" style="display: none">
@@ -194,6 +212,14 @@
                 class="btn btn-outline-secondary"
             >
                 등록하기
+            </button>
+            <button
+                class="btn btn-outline-secondary"
+                id="productRegistCancelButton"
+                onclick="productRegistCancel()"
+                style="display: none"
+            >
+                취소하기
             </button>
         </div>
     </div>
