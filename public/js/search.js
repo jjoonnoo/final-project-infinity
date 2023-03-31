@@ -10,8 +10,6 @@ if (window.location.pathname === '/search/product') {
 }
 
 function getProducts(page) {
-    $('#division').hide();
-    $('#division0').hide();
     let searchkeyword = new URLSearchParams(window.location.search).get(
         'searchkeyword'
     );
