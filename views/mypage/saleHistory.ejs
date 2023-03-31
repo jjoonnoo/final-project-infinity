@@ -2,10 +2,41 @@
     <div id="saleHistory">
         <div id="my_sale_history">
             경매 상품
-            <div id="my_auction_product_sale_history"></div>
-            <hr />
+            <div>
+                <table class="table table-hover align-middle text-center">
+                    <thead class="table-primary">
+                        <tr>
+                            <th scope="col">이미지</th>
+                            <th scope="col">상품명</th>
+                            <th scope="col">카테고리</th>
+                            <th scope="col">종료시간</th>
+                            <th scope="col">낙찰가</th>
+                            <th scope="row">낙찰자</th>
+                            <th scope="row">낙찰자이메일</th>
+                            <th scope="row">낙찰자주소</th>
+                        </tr>
+                    </thead>
+                    <tbody id="my_auction_product_sale_history"></tbody>
+                </table>
+            </div>
             일반 상품
-            <div id="my_general_product_sale_history"></div>
+            <div>
+                <table class="table table-hover align-middle text-center">
+                    <thead class="table-primary">
+                        <tr>
+                            <th scope="col">이미지</th>
+                            <th scope="col">상품명</th>
+                            <th scope="col">카테고리</th>
+                            <th scope="col">가격</th>
+                            <th scope="col">수량</th>
+                            <th scope="row">구매자이름</th>
+                            <th scope="row">구매자이메일</th>
+                            <th scope="row">구매자주소</th>
+                        </tr>
+                    </thead>
+                    <tbody id="my_general_product_sale_history"></tbody>
+                </table>
+            </div>
         </div>
     </div>
 </body>

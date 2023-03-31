@@ -15,21 +15,7 @@
     border: 1px solid #ddd;
 }
 .mypageCard div button {
-    /* width: 100%; */
     margin-bottom: 12px;
     padding: 15px;
     border: 1px solid #ddd;
-}
-.mypageCard div span {
-    /* width: 100%; */
-    margin-bottom: 12px;
-    padding: 15px;
-    border: 1px solid #ddd;
-}
-
-.mypageCard_actions {
-    text-align: center;
-}
-.mypageCard_actions a {
-    margin-left: 10px;
 }
