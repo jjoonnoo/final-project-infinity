@@ -19,3 +19,30 @@
     padding: 15px;
     border: 1px solid #ddd;
 }
+.myCard {
+    width: 800px;
+    margin: 0 auto;
+    border-radius: 6px;
+    background-color: #f6f5f0;
+    color: #000000;
+}
+.myCard div {
+    padding: 10px 10px;
+}
+.myCard div input {
+    width: 100%;
+    margin-bottom: 5px;
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+.myCard div select {
+    width: 100%;
+    margin-bottom: 5px;
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+.myCard div button {
+    margin-bottom: 7px;
+    padding: 10px;
+    border: 1px solid #ddd;
+}

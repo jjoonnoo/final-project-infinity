@@ -15,7 +15,7 @@ function upload_image() {
                 $('#image_container1').append(
                     '<div><img src="' +
                         response.url +
-                        '"><button onclick="image_delete(this)">X</button></div>'
+                        '"><button class="btn btn-outline-secondary" onclick="image_delete(this)">이미지 제거</button></div>'
                 );
             },
             error: function (error) {
@@ -64,29 +64,37 @@ function registAuctionProduct() {
     img_elements.forEach((img_element) => {
         img_urls.push(img_element.src);
     });
-    $.ajax({
-        type: 'POST',
-        url: '/api/products/auction',
-        data: {
-            product_name: product_name,
-            category: product_category,
-            product_content: product_content,
-            product_start_price: product_start_price,
-            product_buy_now_price: product_buy_now_price,
-            product_start: product_start_date,
-            product_end: product_end_date,
-            img_url: img_urls,
-        },
+    if (product_category === '상품의 종류를 선택하세요') {
+        alert('상품의 종류를 선택하세요.');
+    } else if (product_start_date > product_end_date) {
+        alert(
+            '경매가 끝나는 시간은 시작하는 시간 보다 작게 설정을 하지 못합니다.'
+        );
+    } else {
+        $.ajax({
+            type: 'POST',
+            url: '/api/products/auction',
+            data: {
+                product_name: product_name,
+                category: product_category,
+                product_content: product_content,
+                product_start_price: product_start_price,
+                product_buy_now_price: product_buy_now_price,
+                product_start: product_start_date,
+                product_end: product_end_date,
+                img_url: img_urls,
+            },
 
-        success: function (response) {
-            alert(response.message);
-            window.location.reload();
-        },
-        error: function (error) {
-            alert(error.responseJSON.message);
-            window.location.reload();
-        },
-    });
+            success: function (response) {
+                alert(response.message);
+                window.location.reload();
+            },
+            error: function (error) {
+                alert(error.responseJSON.message);
+                window.location.reload();
+            },
+        });
+    }
 }
 function registGeneralProduct() {
     const product_name = $('#product_name2').val();
@@ -99,25 +107,45 @@ function registGeneralProduct() {
     img_elements.forEach((img_element) => {
         img_urls.push(img_element.src);
     });
-    $.ajax({
-        type: 'POST',
-        url: '/api/products/general',
-        data: {
-            product_name: product_name,
-            category: product_category,
-            product_content: product_content,
-            product_price: product_price,
-            img_url: img_urls,
-        },
-        success: function (response) {
-            alert(response.message);
-            window.location.reload();
-        },
-        error: function (err) {
-            alert(err.responseJSON.message);
-            window.location.reload();
-        },
-    });
+    if (product_category === '상품의 종류를 선택하세요') {
+        alert('상품의 종류를 선택하세요');
+    } else {
+        $.ajax({
+            type: 'POST',
+            url: '/api/products/general',
+            data: {
+                product_name: product_name,
+                category: product_category,
+                product_content: product_content,
+                product_price: product_price,
+                img_url: img_urls,
+            },
+            success: function (response) {
+                alert(response.message);
+                window.location.reload();
+            },
+            error: function (err) {
+                alert(err.responseJSON.message);
+                window.location.reload();
+            },
+        });
+    }
+}
+function showAuctionRegist() {
+    $('#registFirstMeet').hide();
+    $('#auction_product_regist').show();
+    $('#productRegistCancelButton').show();
+}
+function showGeneralRegist() {
+    $('#registFirstMeet').hide();
+    $('#general_product_regist').show();
+    $('#productRegistCancelButton').show();
+}
+function productRegistCancel() {
+    const is_true = confirm('취소 하시겠습니까?');
+    if (is_true) {
+        window.location.reload();
+    }
 }
 function changeProductType() {
     const productType = $('#product_type').val();
@@ -583,7 +611,7 @@ function getAuctionProduct(auction_product_id) {
                     $('#image_container1').append(
                         '<div><img src="' +
                             image[i]['image_url'] +
-                            '"><button onclick="image_delete(this)">X</button></div>'
+                            '"><button onclick="image_delete(this)" class="btn btn-outline-secondary">X</button></div>'
                     );
                 }
             }
@@ -600,8 +628,9 @@ function getGeneralProduct(general_product_id) {
         url: `/api/products/general/${general_product_id}`,
         data: {},
         success: function (response) {
-            const general_product_data = response.data.data1;
-            const image = response.data.data2;
+            const general_product_data = response.data;
+            const image = response.data.Images;
+            console.log(response.data);
             $('#product_name2').attr(
                 'value',
                 general_product_data['product_name']
@@ -621,7 +650,7 @@ function getGeneralProduct(general_product_id) {
                 $('#image_container2').append(
                     '<div><img src="' +
                         image[i]['image_url'] +
-                        '"><button onclick="image_delete(this)">X</button></div>'
+                        '" width=300 height=300 ><button onclick="image_delete(this)" class="btn btn-outline-secondary">X</button></div>'
                 );
             }
         },
