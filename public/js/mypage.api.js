@@ -149,7 +149,7 @@ function confirmPwd() {
     });
 }
 function getMyInfo() {
-    $('#confirm_pwd_div').hide();
+    $('#confirm_pwd').hide();
     $.ajax({
         type: 'GET',
         url: '/api/users/getmyinfo',
@@ -162,19 +162,24 @@ function getMyInfo() {
             const name = data.name;
             const raiting = data.rating;
             const address = data.address;
-            const temp = `            <ul>
-            <li><input id='user_email' value="${email}" readonly></li>
-            <li><input id='user_name' value="${name}" readonly></li>
-            <li><input id="user_phone" value="${phone}" readonly></li>
-            <li><input id="user_address" value="${address}" readonly></li>
-            <li><input id="user_raiting" value="${raiting}" readonly></li>
-            <li><input id="user_pwd" type="password" style="display:none;"> </li>
-            <li><button onclick="modifyInfoButtonHandler()" id="modifyInfoButton" class="btn btn-outline-secondary" type="button">내 정보 수정하기</button></li>
-            <li><button onclick="modifyPwdButtonHandler()" id="modifyPwdButton" class="btn btn-outline-secondary" type="button">비밀번호 수정하기</button></li>
-            <li><button onclick="deleteInfo(${user_id})" id ="deleteInfoButton" class="btn btn-outline-secondary" type="button">탈퇴하기</button></li>
-            <li><button onclick="modifyInfo(${user_id})" id ="modifyInfo" class="btn btn-outline-secondary" type="button" style="display:none;">수정하기</button></li>
-            <li><button onclick="cancelButton()" id="cancelButton" class="btn btn-outline-secondary" type="button" style="display:none;">취소하기</button></li>
-        </ul>`;
+            const temp = `                <div id="myinfo">
+            이메일<input id='user_email' value="${email}" readonly>
+            이름<input id='user_name' value="${name}" readonly>
+            핸드폰 번호<input id="user_phone" value="${phone}" readonly>
+            주소<input id="user_address" value="${address}" readonly>
+            별점<input id="user_raiting" value="${raiting}" readonly>
+            <div id="warningmessage" style="display:none;">이메일과 별점은 변경할 수 없습니다.</div>
+        </div>
+        <div id="modifypassword" style="display:none">
+            비밀번호<input id="user_pwd" type="password">
+        </div>
+        <div>
+            <button onclick="modifyInfoButtonHandler()" id="modifyButton" class="btn btn-outline-secondary" type="button">내 정보 수정하기</button>
+            <button onclick="modifyPwdButtonHandler()" id="modifyPwdButton" class="btn btn-outline-secondary" type="button">비밀번호 수정하기</button>
+            <button onclick="deleteInfo(${user_id})" id ="deleteInfoButton" class="btn btn-outline-secondary" type="button">탈퇴하기</button>
+            <button onclick="modifyInfo(${user_id})" id ="modifyInfoButton" class="btn btn-outline-secondary" type="button" style="display:none;">수정하기</button>
+            <button onclick="cancelButton()" id="cancelButton" class="btn btn-outline-secondary" type="button" style="display:none;">취소하기</button>
+        </div>`;
             $('#myinfomation').append(temp);
         },
         error: function (err) {
@@ -183,46 +188,31 @@ function getMyInfo() {
     });
 }
 function modifyInfoButtonHandler() {
-    $('#modifyInfoButton').hide();
+    $('#modifyButton').hide();
     $('#modifyPwdButton').hide();
     $('#deleteInfoButton').hide();
-    $('#modifyInfo').show();
+    $('#warningmessage').show();
+    $('#modifyInfoButton').show();
     $('#cancelButton').show();
-    $('#user_email').attr('readonly', false);
-    $('#user_name').attr('readonly', false);
-    $('#user_phone').attr('readonly', false);
-    $('#user_address').attr('readonly', false);
+    $('#user_name').prop('readonly', false);
+    $('#user_address').prop('readonly', false);
+    $('#user_phone').prop('readonly', false);
 }
 function modifyPwdButtonHandler() {
-    $('#modifyInfoButton').hide();
+    $('#myinfo').hide();
+    $('#modifyButton').hide();
     $('#modifyPwdButton').hide();
     $('#deleteInfoButton').hide();
-    $('#user_email').hide();
-    $('#user_name').hide();
-    $('#user_phone').hide();
-    $('#user_address').hide();
-    $('#user_raiting').hide();
+    $('#modifyInfoButton').show();
     $('#cancelButton').show();
-    $('#modifyInfo').show();
-    $('#user_pwd').show();
+    $('#modifypassword').show();
 }
 function cancelButton() {
-    $('#cancelButton').hide();
-    $('#modifyInfo').hide();
-    $('#user_pwd').hide();
-    $('#user_email').show();
-    $('#user_name').show();
-    $('#user_phone').show();
-    $('#user_address').show();
-    $('#user_raiting').show();
-    $('#modifyInfoButton').show();
-    $('#modifyPwdButton').show();
-    $('#modifyInfoButtonHandlerButton').show();
-    $('#deleteInfoButton').show();
-    $('#user_email').attr('readonly', true);
-    $('#user_name').attr('readonly', true);
-    $('#user_phone').attr('readonly', true);
-    $('#user_address').attr('readonly', true);
+    const is_true = confirm('정말로 취소하시겠습니까?');
+    if (is_true) {
+        alert('취소 되었습니다.');
+        window.location.href = '/myinfo';
+    }
 }
 function deleteInfo(user_id) {
     const is_real_delete = confirm('정말로 탈퇴하시겠습니까?');
