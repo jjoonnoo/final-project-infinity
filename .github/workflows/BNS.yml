@@ -20,8 +20,11 @@ jobs:
     # Runs a single command using the runners shell 
     - name: Clean temp directory
       run: |
-        rm -rf *
-        cp -r $GITHUB_WORKSPACE . 
+        rm -rf temp_dir
+        mkdir temp_dir
+        cp -r $GITHUB_WORKSPACE/. temp_dir/
+        mv temp_dir/* .
+        rm -rf temp_dir
       
     - name: archive drcloud 
       run: tar cvfz ./drcloud.tar.gz *
