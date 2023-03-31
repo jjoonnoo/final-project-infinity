@@ -277,17 +277,16 @@ function myProduct() {
                 let product_price = general_data[i]['product_price'];
                 let product_rating = general_data[i]['rating'];
                 let temp = `<tr>
-                <th scope="row"></th>
                 <td>${product_name}</td>
                 <td>${product_category}</td>
                 <td>${product_content}</td>
                 <td>${product_price}</td>
                 <td>${product_rating}</td>
                 <td>
-                    <button onclick="deleteGeneralProduct(${general_product_id})">삭제</button>
+                    <button onclick="deleteGeneralProduct(${general_product_id})" class="btn btn-outline-secondary">삭제</button>
                 </td>
                 <td>
-                <button onclick="window.location.href='/generalproductmodify/${general_product_id}'">수정</button>
+                <button onclick="window.location.href='/generalproductmodify/${general_product_id}'" class="btn btn-outline-secondary">수정</button>
                 </td>
             </tr>`;
                 $('#my_general_products').append(temp);
@@ -307,7 +306,6 @@ function myProduct() {
                 let product_start_price =
                     auction_data[i]['product_start_price'];
                 let temp = `                    <tr>
-                <th scope="row"></th>
                 <td>${product_name}</td>
                 <td>${product_category}</td>
                 <td>${product_content}</td>
@@ -316,10 +314,10 @@ function myProduct() {
                 <td>${product_start}</td>
                 <td>${product_end}</td>
                 <td>
-                    <button onclick="deleteAuctionProduct(${auction_product_id})">삭제</button>
+                    <button onclick="deleteAuctionProduct(${auction_product_id})" class="btn btn-outline-secondary">삭제</button>
                 </td>
                 <td>
-                    <button onclick="window.location.href='/auctionproductmodify/${auction_product_id}'">수정</button>
+                    <button onclick="window.location.href='/auctionproductmodify/${auction_product_id}'" class="btn btn-outline-secondary">수정</button>
                 </td>
             </tr>`;
                 $('#my_auction_products').append(temp);
@@ -382,18 +380,7 @@ function getPurchaseHistory() {
             let auction_data = response.data.auction_data;
 
             for (let i = 0; i < auction_data.length; i++) {
-                let temp = `                <table class="table">
-                <thead>
-                  <tr>
-                    <th scope="col">주문 번호</th>
-                    <th scope="col">이미지</th>
-                    <th scope="col">상품명</th>
-                    <th scope="col">카테고리</th>
-                    <th scope="col">가격</th>
-                    <th scope="col">종료시간</th>
-                  </tr>
-                </thead>
-                <tbody>
+                let temp = `                
                         <tr>
                           <th scope="row">${
                               auction_data[i].auction_order_id
@@ -425,51 +412,48 @@ function getPurchaseHistory() {
                         <td><a href="#" class="openBtn" style="margin-left: 1px" data-auction-product-id="${
                             auction_data[i].Auction_product.auction_product_id
                         }">신고</a></td>
-                    </tr>
-                </tbody>
-            </table>`;
+                    </tr>`;
                 $('#my_auction_product_purchase_history').append(temp);
             }
+            console.log(general_data);
             for (let i = 0; i < general_data.length; i++) {
                 let total_price = 0;
-                let temp = `                <table class="table">
-                    <thead>
-                      <tr>
-                        <th scope="col">주문 번호</th>
-                        <th scope="col">이미지</th>
-                        <th scope="col">상품명</th>
-                        <th scope="col">카테고리</th>
-                        <th scope="col">가격</th>
-                        <th scope="col">수량</th>
-                        <th scope="col">리뷰</th>
-                        <th scope="col">신고</th>
-                      </tr>
-                    </thead>`;
+                let temp = ``;
                 for (
                     let j = 0;
                     j < general_data[i].General_order_infos.length;
                     j++
                 ) {
-                    temp += `<tbody>
-                        <tr>
-                          <th scope="row">${general_data[i].general_order_id}</th>
-                          <td><img src="${general_data[i].General_order_infos[j].General_product.Images[0].image_url}" width="30" height="30"></td>
-                          <td>${general_data[i].General_order_infos[j].General_product.product_name}</td>
-                          <td>${general_data[i].General_order_infos[j].General_product.category}</td>
-                          <td>${general_data[i].General_order_infos[j].General_product.product_price} 원</td>
-                          <td>${general_data[i].General_order_infos[j].product_quantity} 개</td>
-                          <td><a href="#" class="reviewOpenBtns" data-general-product-id="${general_data[i].General_order_infos[j].General_product.general_product_id}">리뷰</a></td>
-                          <td><a href="#" class="openBtns" data-general-product-id="${general_data[i].General_order_infos[j].General_product.general_product_id}">신고</a></td>
-                        `;
+                    if (j === 0) {
+                        temp += `<tr>
+                        <th scope="row">${general_data[i].general_order_id}</th>
+                        <td><img src="${general_data[i].General_order_infos[j].General_product.Images[0].image_url}" width="30" height="30"></td>
+                        <td>${general_data[i].General_order_infos[j].General_product.product_name}</td>
+                        <td>${general_data[i].General_order_infos[j].General_product.category}</td>
+                        <td>${general_data[i].General_order_infos[j].General_product.product_price} 원</td>
+                        <td>${general_data[i].General_order_infos[j].product_quantity} 개</td>
+                        <td><a href="#" class="reviewOpenBtns" data-general-product-id="${general_data[i].General_order_infos[j].General_product.general_product_id}">리뷰</a></td>
+                        <td><a href="#" class="openBtns" data-general-product-id="${general_data[i].General_order_infos[j].General_product.general_product_id}">신고</a></td>
+                    </tr>`;
+                    } else {
+                        temp += `<tr>
+                        <th scope="row"></th>
+                        <td><img src="${general_data[i].General_order_infos[j].General_product.Images[0].image_url}" width="30" height="30"></td>
+                        <td>${general_data[i].General_order_infos[j].General_product.product_name}</td>
+                        <td>${general_data[i].General_order_infos[j].General_product.category}</td>
+                        <td>${general_data[i].General_order_infos[j].General_product.product_price} 원</td>
+                        <td>${general_data[i].General_order_infos[j].product_quantity} 개</td>
+                        <td><a href="#" class="reviewOpenBtns" data-general-product-id="${general_data[i].General_order_infos[j].General_product.general_product_id}">리뷰</a></td>
+                        <td><a href="#" class="openBtns" data-general-product-id="${general_data[i].General_order_infos[j].General_product.general_product_id}">신고</a></td>
+                    </tr>`;
+                    }
                     total_price +=
                         general_data[i].General_order_infos[j]
                             .product_quantity *
                         general_data[i].General_order_infos[j].General_product
                             .product_price;
                 }
-                temp += `
-                </tr>
-                <tr class="">
+                temp += `<tr class="">
                         <th scope="row"></th>
                         <th scope="row"></th>
                         <th scope="row"></th>
@@ -478,9 +462,7 @@ function getPurchaseHistory() {
                         <th scope="row"></th>
                         <td>합계: </td>
                         <td>${total_price} 원</td>
-                    </tr>
-                </tbody>
-            </table>`;
+                    </tr>`;
                 $('#my_general_product_purchase_history').append(temp);
             }
         },
@@ -502,25 +484,8 @@ function getSaleHistory() {
                 if (!auction_data[i].Auction_order) {
                     continue;
                 } else {
-                    let temp = `                <table class="table">
-                <thead>
-                  <tr>
-                    <th scope="col">주문 번호</th>
-                    <th scope="col">이미지</th>
-                    <th scope="col">상품명</th>
-                    <th scope="col">카테고리</th>
-                    <th scope="col">종료시간</th>
-                    <th scope="col">낙찰가</th>
-                    <th scope="col">낙찰자</th>
-                    <th scope="col">낙찰자이메일</th>
-                    <th scope="col">낙찰자주소</th>
-                  </tr>
-                </thead>
-                <tbody>
+                    let temp = `
                         <tr>
-                          <th scope="row">${
-                              auction_data[i].Auction_order.auction_order_id
-                          }</th>
                           <td><img src="${
                               auction_data[i].Images[0].image_url
                           }" width="30" height="30"></td>
@@ -533,32 +498,18 @@ function getSaleHistory() {
                           <td>${
                               auction_data[i].Auction_order.User.address
                           } </td>
-                        </tr>
-                </tbody>
-            </table>`;
+                        </tr>`;
                     $('#my_auction_product_sale_history').append(temp);
                 }
             }
             for (let i = 0; i < general_data.length; i++) {
-                let temp = `                <table class="table">
-                    <thead>
-                      <tr>
-                        <th scope="col">이미지</th>
-                        <th scope="col">상품명</th>
-                        <th scope="col">카테고리</th>
-                        <th scope="col">가격</th>
-                        <th scope="col">수량</th>
-                        <th scope="col">주문자</th>
-                        <th scope="col">주문자이메일</th>
-                        <th scope="col">주문자주소</th>
-                      </tr>
-                    </thead>`;
+                let temp = ``;
                 for (
                     let j = 0;
                     j < general_data[i].General_order_infos.length;
                     j++
                 ) {
-                    temp += `<tbody>
+                    temp += `
                         <tr>
                           <td><img src="${general_data[i].Images[0].image_url}" width="30" height="30"></td>
                           <td>${general_data[i].product_name}</td>
