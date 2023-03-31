@@ -23,8 +23,7 @@ class UserController {
                     email,
                     name,
                     address,
-                    phone,
-                    user_pwd.password
+                    phone
                 );
             } else {
                 const hashed = await bcrypt.hash(password, 12);

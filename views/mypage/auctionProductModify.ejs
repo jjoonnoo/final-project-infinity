@@ -1,15 +1,5 @@
 <body>
-    <div>
-        <select
-            class="form-select"
-            id="product_type"
-            onchange="changeProductType()"
-            style="display: none"
-        >
-            <option selected>상품의 종류를 선택하세요</option>
-            <option value="1">경매</option>
-            <option value="2">일반</option>
-        </select>
+    <div class="myCard">
         <div id="auction_product_regist">
             <div>
                 <label for="product_name1">상품명</label>
@@ -134,3 +124,4 @@
         $('#product_type').val(1).prop('selected',true)
     })
 </script>
+<link rel="stylesheet" href="../../css/myPage.css" />

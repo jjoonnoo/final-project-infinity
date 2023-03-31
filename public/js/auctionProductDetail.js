@@ -13,7 +13,7 @@ function chatme() {
                 const temp = `          <div>
       <input id='user_email' value="${email}" style="display:none;" readonly>
       <input id="chat_content" type="text" placeholder="메시지를 적어주세요" onkeyup="if(window.event.keyCode==13){sendmessage()}"/>
-      <button onclick="sendmessage()">보내기</button>
+      <button onclick="sendmessage()" class="btn btn-outline-secondary">보내기</button>
     </div>`;
                 $('#chatme').append(temp);
             },

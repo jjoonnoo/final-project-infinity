@@ -80,7 +80,7 @@ function auctionProductPurchase() {
                                 </div>
                                 <tr>
                                     <td>
-                                    <button class="purchase_btn" type="button" onclick="purchase()">구매하기</button>
+                                    <button class="purchase_btn" onclick="purchase()">구매하기</button>
                                     </td>
                                 </tr>
                                 </table>

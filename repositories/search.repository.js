@@ -337,8 +337,8 @@ class SearchRepository {
                 ],
             ],
         });
-        console.log(AuctionProducts)
-        console.log(count)
+        console.log(AuctionProducts);
+        console.log(count);
         const AuctionProduct = { AuctionProducts, count };
         return AuctionProduct;
     };
