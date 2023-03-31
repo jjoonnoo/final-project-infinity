@@ -10,6 +10,8 @@ if (window.location.pathname === '/search/product') {
 }
 
 function getProducts(page) {
+    $('#division').hide();
+    $('#division0').hide();
     let searchkeyword = new URLSearchParams(window.location.search).get(
         'searchkeyword'
     );
@@ -119,6 +121,8 @@ function getProducts(page) {
 }
 
 function getAuctionProducts(page) {
+    $('#division0').hide();
+    $('#division').hide();
     $('#product_list').empty();
     axios
         .get(`/api/search/auctionProduct`, { params: { page } })
@@ -197,6 +201,8 @@ function getAuctionProducts(page) {
 }
 
 function getGeneralProducts(page) {
+    $('#division0').hide();
+    $('#division').hide();
     $('#product_list').empty();
     axios
         .get(`/api/search/generalProduct`, { params: { page } })
