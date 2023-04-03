@@ -8,6 +8,7 @@ moment.tz.setDefault('Asia/Seoul');
 
 class SearchRepository {
     searchList = async (limit, offset, searchkeyword) => {
+        const now = new Date();
         const GeneralSearchList = await General_product.findAll({
             searchkeyword,
             where: {
@@ -337,8 +338,7 @@ class SearchRepository {
                 ],
             ],
         });
-        console.log(AuctionProducts);
-        console.log(count);
+
         const AuctionProduct = { AuctionProducts, count };
         return AuctionProduct;
     };
@@ -402,7 +402,7 @@ class SearchRepository {
             today.getDate(),
             today.getHours() + 1
         );
-        console.log(today, startOfDay, endOfDay, endOfHour);
+
         const recommendProducts = await Auction_product.findAll({
             where: {
                 [Op.or]: [
