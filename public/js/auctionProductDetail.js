@@ -52,17 +52,17 @@ function auctionProductDetail() {
                 if ((i = 0 && rows.Images.length > 1)) {
                     $('#img_container')
                         .append(`<div class="carousel-item active">
-                    <img src="${rows.Images[i].image_url}" width="300" hieght="300" class="d-block w-100">
+                    <img src="${rows.Images[i].image_url}" style='width:500px;height:500px;' class="d-block w-100">
                   </div>`);
                 } else if (rows.Images.length === 1) {
                     $('#img_container')
                         .append(`<div class="carousel-item active">
-                    <img src="${rows.Images[i].image_url}" width="300" hieght="300" class="d-block w-100">
+                    <img src="${rows.Images[i].image_url}" style='width:500px;height:500px;' class="d-block w-100">
                   </div>`);
                 } else {
                     $('#img_container')
                         .append(`            <div class="carousel-item">
-                    <img class="d-block w-100" src="${rows.Images[i].image_url}" width="300" hieght="300">
+                    <img class="d-block w-100" src="${rows.Images[i].image_url}" style='width:500px;height:500px;'>
                   </div>`);
                 }
             }
