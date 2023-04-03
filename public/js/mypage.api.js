@@ -1,48 +1,45 @@
 //이미지 업로드 및 미리보기
-function upload_image() {
-    const productType = $('#product_type').val();
-    if (productType === '1') {
-        const imageInput = $('#product_image1')[0];
-        const formData = new FormData();
-        formData.append('image', imageInput.files[0]);
-        $.ajax({
-            type: 'POST',
-            url: '/api/products/image_upload',
-            processData: false,
-            contentType: false,
-            data: formData,
-            success: function (response) {
-                $('#image_container1').append(
-                    '<div><img src="' +
-                        response.url +
-                        '"><button class="btn btn-outline-secondary" onclick="image_delete(this)">이미지 제거</button></div>'
-                );
-            },
-            error: function (error) {
-                alert(error.responseJSON.message);
-            },
-        });
-    }
-    if (productType === '2') {
-        const imageInput = $('#product_image2')[0];
-        const formData = new FormData();
-        formData.append('image', imageInput.files[0]);
-        $.ajax({
-            type: 'POST',
-            url: '/api/products/image_upload',
-            processData: false,
-            contentType: false,
-            data: formData,
-            success: function (response) {
-                $('#image_container2').append(
-                    '<img src="' + response.url + '">'
-                );
-            },
-            error: function (error) {
-                alert(error.responseJSON.message);
-            },
-        });
-    }
+function upload_image1() {
+    const imageInput = $('#product_image1')[0];
+    const formData = new FormData();
+    formData.append('image', imageInput.files[0]);
+    $.ajax({
+        type: 'POST',
+        url: '/api/products/image_upload',
+        processData: false,
+        contentType: false,
+        data: formData,
+        success: function (response) {
+            $('#image_container1').append(
+                '<div><img src="' +
+                    response.url +
+                    '"><button class="btn btn-outline-secondary" onclick="image_delete(this)">이미지 제거</button></div>'
+            );
+        },
+        error: function (error) {
+            alert(error.responseJSON.message);
+        },
+    });
+}
+function upload_image2(){
+    const imageInput = $('#product_image2')[0];
+    const formData = new FormData();
+    formData.append('image', imageInput.files[0]);
+    $.ajax({
+        type: 'POST',
+        url: '/api/products/image_upload',
+        processData: false,
+        contentType: false,
+        data: formData,
+        success: function (response) {
+            $('#image_container2').append(
+                '<img src="' + response.url + '">'
+            );
+        },
+        error: function (error) {
+            alert(error.responseJSON.message);
+        },
+    });
 }
 function image_delete(th) {
     $(th).parent('div').remove();
