@@ -21,7 +21,7 @@ function upload_image1() {
         },
     });
 }
-function upload_image2(){
+function upload_image2() {
     const imageInput = $('#product_image2')[0];
     const formData = new FormData();
     formData.append('image', imageInput.files[0]);
@@ -32,9 +32,7 @@ function upload_image2(){
         contentType: false,
         data: formData,
         success: function (response) {
-            $('#image_container2').append(
-                '<img src="' + response.url + '">'
-            );
+            $('#image_container2').append('<img src="' + response.url + '">');
         },
         error: function (error) {
             alert(error.responseJSON.message);
